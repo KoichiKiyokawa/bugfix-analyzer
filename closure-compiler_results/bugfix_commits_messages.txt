@@ -1,0 +1,3590 @@
+Fix PolymerPass bug relating to EXPORT_ALL and multiple implementations of the same method across behaviors/elements.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=211655509
+Fix bug in PolymerPass that prevented property type information from being declared in the constructor.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=211438141
+Fix some bugs in TypedScopeCreator around destructuring
+
+1. allow people to use object destructuring to alias @enum types, e.g.
+     const {MyEnum} = a.b.c;
+2. when doing basic inference of the type of 'const {Foo} = obj', only actually
+   declare the type of Foo if there is a property Foo declared on obj.
+   Otherwise we will treat Foo as a valid type during typed scope creation instead of
+   emitting a warning for using Foo.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=211020584
+Fix crash when trying to collapse setter in CollapseProperties
+
+CollapseProperties already has logic to not collapse setters, but GlobalNamespace had a bug where it didn't realize that 'assignments' to setters did not actually change the value of the lhs.
+
+Fixes https://github.com/google/closure-compiler/issues/3058
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=210441074
+Fix some bugs with default and destructuring parameters in FunctionTypeBuilder
+
+- Infer overridden method params as optional if they have default values
+- Treat destructuring parameters w/o default values as optional as long as they are marked optional in the JSDocInfo (previously they were being marked as required)
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=209863909
+Fix bug in node's original name property
+
+The cause was that
+1. SourceInformationAnnotator calls .setOriginalName() on FUNCTION nodes
+2. Node#useSourceInfoIfMissingFromForTree(Node n) sets the original name of node in the source tree, if not already set, based on n.
+3. Es6RewriteClasses called useSourceInfoIfMissingFromForTree on a tree including a function body, passing a class member function's FUNCTION node. This set the original name of all string nodes inside the class member function body to be the class member function's name
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=209452522
+Simplify the API of `UnionTypeBuilder` to make some method parameters into fields.
+
+This change reinforces existing patterns and also make the instantiation of a builder clearer using a fluent configuration.
+
+A couple of bugs are highlighted in this change that should be fixed by a follow-up.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=209017916
+Work around a type checking bug where destructing can cause the type alias inliner to back off, which can cause further failures.
+
+If there is a goog.require for an ES6 module that has a destructuring LHS, rewrite it early rather than letting the rewrite destructing pass handle it. The extra variable that pass creates causes the inliner to back off. That variable isn't needed as these getters are guaranteed side effect free.
+
+Note that this isn't an issue for Closure modules now as they inline ALL require'd values, which is technically wrong. That ended up covering up this bug in the type checker.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=208551472
+Ensure goog.require's for unqualified goog.provide'd symbols are inlined.
+
+Inlining itself is wrong in this case, but doing so matches the behavior of goog.module and ES6 modules where inlining is correct. Inlining is needed so that well known symbols like goog.assert.assert are recognized by later stages. Inlining is wrong because it means that goog.provide's are not snapshotted ("const x = goog.require('a.b');" should snapshot "a.b."). Closure module rewriting does the same inlining even when the imports are goog.provide, so this should be safe, even though it is technically incorrect.
+
+Also detach all goog.require nodes to work around an internal bug.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=207802326
+Refactors `CheckAccessControls` to work with an abstraction of a "property reference" rather than a GETROP node directly.
+
+This change is a step towards adding support for ES6 class syntax. It is necessary because class syntax creates new ways of referencing properties that the existing code didn't model well. Refactoring to this abstraction allows us to reuse the existing logic, which is large, complex, and fragile.
+
+A number of latent errors in access control checking were discovered during this change (unchecked l-value syntaxes, ambiguity between override/overload/access). These issues are left as is since this is intended to have minimal impact on behaviour. Fixes will come later.
+
+A bunch of code is forked from `AccessControlUtils` into `CheckAccessControls` to support the new abstraction. A tracking bug exists for reconciliation.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=207583478
+Fix some bugs in TypeInference around rest and spread
+
+1. don't try inferring parameters in an iife after seeing a spread
+2. infer the type of a rest parameter in a callback, e.g.
+     function f(/** function(...strings) */ callback) {}
+     f((...strings) => { // strings is Array<string>
+   currently strings gets typed as Array<?>
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=207561859
+Fix a latent bug in `NodeSubject::isEqualTo` related to overloading vs. overriding.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=206953185
+Fix bug with extending forward-referenced classes
+
+This can happen if an IIFE defines the superclass on a global qualified name.  Previously it gave up when the name was not found in the scope, and so made a class with Object as its superclass.  We now make a NamedType for a missing qualified name superclass, which is more consistent with how it was handled in the past.  It's still not a good idea to do this, since we're unable to infer the overrides correctly, but at least it understands the prototype chain now.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=205000839
+Fix bug with partial transpilation breaking classes implementing interfaces
+
+Es6ConvertSuper adds constructor methods to interfaces, but then TypeCheck was giving a hidden interface property warning when the class defined an "incompatible" constructor.  We now exempt constructor methods for this warning.
+
+Ideally this exemption can go away once class transpilation is fully moved to after type checking, but Es6ConvertSuper is early enough that it'll be quite a bit longer before it's moved.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=204965043
+Expands the tests of `InferJSDocInfo` to better clarify what the class does and prepare for ES6 support.
+
+There's a bit of an issue in that the old tests were very unclear, but this update attempts to retain coverage as best as possible.
+
+This change also fixes what appears to be a bug in handling enum types. Previously, `instanceof` was being used to detect them, which isn't correct when considering proxy types.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=203146643
+Fix bug in CheckConstPrivateProperties that treats rvalues as declarations
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=202536402
+Delete InstrumentationOption.ALL, there is no way to configure the compiler to use this option (and there happens to be a bug in one of the code branches related to this option).
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=202414606
+Handle block scoped vars and for-of loops in PureFunctionIdentifier
+
+Fixes a bug that caused PureFunctionIdentifier to incorrectly determine
+that methods were side-effect free, leading to removal of calls to them.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=201431241
+Correctly handle JSDoc in template literal substitution expressions.
+
+This fixes a bug where IRFactory was trying to put JSDoc on the container TEMPLATELIT_SUB node, instead of on the expression inside it.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=201196716
+Avoid passing around names with non-identifier chars in them
+
+This fixes a bug where we were looking up names like "<" in the type registry, which throws an IAE because it thinks it was given a templated name, which is not allowed.  This change fixes it conservatively by still returning names for quoted properties, but only if they are valid JS identifiers.  We might want to go further by returning null for *all* quoted properties, but this is a bigger change and might break other things.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=200105915
+Add more tests documenting AggressiveInlineAliases and InlineAliases behavior
+
+Some of these document a bug in unsafe inlining of constructor properties. Others are just regression tests for things my attempted fixes broke.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=199866296
+Stop passing node parent separately to defineSlot
+
+It's just asking for bugs, as I recently discovered.
+There were already cases where we were passing the wrong
+node as parent. It just hadn't caused any visible bugs yet.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=196273926
+Fix bug in TypeCheck causing spurious errors in some for-of loops
+
+I had put the arguments in a TypeValidator.expectCanAssignTo call in
+the wrong order, but only had unit tests for cases where the order
+did not matter.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=195007373
+Disable a promise test that fails with native promises in Chrome 66.  See:
+  https://bugs.chromium.org/p/v8/issues/detail?id=7711
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=194991576
+Actually disable let/const transpilation in checksOnly
+
+(the first run at this had a bug in it)
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=194835757
+Remove obsolete bug number in TODO comments
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=193681511
+Tighten type of getAllEquivalenceClasses to use immutable collections, and use a Multimap internally which makes the logic a little easier to follow.
+
+http://errorprone.info/bugpattern/MutableMethodReturnType
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=192208829
+Fix check for shadowing bleeding function names.
+
+This bug was introduced by []  When the FUNCTION's NAME node is changed out from under the scope, the checkState that ensures parameters aren't shadowed but allowed function names to be shadowed fails to allow the function name, breaking an obscure third-party library.  By looking at the type of the name node's parent, we can more accurately determine whether a var in the function container scope was a parameter or a bleeding function name.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=191966597
+Fix bug in DeadPropertyAssignmentElimination causing incorrect property elimination
+
+When two different qualified names had a property with the same name, e.g. "a.b.prop" and "c.prop", the pass was failing to associate "prop" with both "a.b" and "c".
+
+Fixes https://github.com/google/closure-compiler/issues/2874
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=191792372
+Fix bug with destructuring in ExpressionDecomposer
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=191672527
+Treat yield expressions as always capable of throwing an exception
+
+Fixes a bug where this triggered an unreachable code warning:
+  function *g() {
+    try {
+      yield 1;
+    } catch (e) {}
+  }
+
+although code like
+
+  const generator = g();
+  g.next();
+  g.throw(33);
+
+would still cause an exception in the try block.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=191510342
+Fix bug in RescopeGlobalSymbols ES6 output involving destructuring
+
+The pass wasn't handling cases where there were var/const/let declarations with multiple children including destructuring, like "var {a} = obj, b = 3;".
+
+This separates the declaration-specific logic in the RewriteScopeCallback from the general cross-module global name logic.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=191474543
+Document IE bug for FUNCTION_MASKS_VARIABLE.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=191390713
+Add integration tests for Polymer including one revealing a bug that occurs when compiling Polymer 2 code with OTI
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=189415157
+Include a non-empty sourceName when creating a JSTypeExpression.
+
+This can make it easier to track down bugs when there are issues with synthetic JSTypeExpressions.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=188769181
+Automated g4 rollback of changelist 188345052.
+
+*** Reason for rollback ***
+
+Breaks project.
+
+*** Original change description ***
+
+Fix bug where a loose prototype assignment messes up interface inheritance.
+
+***
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=188361137
+Fix bug where a loose prototype assignment messes up interface inheritance.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=188345052
+Don't fuse statement into block with block-scoped declarations
+
+Fixes a bug in ES2017 output where StatementFusion converted
+  x = use(c); { y = 1; const c = 2; }
+into
+  { x = use(c), y = 1; const c = 2; }
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=187382239
+Fix how MustBeReachingVariableDef handles destructuring
+
+Fixes some test cases in FlowSensitiveInlineVariables where a variable was being used in the rhs of a definition, then reassigned in a destructuring assignment.
+
+Also adds a repro for another ES6-related bug in FlowSensitiveInlineVariables
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=186819000
+Add newly-added chrome.system.display.setMirrorMode and associated types.
+
+Also adds a few things to chrome.system.display that were missing.
+
+API changes are from crbug/737667.
+
+Recently added functions/types haven't made it to the docs at developer.chrome.com, but their definitions are available in the IDL: https://cs.chromium.org/chromium/src/extensions/common/api/system_display.idl
+
+Let me know how you'd like the see links handled for now.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=186814926
+Add unit tests to reproduce FlowSensitiveInlineVariables destructuring bugs
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=186533488
+Don't collapse properties on objects called with hasOwnProperty
+
+If we see a call like "a.b.hasOwnProperty(c);", treat it the same (in CollapseProperties) as a.b[c]. This fixes a bug where the compiler collapsed properties on objects that were only used through hasOwnProperty.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=184861876
+Roll forward of 20b4233e5b136cd5c226df594423ca271ce1f7fb
+
+NEW: added two more unit tests. No code changes; the fix was in the originally broken target.
+
+Automated g4 rollback of changelist 184218181.
+
+*** Reason for rollback ***
+
+Fixed jscontainer.
+
+*** Original change description ***
+
+Fix bug in the old type checker where a stub method definition causes loss of type checking.
+
+***
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=184853474
+Add a failing test demonstrating a crash bug
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=184327994
+Automated g4 rollback of changelist 184019882.
+
+*** Reason for rollback ***
+
+Creates a release blocker that needs fixing before rolling forward.
+
+*** Original change description ***
+
+Fix bug in the old type checker where a stub method definition causes loss of type checking.
+
+***
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=184218181
+Warn more consistently for local unsafe constructor aliasing
+
+Will emit a JSC_UNSAFE_CTOR_ALIASING warning whenever there is a local alias created for a constructor and AggressiveInlineAliases is not able to inline a collapsible property access on the alias. This should help people catch bugs caused by unsafe property collapsing in compile time instead of at runtime.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=184194391
+Fix bug in the old type checker where a stub method definition causes loss of type checking.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=184019882
+Fix parser bug with **
+
+Parses the RHS of a MultiplicativeExpression as an ExponentiationExpression
+instead of a MultiplicativeExpression. (https://tc39.github.io/ecma262/#sec-multiplicative-operators)
+
+Fixes https://github.com/google/closure-compiler/issues/2801
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=183868902
+Remove debug code accidentally left in.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=183107478
+Treat COMPUTED_PROP nodes as having side effects, if either of its children have side effects.
+
+This seems to fix a hard-to-pin-down bug in function inlining.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=182843392
+[NTI] Fix bug with incorrectly defined getter/setter and the Polymer pass.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=182562944
+Implement TypedScope.makeArgumentsVar().
+
+Previously TypedScope,getVar("arguments") would return a var from the outer scope (typically the es3.js externs file), but this means that all functions share the same arguments Var, which is incorrect.  It's possible that this does not cause any problems, since it only affects type checking, but it's also possible that it could lead to subtle bugs if it's not fixed.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=181700817
+Handle destructuring in CoalesceVariableNames#LiveRangeChecker
+
+This fixes some bugs in CoalesceVariableNames in ES6 mode where variables in dead destructuring assignments were incorrectly being coalesced. It also changes the AST traversal in LiveRangeChecker to visit the rhs of a destructuring assignment/declaration before the lhs, since that's how it's evaluated.
+
+For example, it stops the compiler from coalescing "a" and "b" in
+  var a = 2;
+  var {b} = {};
+  a;
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=181542099
+Re-enable DeadAssignmentElimination in ES6 output mode after bugfixes
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=181394644
+Fix bugs in LiveVariablesAnalysis relating to ES6 destructuring.
+
+Makes sure that the pass traverses all names referenced in a destructuring
+declaration or assignment, and realizes that those variables are live. Also adds some unit tests to LiveVariablesAnalysisTest.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=181384634
+Remove deprecated debugLog field in Result.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=181337109
+Remove unused method addToDebugLog.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=181223160
+Add a bug number for a TODO
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=180962289
+Fix bug where Math.hypot(0, 0) polyfill was returning NaN.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=180862240
+Fix bug in LiveVariableAnalysis affecting dead assignment elimination.
+
+Adds code to traverse the rhs of a destructuring declaration.
+
+e.g.
+  var {a, b} = someReferencedVariable;
+
+Previously, if a variable was referenced in the rhs, that reference would be missed and the variable would be incorrectly considered dead.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=180744313
+Fix a couple of bugs related to import specs
+
+First, add previously failing unit tests of incorrect handling of import
+specs using the verbose sytax. Then fix those cases.
+The new unit tests are are all ports of existing short import tests to use the
+equivalent "long import specs", e.g. `import {x}` => `import {x as x}`
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=180698745
+Detect Feature.BLOCK_SCOPED_FUNCTION_DECLARATIONS correctly and set it as an ES6 feature.
+
+This change has two main consequences:
+1. Some code that was previously considered to be ES5 will now be marked as ES6, resulting in transpilation occurring in test runners, bundlers, and debug loaders.  If LANGUAGE_IN is explicitly set to ES5, or if ES6 externs are missing, it's possible that builds could break.
+2. A possible behavior change for ambiguous block-scoped declarations.  The code `function f(){return 1;} {function f(){return 2;}} console.log(f());` will print '2' in sloppy mode, but '1' in ES6 strict mode (and is an error in ES5 strict mode).  Depending on a variety of other factors, the compiler may output ES5 code printing either result; this change will make it always obey the strict-mode behavior and print '1'.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=180607816
+Fix bug when we lose non-indexable property on nodes.
+
+When overriding "Foo extends Bar" to "goog.inherits(Foo, Bar)" Bar node is now cloned instead of being created from scratch. That way if any part of Bar had "non-indexable" the cloned node also has it set.
+
+Also make synthetic constructors non-indexable as they invisible to users. Add a few Kythe test checks to make sure that calling constructor still indexed.
+Tested:
+  presubmit
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=179265578
+Add unit test reproducing bug in MinimizeExitPoints (b/70726762).
+
+MinimizeExitPoints moves block-scoped variables out of the function scope into block scopes. This hides them from inner functions that use them, and it causes VarCheck to error in a full compile.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=179248339
+Remove calls to addToDebugLog(). We are moving towards a more standard way of doing logging instead.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=179246487
+Add repro for bug caused by CollapseProperties not handling destructuring.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=178979489
+Fix typo in bug number
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=178917927
+Fix bug in AggressiveInlineAliases occuring when parameters are assigned ctor aliases.
+
+Fixes https://github.com/google/closure-compiler/issues/2754.
+
+Also changes the pass to emit an UNSAFE_CTOR_ALIASING warning in cases where a parameter unsafely aliases a constructor.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=178701224
+Rollback "Fix AggressiveInlineAliases bug with class static properties."
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=178309275
+Fix AggressiveInlineAliases bug with class static properties.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=178120399
+Fix a broken javadoc link.
+
+This isn't a problem unless the function turns public, at which point the maven test will blow up in a confusing-to-debug way.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=177662810
+Add links to old codesite bugs in InlineFunctionsTest.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=177659052
+Don't index nodes created during transpilation of ES6 classes to ES5.
+
+Tested:
+  added a test for goog.defineClass even though they don't have the bug.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=177469585
+Fix bug in web app manifest definitions.
+
+The userChoice member of BeforeInstallPromptEvent has a AppBannerPromptOutcome value stored in
+'outcome'. It's not the result itself.
+
+Also add Window.onappinstalled
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=177186287
+[NTI] Clean up and document checkAndFreezeNominalType and checkSuperProperty.
+
+Fix bug when inheriting a method both from the superclass and an interface.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=176690232
+Fix bug where goog.provide-d classes in goog.module introduce invisible nodes that mess up indexing.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=176671144
+Add a bug number to the TODOs in FunctionInjector
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=175886121
+AliasStrings: no aliasing in template literals
+
+Fixes a bug in which AliasStrings created an invalid AST, because it doesn't
+understand how to correctly modify template literals.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=175608155
+Refactor RemoveUnusedVars to allow for logic to remove properties.
+
+Along the way a few bugs were discovered and fixed with test cases added for
+them.
+
+The logic that actually removes unused properties is disabled here,
+but present.  Tests for it will be added in a followup CL.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=175603737
+Split a test in half to make it easier to debug.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=175602414
+Fix NTI bug in AmbiguateProperties, to ignore stray properties.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=175575206
+Fix bug where goog.scope introduces invisible nodes that mess up indexing.
+Tested:
+  kythe test
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=175572763
+Automated g4 rollback of changelist 175230172.
+
+*** Reason for rollback ***
+
+Breaks a bunch of stuff: []
+
+*** Original change description ***
+
+Refactor RemoveUnusedVars to allow for logic to remove properties.
+
+Along the way a few bugs were discovered and fixed with test cases added for
+them.
+
+The logic that actually removes unused properties is disabled here,
+but present.  Tests for it will be added in a followup CL.
+
+***
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=175292210
+Refactor RemoveUnusedVars to allow for logic to remove properties.
+
+Along the way a few bugs were discovered and fixed with test cases added for
+them.
+
+The logic that actually removes unused properties is disabled here,
+but present.  Tests for it will be added in a followup CL.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=175230172
+Enable hotswapping for 2 transpilation passes.
+
+These passes should always have been enabled for hot swapping.
+This fixes a bug that prevented async function transpilation from happening
+during dynamic debug loading.
+
+Also added definitions to the DEFAULT_EXTERNS used for testing and used them in
+hotswap tests. These are needed for transpiling advanced features like async
+functions.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=173687156
+[NTI] Tighten heuristic for detecting prototype objects, which fixes a bug in property disambiguation.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=173600209
+RemoveUnusedVars: remove classes defined with function declarations
+
+Fixes a bug that prevents removal of classes defined like this:
+
+function Class() {} // incorrectly treated as unknown value assignment
+Class.prototype.x = ...
+
+instead of like this:
+
+var Class = function() {}
+Class.prototype.x = ...
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=173155714
+Treat the superclass of a class as an rvalue in NameAnalyzer.
+
+Fixes a bug where the superclass was mistakenly thought to be unreferenced.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=171609649
+[NTI] Fix bug in namespace definitions where a property name may contain a dot.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=171350326
+Add a test demonstrating the PeepholeReplaceKnownMethods bug with spread nodes.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=170932632
+Add a (currently failing) test demonstrating a bug in CoalesceVariableNames
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=170146363
+Add Tricorder check to warn against Window#open.
+
+Window#open was responsible for a significant chunk of navigational XSS bugs in
+2016 (maybe because we had less mitigations, checks, awareness?). Adding a
+checker that suggests the safe wrapper.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=170109323
+Fix bug reference in goog.scope tests.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=167795768
+Updated TODO descriptions to point to buganizer instead of assigning it to
+myself.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=165045864
+Fix NTI bug with incorrect inferred return type in THROW path.
+
+Fixes #2614 on github.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=165042916
+Add compiler option to toggle whether OTI runs after NTI; defaults to true.
+Needed in order to debug full builds that only use NTI.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=163770002
+Partial rollback of TTL NTI CL, to fix a bug.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=163510523
+Produce an "internal compiler error" for Errors (such as StackOverFlowError), not just Exceptions
+
+This makes it much easier to debug when a StackOverflowError happens
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=163140994
+Add tests for two untested warning kinds in the old type checker, and document
+a bug in the checking of inherited properties.
+
+Related to github issue #2567.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=161974601
+Fix bug in indexer caused by aliasing object literals.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=161896989
+[NTI] Refactor the property accesses on nominal types, to add an option that includes/excludes stray properties.
+
+The current CL preserves behavior; a follow-up will use the exclude option in some places.
+Also, fix a NPE in GTICollector due to the current buggy property lookups.
+
+Fixes #2556 on github.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=161709108
+[NTI] Fix subtyping bug that was causing incorrect types in assertion code.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=160932889
+Fix Reflect.construct polyfill to handle Chakra bug https://github.com/Microsoft/ChakraCore/issues/3217 correctly.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=160465539
+Fixing bug with NocollapseInExterns with ES6 modules in CheckJSDoc pass.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=160008628
+Fixed a bug in AstValidator.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=158208049
+Backoff of nested functions in the CheckMissingSuper pass.
+
+It's acceptable to reference 'this' from within a function that is within an ES6 constructor before calling the super(). It will only be a runtime error if the function is called before the super() has returned. However, the JS cannot prove this, nor can it prove that 'this' is not bound to something entirely different. Therefore it should backoff in these cases.
+
+This also uncovered a bug where the pass would accept the super() call from a nested class as the super() call for the enclosing class, this has also been fixed.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=157739094
+[NTI] Migrate TypedCodePrinter to NTI.
+
+In performing this migration, a number of bugs on OTI's typed code printing surfaced (primarily around nullability), so I fixed them and added a few regression tests.
+
+One omission was leaving out the `@this` annotation from functions.  Fixing this unfortunately introduces a few redundant `@this` annotations where they shouldn't be necessary (we currently do a bit of work to try to eliminate these, but it depends on type information in the AST which isn't always available - see a few test cases that have been changed; potentially it's not worth doing this at all and we could eliminate the extra logic and simply always emit `@this`).
+
+A number of new TypeI methods were required to support this.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=157625955
+[NTI] Fix bug in NTIScope#isGlobalVar.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=156586332
+[NTI] Fix a bug in ObjectType#join which was causing the result to not be normalized correctly.
+
+Fixes #2492 on github.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=156486709
+Instanceof guards should not block code motion.
+
+This change fixes a bug in CrossModuleCodeMotion that could potentially have a
+big impact on how code is moved across modules.
+
+When a reference looks like this
+`x instanceof Foo`
+
+CrossModuleCodeMotion changes it to this:
+`'undefined' != typeof Foo && x instanceof Foo`
+
+Once that is done, it is safe to ignore the reference when deciding where to
+move Foo.
+
+This change is to ensure that CrossModuleCodeMotion
+ignores the added `'undefined' != typeof Foo` references when it is run
+repeatedly.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=156437074
+[NTI] Simplify the unification algorithm; the new one is much easier to understand.
+
+The old algorithm had the same semantics as the new one in the common cases, but was subtly wrong in some tricky cases. The new one is easier to describe declaratively, so easier to get right.
+
+Fixed two bugs in the process: one with unification of enums, and one with unification of interfaces.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=156313351
+[NTI] When doing the simple inference in GlobalTypeInfo, infer both boolean constants to BOOLEAN, instead of the more precise types.
+
+Simple inference is used for @const types and property declarations; it doesn't make much sense to use the TRUE and FALSE types there. Also, this allows us to make a simplification to ObjectType#withPropertyHelper without introducing an inference bug.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=155116402
+Use quoted property access for $jscomp.global['Symbol'].  This works around a bug where compiles that are missing an extern for window would not infer that $jscomp.global was an alias for the global object and would therefore rename its properties, causing the polyfills to not work quite correcty and opening the way for potentially-fatal collisions in the runtime libraries.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=153732449
+Temporarily rollback removal of `get`/`set` checks from $jscomp.defineProperty, since it exposes a bug in property renaming.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=153395538
+Workaround a bug where Angular generated code is not parsed correctly by the JS version of closure compiler.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=150819539
+[NTI] Fix bug in type specialization of objects, which caused a crash.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=150805237
+Rollback of multithreading parser change due to NPE bug.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=150762023
+Whitelist es6/map.js in BanUnknownTypedClassPropsReferences to work around bug where constructor-defined record fields are showing up as unknown.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=150478383
+Updated run instructions in README to include information about how to run the project directly in Eclipse. The most important change is the beware note that warns about a bug in Eclipse making it difficult to use the interactive mode.
+
+Closes https://github.com/google/closure-compiler/pull/2353
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=149782698
+Make HTMLCollection iterable so it can be used in for-of loop.
+
+According to this dicussion: https://www.google.com/url?sa=D&q=https%3A%2F%2Fwww.w3.org%2FBugs%2FPublic%2Fshow_bug.cgi%3Fid%3D23212%23c4 it is iterable.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=148848753
+[NTI] Fix bug in union of nominal types, and also keep more type information in
+the union.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=146848856
+Fix an ArrayIndexOutOfBounds error in TypeTransformation.
+
+My partial type parsing CL ran into this issue with a compiler crash. It's a bug in my CL I think, but this crash still seems worth fixing.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=146251071
+Fix bug in CodePrinter that caused incorrect source mappings when the last newline was replaced with space at the end of file generation.
+Tested:
+  enable source maps preconditions and make sure targets that failed no longer fail
+  added debug output, compiled few test targets and manually checked that mappings correctly generated now
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=146006061
+Fix bug in source map generation.
+
+In some rare cases generated source maps contain a mapping that points to non-existing character: for example line has length 5 and mapping points to 6th character.
+
+Also add precondition check that verifies that it can't happen.
+Tested:
+  presubmit
+  manually
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=144395538
+Clarify that getComputedStyle returns a nullable CSSStyleDeclaration
+
+The specs say that the returned value should be non-null. See:
+https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+https://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-OverrideAndComputed
+https://drafts.csswg.org/cssom/#extensions-to-the-window-interface
+
+However, Firefox returns null in some cases:
+https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+
+Closes https://github.com/google/closure-compiler/pull/2213
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=144338084
+[NTI] Allow using any IArrayLike object with function .apply.
+
+Also, get better typing when using .apply with var_args functions, and fix a bug in type-checking of IArrayLike objects.
+
+RELNOTES:n/a
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=143696745
+make the MSG_UNNAMED/MSG_EXTERNAL matching less strict
+
+soy is changing the way we generate local variables to fix some longstanding code gen bugs.  Our default strategy for ensuring unique names is changing and it will break this regex since we will now automatically add a disambiguating suffix to local variables when they would otherwise create a conflict.  The easiest thing seems to be making the regexes that match these tokens a bit more lenient
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=143681671
+Rollback of 6b2d7b2, as it was causing incorrect optimizations.
+
+Also add a test replicating the bug reported in
+https://github.com/google/closure-compiler/issues/2203
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=142589566
+Catch UncheckedExecutionException from transpilation. These can occur with parse errors. We rethrow the Exception as an IllegalStateException to match expectations in the consumers of the transpiler. See bug for an example stack.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=142286732
+Add contentHint to MediaStreamTrack annotations.
+
+This is an experimental property to guide MediaStreamTrack consumers in
+how to treat/encode content.
+
+Chromium feature development is tracked in https://crbug.com/653531.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=141228156
+Improve ArrowType.hashCode and FunctionType.hashCode to make hash collisions less likely.
+
+For ArrowType:
+The previous version simply summed all the parameter hashcodes, but since + is commutative this means that function(a,b){} and function(b,a){} would have the same hashCode.
+
+Also it included the 'returnTypeInferred' field in the hashCode though it was not part of equals().  This has been fixed.
+
+For FunctionType:
+All functions with the same ArrowType would get the same hashcode.  To resolve this we instead just hash more data.
+
+Doing this revealed a bug in the equals() method for FunctionType where it was assymmetric and allowed constructors to be equal to ordinary functions in some circumstances.  This has been also been fixed.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=141193824
+Automated g4 rollback of changelist 139253456.
+
+*** Reason for rollback ***
+
+Broke at least one team's tests.
+
+*** Original change description ***
+
+Fix a bug where calculating alternate types in DisambiguateProperties didn't properly handle interfaces which have no direct implementors.
+
+This was causing some property invalidations in J2CL-generated JS. With this change, we get about 300 bytes of code size back post-gzip.
+
+***
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=139274417
+Fix a bug where calculating alternate types in DisambiguateProperties didn't properly handle interfaces which have no direct implementors.
+
+This was causing some property invalidations in J2CL-generated JS. With this change, we get about 300 bytes of code size back post-gzip.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=139253456
+Fix bug in call to Multimap.remove
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=138919437
+Found a bug with the recent IIFE arguments rewrite change: rolling back.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=138471082
+[NTI] Some bugfixes around @struct and @dict.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=138241228
+Add integration test of bug fixed by previous change to VarReferenceCheck.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=138222304
+[NTI] Hacky fix for NTI bug when joining with empty object literal.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=138196139
+Use the isStrictModeInput compiler option when creating the parser Config.
+
+This is a mostly no-op change to make sure the isStrictModeInput option is
+applied consistently.
+This technically fixes a bug, but it only affected ECMASCRIPT7 and ECMASCRIPT8
+if you tried to specify non-strict-mode input, so I doubt anyone noticed.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=137101171
+When Preconditions check fails, include the Node so it's easier to debug.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=136790920
+A few small changes to make test failures easier to debug.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=136081263
+Rephrase a TODO in CheckEventfulObjectDisposal
+
+The pass has quite a few users but it's unclear whether it is still catching real bugs.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=135944124
+GWT Transpiler no longer clobbers global state
+
+RELNOTES: Fix bug where transpile.js was polluting global namespace with GWT exports
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=134587869
+Automated g4 rollback of changelist 133771611.
+
+*** Reason for rollback ***
+
+Looks like some clients are relying on the old ordering. They should be ported to be ordering-independent before rolling forward.
+
+*** Original change description ***
+
+Adds the --create_externs_from_exports flag, which allows the creation of externs from exported methods.
+
+Also fixes a minor bug in AbstractCommandLineRunner that prevented the use of that flag with relative paths containing no separators.
+
+Finally, changes the way generated externs are sorted so that they respect dependency order. Alphabetical sorting is still used, but only within a script. This is important for the generated externs of a large project to be used directly without editing.
+
+Fix...
+
+***
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=134111316
+Extract RewritePolyfills from "late ES6 passes" to be its own group
+
+Don't add this pass if options.rewritePolyfills is false. This fixes the bug that the --rewrite_polyfills flag is currently ignored by RewritePolyfills.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=133888401
+Adds the --create_externs_from_exports flag, which allows the creation of externs from exported methods.
+
+Also fixes a minor bug in AbstractCommandLineRunner that prevented the use of that flag with relative paths containing no separators.
+
+Finally, changes the way generated externs are sorted so that they respect dependency order. Alphabetical sorting is still used, but only within a script. This is important for the generated externs of a large project to be used directly without editing.
+
+Fixes #1399 on GitHub
+
+Merge pull request #2019 from joeyparrish/master
+Closes https://github.com/google/closure-compiler/pull/2019
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=133771611
+Stop saving/checking native Symbol and Reflect in polyfill tests.
+
+This was done originally to work around a bug that was
+preventing correct transpilation of files.
+It is no longer needed.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=133764300
+[NTI] Fix bug when CheckAccessControls runs with NTI.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=133730261
+Adjust line numbers of TTL expressions to their correct values.
+
+The column numbers are still wrong for some nodes, but this makes it easier to debug TTL issues.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=133017049
+Save native symbols in polyfill tests
+
+and use them to correctly avoid running
+tests that fail when we force polyfilling
+to override native symbols.
+
+These tests aren't failing now,
+but without these changes they will start
+failing when we update the closure GWT-compiled
+debug transpiler to match the latest compiler release.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=131560358
+Fix parser bug where that allowed invalid parenthesized expression without a warning.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=130986781
+Readd ArrayDeque as GWT's ArrayDeque seems to have a bug; it reports !isEmpty() yet peek() can return null.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=130904114
+Fix 2 bugs in code printing goog.scope code:
+- Always use the short alias for any aliased types.
+- Don't print the "$jscomp$scope" rewritten symbol in the final output.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=130801883
+[NTI] Some CheckConformance bugfixes, including making isUnresolved a stub that always returns false in NTI.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=130540732
+Fix a bug in RefasterJS that caused RefasterJS templates to match against the wrong code if the compilation unit that was being refactored does not contain a type used in the RefasterJS template.
+
+Since RefasterJS uses the same compiler object as whatever compilation unit it is refactoring, any type that is used by RefasterJS templates must already be known by that compilation unit or RefasterJS must not match against any code in that compilation unit. This previously didn't work because the template types were being treated as unknown, thereby loosely matching a lot of code.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=129363403
+[NTI] Address last few unintended CheckAccessControls test failures with NTI.
+
+Includes a GlobalTypeInfo duplicate property suppression bugfix.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=128728010
+[NTI] Add defsites to Namespaces.
+
+CheckAccessControls benefits from this. Also includes a related bugfix in AccessControlUtils.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=128645778
+Implement TemplatizedType#getCtorExtendedInterfaces. It was returning empty before, causing a bug in property disambiguation.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=128415223
+Rollback of "Fix bug in DisambiguateProperties involving generic interfac..."
+
+There are some remaining issues that need to be fixed before this
+can be rolled forward.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=128065971
+Fix bug in DisambiguateProperties involving generic interfaces and interface inheritance.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=127994567
+Fix a bug in PeepholeMinimizeConditions where * is treated as an Object.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=127087932
+Fix the bug that "Equality.same(val1, val2)" with type "*" is changed to "val1 == val2".
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=126939037
+[NTI] Fix bug when casting from truthy/falsy type.
+
+Fixes #1857 on github.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=125965489
+[NTI] Small improvements. Store the JSTypes object in all namespaces. Fix a bug with prototype assignments. Fix a bug with function subtyping.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=125818143
+Fix a bug in the optimization for turning "obj == null" into "!obj":
+- Expression result nodes were not properly handled.
+- Nullable types were, embarrassingly, not handled.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=125638199
+Fixes a bug where dead property assignment elimination would remove writes that
+were used in getters/setters.
+
+There is now a pre-order collector to find any property names that are assigned
+to a getter/setter. The later traversal will then treat any reference to
+properties with this name as if they were a call (assumes all properties are
+read).
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=123247955
+Fix runtime_tests to work correctly with the Closure Library debug loader's transpiler.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=122694978
+[NTI] Fix bug goog.asserts handling where sometimes it wouldn't tighten the type after the assertion.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=122323682
+Fix bug where some MISTYPED_ASSIGN_RHS warnings were not using the new error-message functionality and appear garbled.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=122301692
+Fix handling of negative zero by avoiding buggy GWT implementation of Math.copySign.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=122288818
+Hoists constant like fields in J2CL generated code.
+
+Some fields in Java are not compile time constants but eventually become assigned by a constant value after JsCompiler optimizations (e.g. System.getProperty calls and other operations that are statically evaluate-able).
+As such fields are not compile time constants, they are both assigned in module scope as part of class declaration and also inside $clinit for initialization. As a result, JsCompiler refuses to inline and statically evaluate expressions that refers to field because it doesn't know when it will get initialized.
+
+Technically, this is correct behavior since there are no guarantees that the initial value will be visible by others or not. However, such value is only visible in Java if there is a cycle in clinits and the field is accessed before initialization. That is almost always a bug and GWT never assumed this state is observable in its optimizations, yet nobody complained. Hence we consider it is safe to upgrade such field to a constant and make it inline-able as GWT does.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=121626772
+Fix bug when symbols from goog.module files with declareLegacyNamespace lose references.
+
+Such goog.module provide both kinds of symbols: module (module$exports$x$y$z.foo) and legacy (x.y.z). When building SymbolTable we must carefully process all symbols from leaf to roots and we do it by lexigraphically ordering them. But with goog.module it might be a problem because some symbols start with module$exports and some with actual module name. This cl fixes ordering by putting all module$exports symbols before all other symbols.
+
+This bug affects only modules that start with "n" and later. Everything before "m" should not be affected.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=121599240
+Skip the hacky fix for a strange IE8 bug (described at https://www.zachleat.com/web/array-sort/), if the output language is ES5 or higher.
+
+At some point we may control this via a different flag, since it's about a browser bug, not a language version, but for now just use the language-out since it is readily available.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=121399124
+Work around a bug in github's markdown rendering
+
+This makes
+render correctly as a header
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=121308468
+Fix bug in ExternExports where namespaces aren't defined properly.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=120731160
+Fix a bug where getting the R value of a non-standard assignment returned null.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=120146366
+Fix JsFileParser to be more strict in parsing goog.require statements.
+
+This fixes a bug introduced in an earlier CL where goog.require in string literals were getting parsed as actual dependencies.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=119678153
+Fix logging bug in PerformanceTracker.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=119400924
+Adding isolateScope extern to angular 1.5. https://docs.angularjs.org/guide/production#disabling-debug-data.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=119345791
+Fix bug and simplify check of var inside a for loop
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=118802286
+Don't add @const to a 'const' on the left side of a for/in loop.
+
+We don't need it to check for reassignment (VariableReferenceCheck already does this, before ES6 transpilation), and having it there causes problems with the NTI (see attached bug).
+
+Fixes https://github.com/google/closure-compiler/issues/1532
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=117766041
+Remove a boolean argument that is always true.
+Also, remove some potential non-determinism bugs.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=117493732
+Fix bug in TranspilingClosureBundler when the first file is a module.
+
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=116720469
+Refine the bug fix for infinitely recursing templated types: compare types by name instead of equals to handle the case where the template types are unknown.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=116311994
+Make arrow functions non-indexable because there isn't really a good place to put the node for them anyway (see attached bug).
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=116306486
+Fixes a bug where infinite recursion can be triggered by recursive templated types.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=115878961
+Fixes a bug in the externs file for the more recent version of google maps api.
+The bug has a number of facets to it.
+  * The source js file declares a parameter type of {?function(...T)}, but in
+  fact that isn't really accurate. It's more of a function that takes an
+  arbitrary number of arbitrary types, notof one type.
+  * The tooling that auto generates the externs file incorrectly turns the
+  above (wrong though I think it is) into {?function(?)}, so now we can't use
+  the API when passing in a handler that takes more than one parameter (as the
+  one for the "set_at" event does.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=113593397
+[NTI] Fix generics-instantiation bug.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=112997276
+Fix the jscompiler bug that file number is not correct with zip files.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=112782491
+A couple small cleanups in the integration test.
+
+* Use a Joiner for the externs so they are easier to read and debug.
+* Make a Truth subject for JSErrors so that tests and error messages are easier to read.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=112722607
+Fix the bug that jscompiler does not respect relative order of --js to --zip inputs.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=112285511
+Add a few tests to make sure we print CALL nodes as children of NEW nodes correctly.
+
+I thought https://github.com/google/closure-compiler/issues/1384 was caused in part by a code printer bug. It turns out it wasn't, but this checks the relevant cases.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=112185172
+When using Preconditions to assert something about a node, print the node if the check fails.
+
+Makes it easier to debug when one of these fails.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=111041428
+[NTI] Fix subtyping bug in nested generics.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=110296465
+Various simplifications to the @record processing code.
+
+Also, fix a few bugs related to FunctionType handling so that
+ * function namespaces and
+ * class's own properties (this.p)
+are considered as properties that match against a structural interface.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=108643212
+Fix three bugs in jsdoc creation/attachment in WizPass and enable jsdoc checking in the unit tests.
+
+Public:
+Misc cleanup
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=106706732
+Merge pull request #1231 from michaelhogg/fix-extern-intl-datetimeformat
+
+Fix bug in Intl extern: param type for DateTimeFormat.format()Fix memory issues with Es6ToEs3ClassSideInheritance.java.
+
+- Replace the multimaps with sets
+- Use the same sets for aliased classes instead of copying (also fixes a bug)
+- Create fewer qualified names
+- Check if a static property exists on the subclass before copying
+- Add unit tests about aliasing.
+
+FIXED=24612884
+R=johnlenz
+DELTA=156 (113 added, 22 deleted, 21 changed)
+DELTA_BY_EXTENSION=java=134
+
+Public:
+SAME
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=106274128
+Fix bug in Intl extern: param type for DateTimeFormat.format()
+Rename and make package private the getTemplateType method.
+
+You almost always should be using getResolvedTemplateType() instead
+of this method, and this has been a source of a couple of bugs.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=105615433
+Fix bug in hasAnyTemplatedTypes.
+
+In general, we want a type to be considered templated only if it contains
+a direct reference to a TemplateType, not if only it's parent does.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=104815171
+This change modifies Java compare methods that are using int casts from longs in a broken way. Int casts in Java will truncate a long value and consequently may alter the sign of the value being cast. Compare methods may be implemented using a subtract, iff values are known not to be near overflowing limits. When the values are longs you can get:
+
+int compare(MyLongHolder other) {
+  return (int)(other.x - x);
+}
+
+As the cast won?t preserve the sign of the subtract it is buggy and can lead to broken sort orders.
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=104313783
+Be more permissive about what can be inlined by InlineAliases/CollapseProperties.
+
+Before, GlobalNamespace.isInlinableGlobalAlias would backoff in cases like
+.prototype gets and calls, but these are actually still safe to inline.
+
+The additional inlining from this pass uncovered a bug in collapse properties, but
+that was fixed separately in cl/104135700
+
+Rollforward of cl/103884623
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=104208739
+Fix typo in eval call in ClosureBundler.
+
+The code currently does:
+
+(0,eval("..."));
+
+which is a "direct eval call" (See http://ecma262-5.com/ELS5_HTML.htm#Section_10.4.2
+for details). I believe the intention was do an indirect call to get a global eval:
+
+(0,eval)("...");
+
+Since we weren't using a global eval before, it would be safer to just remove
+the "0," to maintain the same behavior, but I believe doing the indirect call
+is the prefered solution, since it more directly simulates the list of <script>
+tags.
+
+For example if a function wrapper was added or a "use strict" was added to the
+outer script, this wold cause these direct eval calls to have separate
+execution contexts, and functions/variables could not be shared (in fact this
+is probably why change cr/93455279 was done, the "use strict" broken because of
+this eval bug).
+-------------
+Created by MOE: https://github.com/google/moe
+MOE_MIGRATED_REVID=103319411
+Fix an infinite loop bug in @record handling
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=101501969
+Use Truth to make a test easier to debug.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=100853808
+[NTI] Tighten types in strict and non-strict comparisons after nullable dereference.
+
+cl/100302336 was not a complete fix.
+
+Also, fix a bug where we were removing null and undefined from a type too eagerly.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=100394685
+Google code should not be depending on this bug in the JDK, which is
+due to be fixed in jdk9:
+
+(coll) Arrays.asList(x).toArray().getClass() should be Object[].class
+https://bugs.openjdk.java.net/browse/JDK-6260652
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=100279437
+Fix bug in JSDocInfoPrinter for params without types.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=98847616
+Change List<AstChange> to a Set<AstChange> in CollapseProperties. This fixes a bug where the same reference was being added twice, which caused flattenReferencesTo to behave incorrectly.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=98838703
+fix a bug related to record type.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=98692419
+Fix a couple of bugs in the printing of arrow functions.
+
+Most importantly,
+  x=>(a,b)
+needs parens around the body to avoid being parsed as
+  (x=>a),b
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=97713839
+Fix a bug in RefasterJS when functions are used as parameters to templates.
+
+The template would contain free calls which would cause bad matching and unwanted code to be generated,
+so this CL removes free calls from templates since they are usually not what people want.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=97617686
+Use a Joiner to make a few goog.module tests easier to read and debug.
+
+I added a LINE_JOINER constant in CompilerTestCase so that we can write tests in this style more easily
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=96062227
+[NTI] Fix bugs with .bind and property additions in random scopes.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=95861845
+Report an error if --process_jquery_primitives and --process_closure_primitives are both enabled.
+
+This will make it easier to debug issues like #918.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=93860787
+Add a couple Preconditions checks to debug the crash that is showing up with the new release.
+
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=92793878
+[NEW TYPE INFERENCE] Fix bug to make generics invariant again.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=92735745
+Add a couple toString methods to make it easier to debug SymbolTable-related things.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=92596292
+Fix JSDocInfoPrinter to output parentheses around union types.
+
+This fixes a bug where {{foo:(number|string)}} was translating to {{foo:number|string}} which fails to parse.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=92315069
+Automated g4 rollback of changelist 90849644.
+
+*** Reason for rollback ***
+
+This change breaks some of the regression tests. I think it's better to rollback for now,
+and then fix up any remaining bugs before resubmitting.
+
+*** Original change description ***
+
+[NEW TYPE INFERENCE] Create pass that converts new types to old types after type inference.
+
+This allows the type-aware compiler passes to work with NTI without being converted to TypeI. (Thus, conversion to TypeI can be done gradually). For this CL, I only looked at CheckAccessControls. In later CLs I will enable NTI on the unit tests of other type-aware passes.
+
+***
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=91036587
+Polymer Compiler Pass: Add support for the properties block - place all properties on the prototype of the custom element and infer the proper type.
+
+See https://docs.google.com/document/d/11ukRFD81OiqEMb0CJ24R_y87YIG2j_o1RFwSiDcSKVk/edit#heading=h.3b71chl32rq
+
+Also fix a small bug with constructor documentation.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=90462323
+Adds "!" to $dialog config objects. #ngmaterial #bug
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=88854906
+[NEW TYPE INFERENCE] Fix bug when declaring class properties on structs, and add es6typed tests for property declarations.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=87530380
+$routeProvider.otherwise v1.3 now accepts a string. #bug #angular #externs
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=87278265
+[NEW TYPE INFERENCE] Fix bug in JSType.isSubtype
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=87122973
+[NEW TYPE INFERENCE] Fix bug in short-circuit analysis
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=86807689
+Fix bug in ES6 module processing where default exports cannot be referenced by their name within the same file.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=86797868
+Fix a bug in the removeCast code that would regenerate the child of the cast, causing it to lose original source information. Instead, erase just the cast itself from both sides of the child symbol.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=86010597
+Add a @suppress {checkTypes} to the global "module" function.
+
+This collides with the various global "module" vars from jQuery plugins.
+
+In practice, they should not collide, but the build system considers it an
+error that two externs.js files reference module, one via var, and this one via
+function. Unfortunately, the suppression has to be made here since this one is
+the function, and the error is "function 'module' masks variable (IE bug)"
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=85913215
+Get the ES6_TYPED transpiler mostly working on real inputs.
+After this change, we can transpile the closure string library and run through the TypeScript compiler with only a handful of errors (which are all legit and not a bug in the transpiler).
+- Don't print 'undefined' or 'null' types; these are not legal in TypeScript.
+- Retain the ability to represent the nullability of a type in our type AST. However, my transpiler doesn't create those nodes, so the CodeGenerator doesn't need to encounter nodes which shouldn't be printed.
+- Restore tests for printing ES6_TYPED language constructs which aren't yet round-trip parseable. This work was de-scoped from a previous CL. These tests are in a new file, which is intended to be replaced with a round-trip-style test.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=85454058
+Perform the ConvertToTypedES6 pass before the transpileOnly flag short-circuits.
+Otherwise we have bugs where the later passes rename variables or reuse variables with different types.
+Also introduce a helper method for raiseToEs6.
+This is similar to existing code, lowerFromEs6. This makes it a bit easier to understand the intent of the conditional by giving it a name.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=85338342
+Add tests for the MovePropertiesToConstructor refactoring, and fix the bugs in the refactoring to make the tests assert the right behavior. This refactoring is now in good enough shape to be used by people to make code @struct compatible.
+
+The code still isn't perfect and could still be cleaned up, but I will do that in a future CL.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=85099030
+Merge pull request #790 from alexeagle/bugfix782
+
+Include a space before single quote and bang when pretty-printing.Merge pull request #786 from google/revert-783-bugfix_782
+
+Revert "Include a space before single quote and bang when pretty-printin...Merge pull request #783 from alexeagle/bugfix_782
+
+Include a space before single quote and bang when pretty-printingAdd a preconditions check to help debug
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=82443222
+Fix up some bugs in newline and semicolon insertion in RefasterJS code replacements.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=80300548
+[NEW TYPE INFERENCE] Fix unification bug for union type that includes a type variable.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=79447509
+Fix two numeric representation bugs
+
+1) In CodePrinter: Printing of some large numbers
+above 2^53 were incorrectly truncated.
+2) In NewIRFactory: Literal hex, binary, and octal
+numeric literal representations couldn't be used for literals
+larger than the maximum representable long (2^63-1).
+
+Fixes #691 on github
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=79345667
+[NEW TYPE INFERENCE] Fix bug in analyzePropAccess
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=79112669
+Fix the ordering of classes in templated angular.$q.Promise to avoid a
+compiler bug where typechecking only works if the templated class is defined
+before it is used.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=78741137
+[NEW TYPE INFERENCE] Fix bug in ProcessScope to not re-add namespace properties to namespaces; this has been handled in CollectNamedTypes.
+
+We still need to fix duplicate-property warnings when one or both of the declarations is a namespace.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=77626139
+Add more logging to a checkState call, to debug reported issue.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=75768724
+[NEW TYPE INFERENCE] Namespace definitions with non-empty object literals.
+
+This fixes a leftover bug when the namespace is a qualified name.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=74056621
+Fixing a few bugs with object patterns in the parser and ReferenceCollectingCallback.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=73931059
+Fix a bug regarding the evaluation of nested maprecord expressions and nested record types.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=73910545
+[NEW TYPE INFERENCE] Implement FunctionType#unifyUnknowns and fix some bugs in the process.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=73818499
+Fix bugs in JSDocInfoPrinter and added more tests.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=73730058
+Destructuring: Fix a silly bug in which we were passing the wrong parent node to visit().
+
+This causes a couple Traceur tests to start passing.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=73324707
+Fixes a bug where the var statement that was used to declare variables that do not cross module boundaries was itself deleted.
+
+Generate more compact code for var declarations in RescopeGlobalSymbols without relying on optimization passes to get into that form.
+
+Switches generated
+var a; var b;
+to become
+var a, b;
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=73249462
+Fix a bug in the type transformation parser which was adding one to the Integer.MAX_VALUE
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=73230413
+[NEW TYPE INFERENCE] Fix enum-related bugs.
+
+1) Resolve all qualified enums. A qualified enum that is not used was not being resolved, and as a result we couldn't detect invalid enum properties.
+(Unused qualified typedefs are also not being resolved, but AFAICT it doesn't matter.)
+
+2) Move addition of enums to locals to the very end, b/c when enums are used as namespaces we need to examine the types defined on the namespace first.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=72941341
+Fix bug in MinimizeExitPoints which causes us to remove a 'break' resulting in incorrect code.
+
+Fixes #554 on Github.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=71589594
+Fix a bug in TransformEs6ModuleToCjsModule where exporting multiple variable
+declarations in a single statement was not handled correctly.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=71356715
+Fixed bug with var statements initializing multiple variables in a generator.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=71306403
+[NEW TYPE INFERENCE] Fix bug in GlobalTypeInfo#getScopeHelper, so that local variables shadow outer functions correctly.
+
+(Also, don't create a DeferredCheck that is never used.)
+
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=71204077
+Fixed bug when parsing template annotations of the form:
+@template T
+random text
+
+The random text was parsed as part of T since it was captured using extractMultilineTextualBlock(token).
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=70722131
+Merge pull request #531 from pauldraper/parse-exponential
+
+Fix bugs with parsing exponential literalsFix bugs with parsing exponential literals
+Added runtime test for overriding statically inherited members and changed super translation to support dynamic dispatch of static methods. (Also fixed a bug occurring when a class inherits more than one static member from its super class).
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=70341056
+- Fixed the bug in the method collectObjectProperty inside PeepholeCollectPropertyAssignments that duplicated properties from an object literal.
+- Added five new tests to PeepholeCollectPropertyAssignmentsTests to verify the new behavior.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=68926626
+Fix bug where multiple computed properties in the same object literal were mis-parsed, causing an error.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=68180894
+[NEW TYPE INFERENCE] Small changes when removing types, bugfixes.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=67644939
+Remove workaround for a bug in the RegExp parser in Opera 9.2
+
+See discussion on issue #423 -- this has been tested in Opera 10, so it's unlikely to be present in any newer versions of Opera (especially since the latest ones are based on Chromium)
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=67635208
+[NEW TYPE INFERENCE] Fix a bug in JSType.negate
+
+Knowing that a type is a scalar doesn't mean that it's negation will also be a scalar.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=67526660
+[NEW TYPE INFERENCE] Fix a bug in JSType.negate
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=65624060
+Always use the debug log when running determinism checks.
+(It is a prerequisite).
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=65460619
+Don't retain strings in the debugLog by default.
+
+You can turn the debug log back on by switching CompilerOptions.useDebugLog to true.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=65405798
+Remove debug logging inadventeradly left in.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=64394685
+[NEW TYPE INFERENCE]
+
+- Handle declared properties of object literals
+- Handle recursive functions correctly
+- Don't warn about inexistent props on ?
+- Warn for use of the restarg formal name
+- Add undefined to the type of optional formals
+- Fix bugs about prototype property declarations
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=64104809
+[NEW TYPE INFERENCE]
+
+Fixing ported tests.
+- handle Function
+- fix bug in generics instantiation
+- provide way to use the warning name in the ported tests instead of the exact text
+- for tests which we may not want to support, prefix with disable_
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=63349381
+Add toString methods to make things easier to debug.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=63264955
+[NEW TYPE INFERENCE]
+
+Fix bugs uncovered by the ported TypeCheck tests.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=62544286
+document.register got renamed to document.registerElement: https://www.w3.org/Bugs/Public/show_bug.cgi?id=24087
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=60186374
+Fix a bunch of random stuff with the new Parser wiring including:
+- add a hacked up JSDoc attachment until dimvar can port his pass
+- correctly parse numbers
+- fix a bunch of source location issues
+
+This fixes the bulk of the unit tests.  I'm almost at the point we can start filing bugs for the remaining issues and start on adding ES6 features to our internal AST.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=60014068
+Increase test coverage and fix a few bugs in the process.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=59765534
+[NEW TYPE INFERENCE]
+
+Fix some bugs that were uncovered by running the new type inference
+on the v8 benchmarks.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=59609490
+Rewrite how commonjs exports are handled. Fixes lots of bugs and make them easier to type-check.  Fixes issue 1189
+R=dimvar
+Don't print the tracker output many times.
+
+(We have had this bug for a while, but it didn't surface because we were mistakenly closing System.out and we weren't seeing the duplicate output.)
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=58568757
+[FUZZER] Small bug fixes and improvements
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=57901902
+[FUZZER] All references of java.util.Stack are now replaced with Deque and ArrayList.
+
+This CL also include a minor bug fix in the Driver
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=56487483
+[FUZZER]
+
+Include common global objects in the global scope, and fix a bug in DiscreteDistribution that makes the fuzzer non-deterministic
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=56298761
+Fix a bug when no var is synthesized for arguments.
+
+Move the check for "arguments" to only guard error reporting,
+not the var synthesis.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=53821358
+Fix 8-year old bug in CodeGenerator.
+
+Rather than try to optimize the AST as it is being printed,
+simply print the AST as-is. Additionally, create an optimization
+in PeepholeSubstituteAlternateSyntax that rotates associative
+operators to the left to get rid of unnecessary parens at the
+AST level.
+
+Fixes issue 1062
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=51094530
+Fix inlining bug in https://code.google.com/p/closure-compiler/issues/detail?id=1053
+Attempt 2
+Fixes issue 1053
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=50800167
+Automated g4 rollback of changelist 50726739.
+
+*** Reason for rollback ***
+
+Wants to move back to early iteration of the CL.
+
+*** Original change description ***
+
+Fix inlining bug in https://code.google.com/p/closure-compiler/issues/detail?id=1053
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=50728194
+Fix inlining bug in https://code.google.com/p/closure-compiler/issues/detail?id=1053
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=50726739
+fix a bug in how side-effect call sites are marked up
+fixes issue 1008
+R=blickly
+Fix bug with IN inside FOR in CodeGenerator.
+
+This was exposed by the new MinimizeConditions algorithm.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=46735852
+Fix a bug in ScopedAliases.
+Remove a debug print statement accidentally left from a prior cl.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=46552551
+Fix bugs in scope-change reporting found by the scope-change sanity check.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=45177496
+Fix bug in scope-change reporting in InlineFunctions.
+Fix bug to run the scope-change sanity check during loops only.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=45005173
+Fix bug in MinimizeExitPoints with removing breaks inside finally blocks.
+
+According to the ECMAScript standard, a finally should only resume an
+exception if it exits without a break, continue, return, or another throw.
+
+This change does unfortunately not yet fix issue 936 because the
+same bug exists in UnreachableCodeElimination.
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=44335812
+Sanity-check the timestamps on scope roots. (Uncovered a bug in the changed-functions traversal. See new setting of currentScope in PhaseOptimizer.)
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=44316335
+Put change handler in Loop. Currently, the same handler is used by all passes. This is a bug, named passes don't reset the handler so once it changes it stays there until the next PhaseOptimizer is created. The message in the tracer is used by no-one. The handler is never removed when the PhaseOptimizer is no longer needed (tiny mem leak).
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=42965629
+Assert that there are no parse warnings in tests, and fix
+a couple bugs in tests
+-------------
+Created by MOE: http://code.google.com/p/moe-java
+MOE_MIGRATED_REVID=42843874
+
+Fix bug in checkUnionEquivalenceHelper.
+
+R=acleung,nicksantos
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=6226
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2499 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a normalization verifcation bug discovered when reviewing unused variables.
+
+R=dimvar
+DELTA=43 (33 added, 3 deleted, 7 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=6093
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2448 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix null pointer bug encountered when trying to extend non-existent interfaces.
+
+Original report@closure-compiler-discuss:
+https://groups.google.com/forum/#!topic/closure-compiler-discuss/kmP0lULzue4
+
+Fixes issue 884 (http://code.google.com/p/closure-compiler/issues/detail?id=884)
+
+R=nicksantos
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=6042
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2423 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a bug in the jstype parser, to allow Array.<?>
+
+R=dimvar
+DELTA=9 (7 added, 1 deleted, 1 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=6040
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2421 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a bug in the parameterized subtype relation
+
+R=johnlenz
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=6038
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2419 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix bugs around NoResolvedType type relations
+
+R=johnlenz
+DELTA=44  (34 added, 5 deleted, 5 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=5915
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2363 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug where we wouldn't warn about bad parameters if any
+of the alternates of a union were bogus.
+
+R=dimvar
+DELTA=260  (67 added, 111 deleted, 82 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=5867
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2346 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug in the function equivalence relation.
+
+R=johnlenz
+DELTA=113  (59 added, 0 deleted, 54 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=5758
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2300 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Reserve window.i so it will not be used in the compiled js binary.
+Latest browser on kindle HD has a bug where it overwrites window.i
+after the page load.
+
+R=nicksantos
+DELTA=10  (10 added, 0 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=5708
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2279 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug where we would warn you when an interface implemented
+another interface, but wire it up anyway.
+
+R=dimvar
+DELTA=47  (24 added, 5 deleted, 18 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=5585
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2234 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fixes issue 756.
+http://code.google.com/p/closure-compiler/issues/detail?id=756
+The bug was that a START_OF_EXPR context is passed downward to the
+object literal, so parentheses are inserted. The addExpr function was
+clearing only the IN_FOR_INIT_CLAUSE context, but it's safe to clear all
+contexts, so I did. The function clearContextForNoInOperator is no
+longer needed, so I removed it.
+I also deleted the old regression-test script.
+
+R=nicksantos,johnlenz
+DELTA=87  (1 added, 84 deleted, 2 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=5204
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2100 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug where the dependency graph between variables was
+getting out of date during flow-sensitive inlining.
+Fixes issue 777
+
+R=acleung
+DELTA=129  (82 added, 8 deleted, 39 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=5187
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2093 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug in goog.scope when the inlined alias conflicts with a local variable.
+
+R=acleung
+DELTA=151  (151 added, 0 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=5056
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2062 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug in the old inliner.
+There are probably cases that i'm missing. i'll think about it
+a bit more over the weekend.
+
+R=acleung
+DELTA=50  (30 added, 3 deleted, 17 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4940
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2021 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix type checking for the === and !== relationship.
+try #2, papering over some bugs in the inf() relation on function types
+
+R=johnlenz
+DELTA=100  (72 added, 18 deleted, 10 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4938
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@2019 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix some bugs in 'new' inference:
+- traverse children before the parent
+- do backwards inference on params, like we do for CALL
+Fixes issue 729
+
+R=johnlenz
+DELTA=34  (27 added, 6 deleted, 1 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4831
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1983 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix some bugs where our object literal parsing fixes
+broke destructuring assignments.
+Requested by Hannes in https://github.com/mozilla/rhino/pull/30
+
+R=johnlenz
+DELTA=53  (24 added, 20 deleted, 9 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4740
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1966 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug where using "this" in a {!Function} would
+give you the universal object, which is not correct.
+
+R=johnlenz
+DELTA=20  (18 added, 0 deleted, 2 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4642
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1941 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a bug in constraint-matching
+fixes issue 700
+
+R=johnlenz
+DELTA=50  (47 added, 0 deleted, 3 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4462
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1858 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a nasty bug where properties on one prototype were leaking onto
+unrelated prototypes
+
+R=acleung
+DELTA=84  (65 added, 1 deleted, 18 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4450
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1855 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Ensure that a bug is fixed for the head version of rhino
+
+R=acleung
+DELTA=9  (9 added, 0 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4411
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1848 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fixes a bug whereby lines cut by the code printer
+b/w identifier chars could be incorrectly uncut, eg, instanceof\nfoo ->
+instanceoffoo. This fix leaves a space where the cut was. Ideally we would only leave this
+space when absolutely necessary, though the cost of it is low.
+
+R=acleung
+DELTA=11  (4 added, 1 deleted, 6 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4312
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1806 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug where ToNumber(-Infinity) would replace itself
+with -Infinity, and go into an infinite loop
+
+R=acleung
+DELTA=12  (9 added, 0 deleted, 3 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4213
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1776 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a minor type parsing bug
+Add some tests to ensure that you can use unknown variable argument
+lists to silence warnings
+
+R=acleung
+DELTA=83  (83 added, 0 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4193
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1771 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix bugs in how bind() works on var_arg functions
+
+R=johnlenz
+DELTA=23  (23 added, 0 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=4048
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1707 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Rewrite how AnalyzePrototypeProperties reasons about contextual information.
+This fixes a lot of bugs in how local and captured variables are handled.
+Fixes issue 600.
+
+R=johnlenz
+DELTA=344  (260 added, 15 deleted, 69 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3915
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1662 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bunch of bugs in record type sup/inf with proxy types
+Fixes issue 603
+
+R=tylerg
+DELTA=76  (39 added, 27 deleted, 10 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3796
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1638 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a bug in type inference
+
+R=acleung
+DELTA=50  (31 added, 18 deleted, 1 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3458
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1508 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug in 'this' type inference, where it didn't work
+correctly when you have the union of two objects.
+Also, make these default to warnings. These days,
+we have a separate mechanism for upgrading warnings to errors.
+(--jscomp_error=checkTypes)
+
+R=mgoodman
+DELTA=41  (21 added, 0 deleted, 20 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3455
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1505 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+speed up type analysis a bunch, and fix some bugs in record types
+
+
+R=acleung
+DELTA=232  (154 added, 54 deleted, 24 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3408
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1489 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bunch of bugs in marker generation, and add lots of inline
+assertions to prevent this from regressing.
+Right now, Grok has a bunch of checks to work around these bugs,
+and we would like to get rid of them.
+
+R=jschorr,tylerg
+DELTA=272  (134 added, 14 deleted, 124 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3268
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1442 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a minor bug in prototype resetting
+
+R=johnlenz
+DELTA=28  (23 added, 1 deleted, 4 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3249
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1438 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a bug where unknown types were leaking into type inference,
+and poisoning qualified names
+
+
+Tested:
+yes
+
+R=acleung
+DELTA=97  (74 added, 19 deleted, 4 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3151
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1398 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change how Function prototypes are represented in the type
+system.  This fixes lots of bugs when an anonymous object is
+the prototype, and will make life a lot easier for IDEs.
+
+R=johnlenz
+DELTA=370  (129 added, 177 deleted, 64 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3135
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1389 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Add toMaybeFunctionType/toMaybeEnumElementType.
+try #2. the bugs in jstestc were fixed. this cl is exactly
+the same as the original
+
+R=johnlenz
+DELTA=317  (79 added, 47 deleted, 191 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=3078
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1367 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix an API bug in the symbol table.
+We need GlobalNamespace's getName() to point to the full name,
+not the base name, to be consistent with the other symbol tables
+
+R=acleung
+DELTA=57  (29 added, 4 deleted, 24 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2851
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1311 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fixed the visibility of SourceMap.LocationMapping class.
+
+Also fixed a bug whereby the source map path was getting set to null value
+if the orginal file name did not match one the passed in location mappings.
+
+R=johnlenz
+DELTA=6  (5 added, 0 deleted, 1 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2707
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1287 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Automated g4 rollback.
+
+*** Reason for rollback ***
+
+The underlying bugs in DisambiguateProperties were fixed separately.
+
+*** Original change description ***
+
+Automated g4 rollback.
+
+*** Reason for rollback ***
+
+breaks disambiugateproperties
+
+*** Original change description ***
+
+The infimum() relation on enum types is deeply disturbing,
+because now you can have subsets of enums. wow.
+
+R=johnlenz
+DELTA=161  (149 added, 4 deleted, 8 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2683
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1276 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Enable debug information by default in the closure compiler build.
+
+R=nicksantos
+DELTA=1  (1 added, 0 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2562
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1261 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a javadoc warning that was bugging me
+
+R=zhuyi
+DELTA=1  (0 added, 0 deleted, 1 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2410
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1211 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a subtle bug i introduced in the last proplist cl
+
+R=johnlenz
+DELTA=60  (53 added, 3 deleted, 4 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2404
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1207 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Make ObjectType implement StaticScope.
+This is part of a long-term plan to write a general
+symbol table with a unified API across many different types
+of data structures.
+I accidentally fixed a bug in interfaces when doing this, so added tests for the bugs i fixed.
+
+R=acleung
+DELTA=177  (101 added, 49 deleted, 27 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2282
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1182 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug in @const checking where it wouldn't detect @const
+when a class doesn't assign a value that it declared, but
+a subclass does
+
+R=zhuyi
+DELTA=78  (62 added, 10 deleted, 6 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2231
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1170 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a jsdoc parser bug where it was dropping the EndOfComment token
+Fixes issue 477
+
+R=acleung
+DELTA=15  (12 added, 0 deleted, 3 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=2193
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1158 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Add an integration test for source map parsing and consuming,
+and fix bugs that it found.
+
+R=jschorr
+DELTA=69  (66 added, 0 deleted, 3 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=1506
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@1023 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix bugs around ES5 options.
+
+(1) Compiler.acceptEcmascript5() is false when the input language is ECMASCRIPT5_STRICT
+(2) --checkEs5Strict does not change the input language from ECMASCRIPT3.
+
+These fixes required changing CompilerOptions.checkEs5Strict from a public property
+to a private property accessed by setters and getters.
+
+R=johnlenz
+DELTA=8  (7 added, 0 deleted, 1 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=1366
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@994 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Workaround for Opera bug.
+
+R=johnlenz
+DELTA=335  (328 added, 5 deleted, 2 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=1226
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@959 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a nasty bug in collapseproperties.
+The problem is that the declaration-updater conflates
+"can i always collapse this name?" with
+"can i sometimes collapse children of this name?"
+There are a few rare cases where they are not equivalent, like
+if you have
+/** @constructor */ a.b.c = function() {};
+where a is collapsed and a.b.c is collapsed (because constructors
+are always collapsed), but a.b is not.
+Fixes issue 389
+
+R=acleung
+DELTA=140  (112 added, 0 deleted, 28 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=1138
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@951 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Disable variable shadowing with the --debug flag as it isn't handled gracefully and is really confusing.
+
+R=acleung
+DELTA=2  (2 added, 0 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=1137
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@950 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a long-standing warnings guard bug that just got triggered
+recently.
+Comparators are hard! :)
+
+R=johnlenz
+DELTA=63  (42 added, 2 deleted, 19 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=950
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@912 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Delete the divide by zero error
+I've never heard of this catching any real bug. It seems like if
+you explicitly typed "1 / 0", you meant to do that.
+fixes issue 381
+
+R=johnlenz
+DELTA=8  (0 added, 6 deleted, 2 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=924
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@900 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix some bugs by removing redundant code.
+
+R=johnlenz
+DELTA=61  (4 added, 34 deleted, 23 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=667
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@816 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix bleeding-function shadowing bug
+
+R=johnlenz
+DELTA=40  (36 added, 0 deleted, 4 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=477
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@768 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a bug in open-source args parsing.
+Fixes issue 319.
+
+R=johnlenz
+DELTA=24  (23 added, 0 deleted, 1 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=299
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@700 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Correct setup of debug options for Ant task.
+Fixes issue 306.
+
+R=nicksantos
+DELTA=3  (1 added, 2 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=202
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@665 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug where type inference was getting
+short-circuited too early
+
+R=acleung
+DELTA=56  (45 added, 7 deleted, 4 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=113
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@620 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix another weird bug in the function type lattice.
+
+R=johnlenz
+DELTA=28  (25 added, 0 deleted, 3 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=715053
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@509 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix a bug in prototype-resolution. The implicit prototype wouldn't
+get resolved correctly, because we were resolving the "default" slot
+for the implicit prototypes. InstanceObjectType overrides this own
+slot with its own implementation, so we really need to use the
+getter to get the correct slot.
+This only comes up with very deep inheritance hierarchies (>= 5).
+
+R=johnlenz
+DELTA=33  (19 added, 4 deleted, 10 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=716029
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@508 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix bug with implicit namespaces across modules.
+Contributed by bolinfest
+Fixes issue 261
+
+Revision created by MOE tool push_codebase.
+
+R=johnlenz
+DELTA=17  (15 added, 0 deleted, 2 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=337977
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@491 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fixed bug 261: http://code.google.com/p/closure-compiler/issues/detail?id=261
+Made JUnit test failure in Ant result in Ant failure (previously Ant printed BUILD SUCCESSFUL even when a test failed, thereby masking the failure).
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@485 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Add an Ant property so that the compiler can be built in debug mode.
+Contributed by html-generator@hp.com
+Fixes issue 220
+
+
+
+Revision created by MOE tool push_codebase.
+
+R=acleung
+DELTA=12  (10 added, 0 deleted, 2 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=178037
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@378 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Add an Ant property so that the compiler can be built in debug mode.
+Contributed by html-generator@hp.com
+Fixes issue 220
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@374 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a subtle bug in warnings guard ordering.
+
+R=johnlenz
+DELTA=44  (43 added, 0 deleted, 1 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=103006
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@357 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Clean up the command-line runner api, which uncovered a bunch
+of bugs in Options serialization.
+Set the output charset to US-ASCII by default, but let the user
+set it to UTF-8.
+Fixes Issue 205
+
+R=bowdidge
+DELTA=107  (69 added, 17 deleted, 21 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=87017
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@344 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+fix a bug where NodeUtil was reporting function literals
+as immutable. functions are mutable.
+Make isLiteralValue a bit more flexible, so that it can
+identify function literals.
+do some additional folding on function literals.
+
+R=acleung
+DELTA=68  (35 added, 1 deleted, 32 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=64001
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@308 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Fix source map generation bug.
+
+R=jschorr
+DELTA=107  (107 added, 0 deleted, 0 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=54012
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@296 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change on 2010/07/13 09:58:55 by johnlenz
+
+        Change source map generation so that runs in O(n) time. Source map
+        generation is now roughly the time it takes to write the bytes to disk.
+
+        R=acleung
+        DELTA=820  (508 added, 270 deleted, 42 changed)
+
+Change on 2010/07/13 11:14:56 by acleung
+
+        Google Analytics Externs Contribution
+
+        R=bkuhn,nicksantos
+        DELTA=438  (438 added, 0 deleted, 0 changed)
+
+Change on 2010/07/13 11:37:57 by nicksantos
+
+        Fix goog.scope processing so that it works even if an alias
+        shadows a global variable.
+
+        R=robbyw
+        DELTA=28  (16 added, 3 deleted, 9 changed)
+
+Change on 2010/07/13 12:45:31 by nicksantos
+
+        fix a silly bug where an assignment of a name is interpreted
+        as an assignment to a name.
+
+        R=robbyw
+        DELTA=7  (6 added, 0 deleted, 1 changed)
+
+Change on 2010/07/13 14:02:13 by nicksantos
+
+        Make the goog.asserts functions work better for qualified names
+        (like x.y).
+
+        R=agrieve
+        DELTA=37  (17 added, 3 deleted, 17 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=50006
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@274 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change on 2010/06/17 by nicksantos
+
+        don't use Sets to build union types.
+
+        R=johnlenz
+        DELTA=76  (52 added, 6 deleted, 18 changed)
+
+Change on 2010/06/17 by nicksantos
+
+        fix a couple bugs in goog.scope processing
+
+        R=robbyw
+        DELTA=54  (42 added, 11 deleted, 1 changed)
+
+
+Change on 2010/06/17 by acleung
+
+        Disables function argument check with @notypecheck is on for the whole file.
+
+        R=johnlenz
+        DELTA=8  (5 added, 1 deleted, 2 changed)
+
+Change on 2010/06/17 by dcc
+
+        Fix NPE in ExportExternsPass with --check_types=false.
+
+        R=acleung
+        DELTA=72  (66 added, 4 deleted, 2 changed)
+
+Change on 2010/06/17 by johnlenz
+
+        Change stub method parameters to allow sanity checks to pass with
+        CrossModuleMethodMotion.
+
+        R=nicksantos
+        DELTA=7  (3 added, 0 deleted, 4 changed)
+
+Change on 2010/06/18 by johnlenz
+
+        Modify AliasKeywords so passes the sanity checks: don't create coding
+        convention constants without annotation them so that the tests pass
+        when the sanity checks are on.
+
+        R=nicksantos
+        DELTA=18  (5 added, 0 deleted, 13 changed)
+
+Change on 2010/06/18 by johnlenz
+
+        Fix source maps when run with sanity checks.
+
+        R=nicksantos
+        DELTA=10  (7 added, 0 deleted, 3 changed)
+
+Change on 2010/06/18 by johnlenz
+
+        Changes to PrepareAst to make it valid to run during SanityChecks.
+
+        R=nicksantos
+        DELTA=18  (5 added, 0 deleted, 13 changed)
+
+Change on 2010/06/18 by nicksantos
+
+        fix constant annotations in CollapseProperties.
+
+        R=johnlenz
+        DELTA=61  (49 added, 1 deleted, 11 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=30002
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@246 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change on 2010/06/14 by johnlenz
+
+        Remove unneed parenthese from hook expressions.
+
+        R=acleung
+        DELTA=76  (20 added, 4 deleted, 52 changed)
+
+Change on 2010/06/14 by johnlenz
+
+        Fix non-determinisim.
+
+        R=jschorr
+        DELTA=5  (3 added, 0 deleted, 2 changed)
+
+Change on 2010/06/15 by nicksantos
+
+        fix a regression caused by a change in the ordering in which
+        constant folding is done.
+        parts of PeepholeSubstituteAlternateSyntax will crash if they
+        see a NEG node with a NUMBER child.
+        They were assuming that FoldConstants would fold these into one node.
+
+        R=dcc,acleung
+        DELTA=153  (70 added, 6 deleted, 77 changed)
+
+Change on 2010/06/15 by johnlenz
+
+        More debug diffing improvements: convert unique globally unique names
+        to locally unique names for reproduciblity.
+
+        R=acleung
+        DELTA=222  (44 added, 7 deleted, 171 changed)
+
+Change on 2010/06/15 by nicksantos
+
+        Add the @nocompile annotation as a signal that this file should
+        be dropped silently if it gets pulled into a --manage_closure_dependencies
+        build.
+
+        R=bowdidge,gboyer
+        DELTA=82  (60 added, 1 deleted, 21 changed)
+
+Change on 2010/06/15 by dcc
+
+        Refactor FoldConstants dead code removal into PeepholeRemoveDeadCode.
+
+        R=acleung
+        DELTA=744  (403 added, 307 deleted, 34 changed)
+
+Change on 2010/06/15 by dcc
+
+        ExternExports test now emits type annotation for exported externs.
+                - Changed ExternExportsPass to generate the externs as an AST and then print
+        to a String rather than ad hoc with a StringBuilder.
+                - Changed TypedCodeGenerator to generate '*' (AllType) for parameters with unknown types rather than '?' (UnknownType) since '?' is not valid JSDoc.
+
+        R=acleung
+        DELTA=643  (496 added, 66 deleted, 81 changed)
+
+Change on 2010/06/16 by johnlenz
+
+        Tweak to PureFunctionIndentifier to propagate the side-effects for
+        anonymous function expressions like: (Date.now||function(){return
+        +new Date})()
+
+        R=avd
+        DELTA=42  (39 added, 0 deleted, 3 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=29010
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@243 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change on 2010/06/10 by nicksantos
+
+	add firebugIgnore to externs.
+
+	R=jparent
+	DELTA=7  (7 added, 0 deleted, 0 changed)
+
+Change on 2010/06/11 by nicksantos
+
+	create an externs file for the top-level google namespace.
+
+	R=jschorr
+	DELTA=36  (36 added, 0 deleted, 0 changed)
+
+Change on 2010/06/11 by jschorr
+
+	Remove non-determinism in the source map generator.
+
+	R=nicksantos
+	DELTA=63  (58 added, 3 deleted, 2 changed)
+
+Change on 2010/06/13 by acleung
+
+	Remove indentity assignments.
+
+	R=dcc
+	DELTA=20  (20 added, 0 deleted, 0 changed)
+
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=27010
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@242 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change on 2010/05/25 by nicksantos
+
+        start moving away from using Object#equals for type equality.
+
+        R=johnlenz
+        DELTA=445  (98 added, 3 deleted, 344 changed)
+
+Change on 2010/05/25 by acleung
+
+        Fix bug with resolving a member function of a resolved constructor.
+
+        R=johnlenz
+        DELTA=48  (48 added, 0 deleted, 0 changed)
+
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=12002
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@231 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change on 2010/05/24 by johnlenz
+
+	Simplify function inlining compiler options: remove
+	decompose_expressions and inline_anonymouse_function_expression
+	options.
+
+	R=anatol,nicksantos
+	DELTA=40  (0 added, 34 deleted, 6 changed)
+
+Change on 2010/05/24 by johnlenz
+
+	Have flow sensitive inlining follow the default in the regtests so it
+	doesn't block pending CLs due to its current brokeness.
+
+	R=acleung
+	DELTA=1  (0 added, 1 deleted, 0 changed)
+
+Change on 2010/05/24 by johnlenz
+
+	The ReplaceDebugStrings pass folds "new Error" to "Error", I don't want this
+	in the general version of that pass so add it in a general fold to
+	FoldConstants.  It should be in the "reshaping pass" when FoldConstants
+	in refactored.
+
+	R=acleung
+	DELTA=90  (68 added, 0 deleted, 22 changed)
+
+Change on 2010/05/24 by nicksantos
+
+	Delete SymbolTable.
+	I was never able to make this approach work. The savings were
+	marginal and not worth the extra complexity.
+
+	R=johnlenz
+	DELTA=484  (0 added, 483 deleted, 1 changed)
+
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=11004
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@230 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change on 2010/05/21 by nicksantos
+
+        Add a messagebundle to compileroptions.
+
+        R=johnlenz
+        DELTA=65  (53 added, 7 deleted, 5 changed)
+
+Change on 2010/05/21 by johnlenz
+
+        Automated g4 rollback of changelist 15608158.
+
+        *** Reason for rollback ***
+
+          Incorrectly inlines into loops.
+
+        *** Original change description ***
+
+        Enable flow sensitive inlining in open source world.
+
+        R=acleung
+        DELTA=2  (0 added, 2 deleted, 0 changed)
+
+Change on 2010/05/21 by johnlenz
+
+        Automated g4 rollback of changelist 15557333.
+
+        *** Reason for rollback ***
+
+          Flow sensitive inlining incorrectly inlines into loops.
+
+        *** Original change description ***
+
+        Automated g4 rollback of changelist 15443639.
+
+        *** Reason for rollback ***
+
+          Fixed by 15522083
+
+        *** Original change description ***
+
+        Automated g4 rollback of changelist 15380611.
+
+        *** Reason for rollback ***
+
+        see attached bug
+
+        *** Original change description ***
+
+        Enable Flow Sensitive Inlining by default. Passes GMail automation test.
+
+        R=acleung
+        DELTA=1  (0 added, 0 deleted, 1 changed)
+
+Change on 2010/05/21 by acleung
+
+        Automated g4 rollback of changelist 15093982.
+
+        *** Reason for rollback ***
+
+          Because third time is a charm.
+
+        *** Original change description ***
+
+        Automated g4 rollback of changelist 15093106.
+
+        *** Reason for rollback ***
+
+        breaks caribou b/c of new warnings.
+
+        *** Original change description ***
+
+        Make unreachable code detection a bit smarter.
+
+        R=johnlenz
+        DELTA=77  (70 added, 3 deleted, 4 changed)
+
+Change on 2010/05/21 by nicksantos
+
+        Create a shortcut mode for the deps file parser, and turn it on
+        by default.
+        Also, add tracers to deps generator.
+
+        R=agrieve
+        DELTA=171  (117 added, 44 deleted, 10 changed)
+
+Change on 2010/05/21 by acleung
+
+        Make ExtractPrototypeMemberDeclarations skip over devirtualized prototype methods
+
+        R=avd
+        DELTA=80  (80 added, 0 deleted, 0 changed)
+
+Change on 2010/05/21 by robbyw
+
+        Attach ScopedAliases to the closurePass flag.
+
+        R=nicksantos
+        DELTA=13  (13 added, 0 deleted, 0 changed)
+
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=11001
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@226 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+Change on 2010/05/04 by nick
+
+        Pipe everything through the module code path.
+        This teases out a bunch of edge-case bugs that worked in the non-module
+        code path, but not the module code path (and vice-versa)
+
+        R=alan
+        DELTA=136  (67 added, 19 deleted, 50 changed)
+
+Change on 2010/05/04 by nick
+
+        fiddle with the check_global_this_level decision tree
+        This should be off by default if collapse_properties is off,
+        and on by default if collapse_properties is on.
+
+        R=alan
+        DELTA=47  (32 added, 4 deleted, 11 changed)
+
+Change on 2010/05/04 by andrew
+
+        -Infer that arguments to goog.asserts.assert() are non-nullable after the
+        call.
+        -Infer the types of arguments to goog.asserts.assert{String,Number,...} after
+        the call.
+
+        Tested:
+          -Added new unit tests.
+
+        R=nick
+        DELTA=277  (266 added, 4 deleted, 7 changed)
+
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=qdhuno
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@203 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+
+
+Change on 2010/04/27 by john
+
+        A generic replacement for ReplaceDebugStrings.
+
+        R=anatol
+        DELTA=864  (860 added, 0 deleted, 4 changed)
+
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=fpmbak
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@200 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Make lists the canonical representation of compiler sources.
+They're so much easier to sort and mutate, which is going to
+make a difference once we start sorting sources. (Nick)
+R=robert
+DELTA=97  (58 added, 6 deleted, 33 changed)
+
+include everything in the @license tag. (Nick)
+R=robert
+DELTA=78  (32 added, 19 deleted, 27 changed)
+
+tag externs files with the @externs tag. (Nick)
+R=alan
+DELTA=45  (45 added, 0 deleted, 0 changed)
+
+fix for issue 58.
+work-around a bug in IE where it gets confused if the comparator
+passed to Array.prototype.sort writes to its own parameters. (Nick)
+R=alan
+DELTA=33  (30 added, 0 deleted, 3 changed)
+
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=dpiluc
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@171 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Enhancement to CheckPathBetweenNodes. This is needed to fix a bug in variable inlining. (Alan)
+R=robert
+DELTA=164  (145 added, 8 deleted, 11 changed)
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@158 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fix assorted type system bugs and crashes.
+Fixes issue 124 for reals. (nick)
+R=andrew
+DELTA=161  (122 added, 9 deleted, 30 changed)
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@143 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fix assorted type system bugs and crashes.
+Fixes issue 124. (Nick)
+R=andrew
+DELTA=161  (122 added, 9 deleted, 30 changed)
+
+Fix unique name inverter  to prevent masking needed global names. (John)
+R=nick
+DELTA=315  (225 added, 46 deleted, 44 changed)
+
+Revision created by MOE tool push_codebase.
+MOE_MIGRATION=
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@142 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fix a bug in expression decomposition (Alan)
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@115 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fixes a bug in getGreatestSubtype (Andrew)
+
+Fixes some typos in html5 externs. Fixes issue 114. (Nick)
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@113 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fix a null pointer exception in FunctionType.
+
+Fix a bug in @export generation.
+
+Remove references to StringUtil.
+
+Only create one ParserConfig per compilation process.
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@104 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fix a bug in type inference when there are more than two inner
+functions in a local scope.
+
+Add a --print_pass_graph flag that prints the passes run as a DOT file.
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@96 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Add some new externs files: webkit notifications, web storage, and file access.
+
+Fix a minor bug in type checking 'in' operators.
+
+Fix a bug in warnings filtering.
+
+Add a @javadispatch annotation.
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@81 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fixes a bug in AmbugateProperties in the presence of interfaces.
+
+Fixes a bug in how type information on methods of interfaces gets
+inherited by implementers (issue 86)
+
+Use Joiners instead of the join() static method.
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@59 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Add more unit tests for type checking.
+
+Add phase optimization.
+
+Fix a type inference bug.
+
+String.prototype.split may not return null.
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@55 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Add a pass for collecting symbols exported like window['x'] = ...
+
+Fix for issue #70.
+
+Assorted minor bug fixes.
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@31 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fix a type-checking bug in instanceof.
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@19 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Warn about all with statements, unless there's an explicit
+/** @suppress {with} */ tag
+
+Refactor a bunch of stuff into PassConfigs
+
+Add a bunch of parser tests.
+
+Up-integrate John and Norris' latest changes to Rhino at trunk
+
+Minor type-tightening bug fixes.
+
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@18 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Add --define flag to the API.
+Remove the warning for ambiguous function definitions: it's not yet fully baked.
+Fix a bug in data-flow based variable inlining.
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@16 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+Fix synthesis of vars in DEFAULT mode.
+Better variable inlining
+Better function inlining
+Assorted bug fixes
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@6 b0f006be-c8cd-11de-a2e8-8d36a3108c74
+A bunch of bug fixes
+Added the --warning_level={QUIET|DEFAULT|VERBOSE} flag,
+to match the webservice API
+
+
+
+git-svn-id: https://closure-compiler.googlecode.com/svn/trunk@3 b0f006be-c8cd-11de-a2e8-8d36a3108c74
