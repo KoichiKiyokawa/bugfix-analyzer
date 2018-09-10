@@ -1,0 +1,1000 @@
+4a8cbc286 New repository initialized by cvs2svn.
+925847780 added new commons math component
+e4694325b Starting source code - basic matrix operations and univarient stats plus test code. Submitted by Phil Steitz.
+352f134f0 A maven project.xml was added for conv
+9b7cfb86b Added myself to STATUS and PROPOSAL
+ccf6befd5 1. Make RealMatrixImpl implement Serializable 2. Make all currently unimplemented methods throw UnsupportedOperationException 3. Add solve() method to RealMatrix interface, representing vector    solution to AX = B, where B is the parameter and A is *this.
+f039b677b Added an expandable double array, this class simply contains a double[] and takes care of automatic expansion of an internal array when necessary.  Class added with accompanying unit test
+97568dc06 The following changes were made to the Univariate implementation.  The public interface of Univariate was extracted in an interface of the same name. Univariate, an interface, is now implemented by UnivariateImpl which contains all code originally present in the original Univariate implementation.
+52590a7d0 Submitted by: Phil S. Reviewed by: Tim O.
+5ae92f12c Another change to the stored Univariates.  The calculations are now abstracted into an AbstractStoreUnivariate class which take responsibility for all statistical calculations.  AbstractStoreUnivariate is implemented by two classes:
+5f2a1cbbc Made a nubmer of change to the ExpandableDoubleArray.
+065a88e24 Patches from Phil S. applied:
+7651a6b14 * ContractableDoubleArray extends ExpandableDoubleArray - I sense the need for a DoubleArray interface.
+0700b0f48 * DoubleArray is now an interface which is implemented by ExpandableDoubleArray.  The interface provides a public interface which does not hint at any of the storage parameters of Expandable or Contractable.
+71dfdabde The Univariate interface now contains getWindow and setWindow in addition to a constant which signifies an "infinite" window.  Windowing has been added to all three Univariate implementations:
+d6f702826 Added a FixedDoubleArray.  FixedDoubleArray supports a rolling mechanism that reuses an array of fixed length.  This classes was added to an efficient rolling mechanism.
+5879d3be8 Altered the build script to use batch test instead of running a suite.  The advantage of this is that when new tests are added to the project a TestSuite class does not need to updated.
+60f4205f1 Phil Steitz wrote:
+2ebf818b4 Mavenization phase one - moving documentation build to maven, will complete by generating build.xml etc later.
+526e1c417 Created outline documentation. This will be built using maven. Lots more content needed.
+118ae3310 Created outline user guide This will be built using maven. Lots more content needed.
+a008ed131 Added Mark Diggory as a contributor
+437e275a5 Updated source code to reflect Jakarta source code guidelines specifically tab characters.  Changes were driven by Checkstyle report on http://jakarta.apache.org/commons/sandbox/math
+7d540cfa9 Corrected upload directory.
+5d9efdbcd Added javadoc to FixedDA and altered exceptions in DoubleArray
+246d50aa4 Added more substantial class javadoc to ExpandableDoubleArray
+a99cbac0b Updated class javadoc for ContractableDoubleArray
+5de3587b8 Commited patch for issue 20112 from Phil Steitz.
+60bf13358 project.properties changes.  1. The build will not fail on a failed unit test, 2. The date/time and version are included in the xdoc transformation, 3. JUnit is now forker, and 4. We use checkstyle.properties to customize the behavior of Checkstyle.
+a3e8ae46e xdoc tasks.xml was updated to reflect tasks pertaining to the next planned release.  There tasks were lifted from Phil S. earlier message to commons-dev@
+8ed6e84dc Added Product and Mean to Univariate and all implementations, this patch contains contributions from Mark Diggory.
+1376d960b Added task to bring javadoc into compliance with standard.  Javadoc generate currently throws 35 errors.
+ca304541d The EmpiricalDistributionImpl that submitted yesterday assumed the "old" Univariate interface, in which getN() returned a double.  The attached patch inserts the necessary casts to avoid the rounding/truncation errors that were causing the EmpiricalDistribution and ValueServer unit tests to fail.
+8216dd89b RandomDataTest.testNextGaussian() was using Univarite.getN().  Added an explicit cast from int to double.  Test now succeeds.
+e0161bb4c Added mdiggory patch for developer resources
+5918a1fe1 Readded the linkcheck and tasklist reports
+b84e61ffc From Phil Steitz patch submission for Issue #20175
+57b915188 An implementation of ordinary least squares regression with one independent variable. The implementation uses running sums and does not require the data to be stored in memory.  Since I could not conceive of any significantly different implementation strategies that did not amount to just improving efficiency or numerical accuracy of what I am submitting, I did not abstract the interface.
+43c787eb3 Adds the one sample, t-test statistic to TestStatistic and implementations. Also add unit tests. - BW
+03e996b07 Fixed spelling of INFINITE_WINDOW.
+703fbafa3 Contributions from Brent Worden - Bugzilla Issue 20279
+3cb56af4e Unit tests for previous commit - from Brent Worden's submission in Bugzilla Issue 20279
+c9fc45757 Addition of a BeanListUnivariateImpl which can gather univariate statistics on a List of JavaBeans.  This implementation extends the ListUnivariateImpl, and uses the PropertyUtils classes from commons-beanutils.  With this implementation, the following is possible:
+dda783311 Added an LICENSE.txt in commons-math
+8a13741f2 Adds the following two capabilities to RandomData: Generating random permutations of integers, Generating random samples (returned as Object arrays) from Collections. Tests validate expected sample distribtution using chi-square tests
+be5a9fb21 Patch adds getSkewness and getKurtosis to Univariate and an implimentation in UnivariateImpl. It also adds test for NaN and 0.0 to UnivariateImplTest
+a286c243e Moved all Univariate and Bivariate stats interfaces and classes to the math.stat package
+e9488d7cf Checkstyle should check that each source file include a license
+429a65211 Removed old Univariate tests
+a0ff9fd63 linkcheck report was throwing 404s for every URL, I've removed it until someone can generate a meaningful report
+70c890686 Removed tasklist report, until this has content, no reason for the added distraction
+25b3e4510 * add the numerical analysis and prob/stat references that have been posted or   included in javadoc recently, plus a few more generic references. * update the task list based on accomplishments and discussion
+91f675100 Adding myself to the developers
+6aa45e204 This is the new build.xml file generated by Maven. This was generated using the latest checkout of Maven.
+d23bf18b4 Licensing issues have prompted the removal of all source reliant on Gamma.java.  Gamma.java explicitly stated that it was "based on" an implementation from Numerical Recipes in C.  Please see http://www.nr.com/infotop.html - these implementations (and derivatives of these works) are covered under restrictive licensing terms.  This code will be removed from the repository until these issues can be addressed.
+60314410e Initial Certified Tests for Univariate. Note UnivariateImpl currently fails
+5a755b8f8 Removed System.out's
+736e42145 project.xml had two dependencies sections, I removed the empty one.
+546eeaf21 Commenting out testUnivariateImpl unitl I figure out why this fails in UnivariateImpl
+108ea5741 Changing the name of data files, the default javac target in the ant file misses files of the extension "dat"
+11898601e PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20375 Submitted by:	Albert Davidson Chou
+516c15d88 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20377 Submitted by:	Phil Steitz
+42e427ce8 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20390 Submitted by:	Phil Steitz
+fe2756638 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20404 Submitted by:	Phil Steitz
+ba74c2510 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20442 Submitted by:	Phil Steitz
+b3dd72f6e Adjusted the code to be able to control the files used and the tolerance for each file (important, hard tests currently require lower tolerance to pass).
+acde85f2b Improved Variance calculation, test for negative variance and added some more javadoc.
+ed6d94077 fixed href link to have ""'s
+8fea24563 typo in the ${basedir} variable.
+a4ff28ef7 just changing my email address...
+b0bafaff5 Adding Al as a contributor
+2dec2474f PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20488 Submitted by:	Brent Worden
+02edce088 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20507 Submitted by:	Phil Steitz
+41d1a0d8f PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20514 Submitted by:	brent@worden.org
+aa3e2e9ef PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20496 Submitted by:	Albert Davidson Chou
+199992828 Resolved some href " issues in Javadoc.
+a6c324e66 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20543 Submitted by:	phil@steitz.com
+8d1482c46 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20570 Submitted by:	brent@worden.org
+b58585fb8 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20601 Submitted by:	brent@worden.org
+431f30388 * Fixed all checkstyle errors and eliminated redundant NaN checks.  Now have 100% test path coverage.
+16c19dcec PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20627 Submitted by:	brent@worden.org
+83855b4cd Submitted Javadoc fixes from Andreou Andreas
+3849e21f3 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20633 Submitted by:	brent@worden.org
+3a7fab66a I am removing this file because the build.xml file is now generated by Maven and periodically updated when the project.xml file is updated. This file was used with the old build.xml file prior to our use of Maven to generate the build.xml.
+d20ee8ab0 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20766 Submitted by:	brent@worden.org
+09c8b5792 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20773 Submitted by:	brent@worden.org
+765db662a PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20783 Submitted by:	phil@steitz.com
+3f313dff3 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20782 Submitted by:	HotFusionMan@Yahoo.com
+464aac515 Added the graceful handling of invalid and NaN domain values.  Created test cases to verify the graceful handling.
+1be3d3235 This house-cleaning improves UnivariateImpl, in a number of ways.
+d246044d4 Correction of Javadoc errors that end up propigating into UnivarImpl and other implementations.
+606ef299c More correction of Javadoc errors that end up propigating into UnivarImpl and other implementations.
+0811c1790 More correction of Javadoc errors.
+32fd0d5a5 I'm not sure with this algorithm, but I'm going to add this test back into the Variance that protects it from returning a value less than 0.
+9318b7a74 Rolling back to version 1.5 to provide for group discussion on the subject
+4de94a08c alternative root finding framework, and Brent-Drekker solver
+5acc48ef8 Initial Addition of StatUtils. Some methods need review, implementation and possibly debugging
+175c7c5fc Missed two static signatures in the methods
+d4f6a5c81 Addition of product and geometericMean.
+374b62d12 Addition of sumLog method (natural) to get the sum of the Logs. Altered GeometricMean to calculate the geometricMean from the sum of logs.
+7c57c2ed6 Adding corrected two-pass algorithm for variance calculation.
+5179d78ef Simplified calculation, removing extra division.
+c4c3868df Rolling back to previous version.
+202a38df8 Degegates to StatUtils now for "window" case. Implemented skew and kurt using recursive moments.
+283716c07 Last commit got formated with tabs, this is formated with spaces
+0191e6129 Initial Deposit for StatUtils unit testing, this was derived from StoreUnivariateImplTest.
+bc173f639 1. Gamma.logGamma was expecting epsilon and maxIterations but these parameters were not being referenced in that function.  These parameters has been removed.
+d6775caed Readded some activity reports to the maven site, now that we have more activity some of these reports make more sense
+dc115509c Why not? Readded the statcvs report....
+db0b59b9b Removed the proposed solvers, many compilation problems and a broken unit test.
+0da156162 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20964 Submitted by:	phil@steitz.com
+e3ea7f763 Removing mode.
+7e2a7b502 Adding tests for kurtosis and skew to UnivariateImpl testcase. Correcting initialization of moments in UnivariateImpl.
+81c03fcee PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20979 Submitted by:	phil@steitz.com
+d3f4480af PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20980 Submitted by:	phil@steitz.com
+b84e9460b This is a multifile commit, it covers checkstyle errors in javadoc etc. PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20936 Submitted by:	brent@worden.org
+8d3d1889f Removed last of the Math.pow's
+5e7fe9015 Moving TestStatistic implementation / interface into stat package.
+7dc1c05c5 Moving TestStatisticTest to stat package.
+8936d6e3a moving TestStatistic to stat package.
+9b2b61b77 Removing Product from Univariate Interface, applying sumLog changes to geomean in AbstractStoreUnivariate.
+4f17b718b Initial commit of package refactorings discussed in the group.
+50520ebc1 This is the first half of this pr. Commit of analysis solvers. PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20844 Submitted by:	J. Pietschman
+65062ddc8 This is the second half of this pr. Commit of analysis solver tests. PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20844 Submitted by:	J. Pietschman
+fed1f17d6 Additon of begin and length controls to StatUtils. Addition on test for array conditions.
+0d757f3e9 Added Checks for Exceptions
+a23548809 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21023 Submitted by:	j3322ptm@yahoo.de HotFusionMan@Yahoo.com
+a4c605d8a PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21003 Submitted by:	phil@steitz.com
+eccc4d887 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21005 Submitted by:	phil@steitz.com
+436f05c48 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21015 Submitted by:	phil@steitz.com
+542211e8c Exceptions handling for math packages
+2a0f36595 These only need to be in tests
+220d14781 moving test solvers to test directory
+fd93fdf0a Eliminated extra pass to calc mean in std calculation.
+62577ea18 Removal of statistical (min/max) and deleteFrontElements methods from DoubleArray interface (per our previous discussion)
+fb359aaee PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21277 Submitted by:	phil@steitz.com
+561a4c85e PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21295 Submitted by:	brent@worden.org
+2b5b0e7a1 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21313 Submitted by:	brent@worden.org
+0fd2f5fd1 This patch exposes the start index, internal double array of DOubleArray Implementations.
+b95322ce3 This patch exposes the start index, internal double array of DOubleArray Implementations.
+aa40a7e7c This commit adds the individual UnivariateStatistic package hierarchy, this hierarchy is currently independent of the Univariate and StoreUnivariate Implementations and provides storeless and storage based mechanisms for working with the individual UnivariateStatistic implementations.
+88d695280 Initial Tests for UnivariateStatistic package Hierarchy.
+77aa09dab This is an Implementation of StatUtils that uses the new UnivariateStatistic Framework and passes all JUnit StatUtils tests.
+dfb732fb0 Rotating Commons Collections version to SNAPSHOT to get latest primitive collections implementations.
+8ca0c4c84 Correcting checkstyle and javadoc errors.
+bc5950acb Fixes Compilation error that did not get commited last time.
+346a5756e Rolling Back StatUtils to previous version.
+b6871d607 Adding incremental tests for storeless univariates as evaluations are now based on the implementations that were previously provided by StatUtils.
+faa703e40 Addition of optimal array based evaluations available in StatUtils. These are not delegates to StatUtils, they are implementations.
+e449062da This XML configuration file will work with the most recent Maven plugin for Checkstyle, just change the project.properties to point to this XML file.
+41ac4c920 removed extra calculation.
+512f698ed Fixing GeoMean and adding appropriate test.
+4bf125a35 This commit adds the constructor and internals for setting and External Moment object to base internal calculations on. It also remove author tags and adds a new class FirstMoment to the project.
+7b6c61666 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21360 Submitted by:	phil@steitz.com
+9a827be03 Removing more of my author tags.
+7ec4d3874 Its more logical not to have increment return a value, this allows a distict separation between the calculation of moments and the calculation of the actually return value of getVlaue in Storageless approaches. With this benifit it is no longer neccessary to calculate all the statistics moment based statistics on addValue, only the underlying moment itself.
+297d2ca68 This is an attempt to get directories working properly in .cvsignore
+519237327 actually this is ok, its a problem with the fact that the directory already exists in the cvs.
+fe37437c0 In cases where "getResult" contains a statistical calculation, it now checks if the internal state of the underlying statistic has changed and only recalculates if this is true. this way muliple calls to getResult when the staistic has not been incremented are less expensive because it is only returning a property value.
+31166f2bb Changing getValue to getResult.
+d082672a8 Removing @author tags, adding missing @version tags.
+59f46d6a6 Adding J. Pietschmann
+7c808d907 Changes the Univariate implementations to use the UnivariateStatistic package. Slims down StatUtils by removing some of the higher moments. Reimplmenets ListUnivariate to work with NumberTransformers, turning into a Mixed Object List Univariate.
+2ab38de23 Patch for bug 21516 from Brent Worden. Fixed checkstyle bugs and added maven.javadoc.links to project.properties
+45a605897 minor javadoc cleanup
+1d62c398d minor javadoc cleanup
+2f4e70362 Application of "apply(Functor x)" strategy (thank you Al Chou) for evaluating UnivariateStatistics against the internal storage collection without exposing the collection or its bounds.
+233420ee6 Bugzilla #22002: applied Brent W's patch which dealt with URSFactory and URSFImpl as well as numerous improvements to javadoc
+5ba1bde43 Bugzilla #22002 from Brent W's patch - refactoring of UnivariateRealSolver
+88b4e3dbc Some rewording, mostly indentation.
+b3b89139b Just Checkstyle and Javadoc corrections
+026c12064 Some reorganization of the Tasks List.
+606b83606 Added classes for binominal distribution and some infrastructure for other discrete distributions. Contributed by Brent Worden (brent@worden.org)
+ffa6aac26 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=22954 Submitted by:	Brent Worden Reviewed by:	Mark Diggory
+4b7bef4b2 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=23010 Submitted by:	 Brent Worden Reviewed by:	Mark Diggory
+5971a93e3 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=23013 Submitted by:	Brent Warden Reviewed by:	Mark Diggory
+2d04bb133 User manual for root finding, distribution framework and special functions. Contributed by: Brent Worden Reference: #23367, #23361, #23389
+609917a77 Fixed JavaDoc warnings. Fixed a few TODOs in the interpolation code. Updated project TODO list. Promoted myself to "developer".
+d8931052e PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=23187 Obtained from: Submitted by:	Brent Worden Reviewed by:	Mark Diggory
+a985b47ff Fix to license, changed "names" to "name" in section 5
+595e470d7 Fixed typos in apache license
+985378c6f A couple additions
+eb4d267f5 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=23453 Submitted by:	Brent Warden Reviewed by:	Mark Diggory
+a4947309c PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=23716 Submitted by:	Brent Warden Reviewed by:	Mark Diggory
+005c054ed Rewrite StatUtils to use static instances of UnivariateStatistics. Benefits?
+091eaf2a3 Added references to email threads concering complex numbers.
+fe5d7c169 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24241 Submitted by:	Brent Worden
+b6083b191 Comments about Complex
+991078ece Comments about Complex
+e389289e7 Committing promotion to commons proper!
+a58c503cf Recovering Tree
+dd899e75f Recovering
+b3a6a6b3b Attempting to recover last revision.
+f61c462ff these were removed earlier than 11/1/03
+8cf1bdb6b Attempting to recover last revision.
+e5833affa Reapply changes (mdiggory    2003/11/10 09:43:34)
+dcc4de487 add .cvsignore (second try)
+772d74b0f Reapply changeset (mdiggory    2003/11/09 12:17:50)  Adding documentation for Contributors.  Adding xsl stylesheets to render xdoc in browser and css to style content, this makes testing documentation additions easier without rendering the entire site. Simply open up xdoc in browser to see what it will look like after rendering.
+d26b4d28f Reapply changeset (mdiggory    2003/11/09 12:17:50)  Adding documentation for Contributors.  Adding xsl stylesheets to render xdoc in browser and css to style content, this makes testing documentation additions easier without rendering the entire site. Simply open up xdoc in browser to see what it will look like after rendering.
+c9a095511   PR: http://www.mail-archive.com/commons-dev@jakarta.apache.org/msg29959.html   Submitted by:	Matt Cliff   Reviewed by:	Mark Diggory
+d916ecceb   PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24598   Submitted by:	Brent Worden   Reviewed by:	Mark Diggory
+8864381a9   Applied Brent Wardens Bug fixes to Complex implementation and tests.
+14bbddbc4 remove old files   Reviewed by:	Mark Diggory
+90017dc7e remove logging   Reviewed by:	Mark Diggory
+b033502af reapply DefaultTransformer update
+3619649ce   PR: http://www.mail-archive.com/commons-dev@jakarta.apache.org/msg29959.html   Submitted by:	Matt Cliff   Reviewed by:	Mark Diggory
+b2844c7d2 reapply (mdiggory    2003/11/01 08:14:45)   Modification to project.xml to build and locate the cvs tree in the proper location.
+7374ff2c4 Older versions of the txt files that currently exist in this directory.
+d1249493e Adjusted Contibutors and Developers lists.
+8eea85e16 Adding more external javadoc links.
+6124dbede Site Logo :-)
+29881fdfa Test commit.
+1b45cc819 Test commit.
+0810e249a fix for wrong results and stack overflow error from BivariateRegression PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24747 Obtained from: Submitted by:	Sergei Skarupo, Brent Worden Reviewed by:	Mark Diggory
+071889596 Exposed MathException handling in Distributions by adding thows MathException to methods where MathExceptions are caught and replaced with Double.NaN. Added Serialization Interface to Distributions, BivariateRegression and TestStatistic
+c468a07aa Added Serialization Interface to all Implementations
+85a8b141a change email address.
+29aba171e Additional tooling for simple JUnit testing of serialization.
+3c0ef74e4 JUnit testing of serialization of all StorelessUnivariates
+6410d97b9 Correct typo in documentation. Submitted by Doug Bateman.
+4683ebbf9 I've thought about this and I like the idea of getting some of this code available in the cvs for experimentation, I'm going ahead and adding it for others to look at and consider.
+8406e7ae6 extends MathException....
+04094833d Here's my idea for approximating derivatives.  It follows the decorator layout of commons-collections.  The main interface point is the UnivariateRealFunctionUtils type which is responisble for creating decorated UnivariateRealFunction objects.  To demostrate the how the decorators could be used, I added the UnivariateRealFunctionUtilsTest class which computes a local maximum of a function using derivative decorators and the default solver.
+4fc6b5e54 New additions of CholeskySolver contributed by Stefan Koeberle
+b84b723ef Patch to correct error in matrix multiply and the addition od toString method.
+f608f7503 Additional Matrix Multiply test
+97e088c88 fixed ids, but unable to find Apache id for Albert Chou
+54309a11c Added documentation.
+cc6831488 Added load(URL). Addressing PR #25972, reported by Bill Barker.
+77a52d982 Refactored load methods to eliminate use of URL.toFile(). Addressing PR #25972, reported by Bill Barker.
+e8098d425 Refactored file handling methods to eliminate use of URL.toFile(). Addressing PR #25972, reported by Bill Barker.
+d0ac3d2a5 Modified tests to reflect changes addressing PR #25972.
+8637f023f Added humble self to developers.
+afc57189d Fixed capitalization.
+28c13b61b Fixed source formatting.
+98e2fabf9 Fix URL -> File conversion in the test.
+1cb445f50 Removed completed/obsolete tasks, added RealMatrix refactoring task.
+706129065 Removed completed tasks section, restored future tasks, added conf intervals.
+dd670b29c Updated copyright date (after BZ #25972 changes).
+c0f2bcdaf Added data generation doc.
+cc63455b3 Replace deprecated method.
+5a5d8eee6 shortDescription ends up going into META-INF properties file. Punctuation makes this break for some reason.
+985aad0b1 javadoc.
+1b96f28e4 Refactored statistical aggregates to separate stored, storeless implementations. Changed internal sample size counters to longs.
+fcde02ecc Added Normal Distribution implementations and tests contributed by Piotr Kochanski.
+f1d4fdb48 Added Piotr Kochanski to contributors.
+9dbee2f04 PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24962 Obtained from: sergei skarupo
+00cfd0a1a Eliminated unecessary first moment computations.
+8647ea1d5 Added .clover and junit temp output to the cvsignore
+204063d31 RealMatrix now throws two more runtime exceptions InvalidMatrixException and MatrixIndexException
+dda3ec944 Project dependencies for commons-collctions and commons-lang were pointing to the SNAPSHOT of both.  When this was iriginally done, it was agreed that pointing to a SNAPSHOT was not an option for a release.  Now that compatible version of these to component have been released, the versions have been updated.  Commons Math now depends on collections 2.1 and lang 2.0.
+214a7aa4f A maven.xml file with a custom goal for cutting math releases. Does snapshot resolution prior to cutting release.
+1177050dc Happy New Year
+19080d7f0 Happy New Year, updating all license years to 2004
+ec5fb0ca3 Added a simple formatting class for Complex numbers. I had considered just implementing toString() on the complex class, but I decided aginst it because some fields prefer "j" to "i".  This ComplexFormat class is very straightforward, will a number of TODOs, it is accompanied by a 10 tests.
+36d2a54a3 Javadoc.
+90be3c8e9 Speed up, clean up.
+f6458ee9d Replaced unnecessary bin search with direct computation.
+de37f31a2 Actually, we should really be switching to Apache license 2.0.
+9698abfb3 Removing default generated @author Administrator tags from Eclipse
+64ec9779a adding comment on maven property to skip tests.
+23b77d7fe Info for Release Manager, feel free to change.
+491c3e7e4 New graphics for white background
+91f6e521e Converted to commons standard l&f.
+60541810a Fixing email addresses and changing version to 1.0
+98c9b0745 Fixing version number.
+450ff9aa9 Ajusting xdoc templates css styles appropriately, these are just used for testing/preview in xml/xslt enabled browsers.
+f1e2670f7 Added bound to simulation loop in nextPoisson().
+21ef26838 Refactored Frequency to support cummulative frequency counts and percentages. Also eliminated the name property.
+9ca486323 *** empty log message ***
+a511ea4ca Moving extension of global project.xml to ../commons-build/project.xml on those project.xml files which originally had it in place.
+0edbfb6b8 Added load(double[]) method to EmpiricalDistribution. Contributed by Piotr Kochanski PR # 26772
+7255ed0bb included navigation should be from commons-build now.
+735fc1ac3 Fixed broken download link, removed local path reference.
+1d2c37a6c Commented out sysouts.
+11da77c69 Stopped header comments from confusing javadoc tool.
+9267ae3bb Fixed logic in bean transformer tests to match API.
+31a89ac8d Restored test code inadvertently deleted with last commit.
+a3c8daf76 Restored original copyright date.
+70106770e fixed spelling error: cummulative -> cumulative.
+f6b9a428c Adding Commons Site Look & Feel configuration to all jakarta-commons/<project>/project.properties
+f41527455 Added degree() method, degree checking in derivative computations, made constructor copy coefficient array, cleaned up javadoc.
+424d64441 javadoc, error message cleanup.
+466c8f421 Updated license to 2.0
+e884e834f javadoc.
+7eb00dc78 Change to Apache License 2.0
+94f23a61b Added copyright notice and reference to 2.0 license.
+8b80de72b Modified jar goal to include Apache License and notice in the jar. Fixed copyright notices. Reformatted xml.
+d948617ae PR: 27243 Obtained from: Scott Duchin Submitted by: Brent Worden
+a9c7bad42 Eliminated author tags.
+4ae88357f Added Javadoc to the ComplexFormat class
+1ea467cb3 Added JavaDoc to the Complex class, still more work to be done.
+11202c19d Added more content to statistics and distributions user guide.
+be15008b6 Switching to usage of menu's dtd to insert commons navigation items, using common-menus entity to reference commons menues in navigation.xml, sorting is done by Maven.
+e6c5757f9 Filled in missing content in univariate statistics section.
+e5bc149a2 Javadoc.
+08d7f9228 Filled in missing Frequency section.
+3de23df52 Fixed error in getCumFreq (use custom comparator when one is supplied). Removed tabs.
+0c6b77b4e Added Frequency example showing cumPct for a value between stored values.
+7e6d5d5d5 Added test cases corresponding to examples in the User Guide.
+0a0c7e365 Dropped extraneous line added in error with last commit.
+eff1e7368 Initial commit.
+e10e6db2e Changed to extend RetryTestCase to allow retries when statistical tests fail.
+b3641de2a Fixed javadoc typo.
+bd460b62f Stopped swallowing MathExceptions, cleaned up formatting.
+e9c7ed28a Replaced low-accuracy textbook comparison values with values from R.
+6ac0ed2d8 Fixed code and javadoc to advertise the right exceptions, cleaned up formatting.
+d29a69613 Renamed internal field, added algorithm documentation.
+4a5d8f8a0 Added tests based on NIST definition.
+4b4b6aed4 new approach to testing against certified data sets.
+f5ae32413 Corrected javadoc, minor improvment to computation.
+f630d0f9a Corrected javadoc, minor improvment to computation.
+d39adf680 Javadoc only. Added reference link.
+f4c6535ec Adjusted target values for product, log sum and variance based on exact computations using BigDecimal, comparison to R. Changed percentile targets to match implemented algorithm.
+2adb974fd Added another test, fixed reference to target values.
+b8561416a Override getTolerance() to work with correct target value.
+e20c24d52 Formatting.
+a6da5c1c9 Removed unused import. Javadoc.
+2457c7703 Javadoc.
+f3676b501 Javadoc
+2203f7578 Initial commit.
+dff74f574 Initial commit. Replaces InterpolatorTest.
+e7ef3aa7a Initial commit
+0a4655008 Modified constructor to copy input coefficients array. Changed evaluation to use Horner's method. Exposed coefficients as read-only property Implemented DifferentiableUnivariateRealFunction interfaces Dropped redundant firstDerivative, secondDerivative methods
+36fcb5c54 Fixed implementation, improved documentation.
+4ceb3413f Added method to check that two double arrays are equal.
+ba1a9adff Modified tests to use derivative methods.
+5f543b9e9 Removed CubicSplineFunction, replaced by PolynomialSplineFunction.
+6f44b3961 Removed InterpolatorTest, replaced by SplineInterpolatorTest.
+bba015b90 Removed misleading javadoc comment on derivative value constraints.
+70b35ebdc Javadoc fixes, advertise correct exception in inverse().
+b465bb15e Add tests to verify InvalidMatrixException is thrown by inverse() for singular or non-square matrices.
+04af29f63 Forced maven build to fail on test failure.
+95af96d82 Improved Javadoc and fixed comparison error in indicator(short). Contributed by: Christopher Schuck Pr #28194
+d3662d7bf Updated to reflect current status.
+cbb3d2793 links are not inherited
+3a35f193c Modified luDecompose to require that the matrix be square. Added RealMatrix preMultiply(RealMatrix). Modified preMultiply(double[]) to return a double[]. Renamed private pivot[] array to permutation[]. Exposed lu decomposition matrix and associated permutation array as protected properties.
+a387134c0 Added RealMatrix preMultiply(RealMatrix). Modified preMultiply(double[]) to return a double[].
+4cec2e0c7 Added preMultiply(Matrix) tests and modified preMultiply(double[]) tests to match new interface. Added R-verified determinant tests. Added R-verified lu decompostion tests and tests verifying that lu decompositions satisfy the lu matrix equation.
+2898b7806 Added serveral javadoc comments.  Added constructors to the matrix exception classes to mimic the existing math exceptions.
+1c5a14625 Newton's method using the new differentiable interface.
+ba660deb3 Removed extend, migrated repository, Apache project metadata and  adjusted build settings appropriately.
+10b612d0d Removed obsolete checkstyle properties file.
+ff14c2408 Added Christopher Schuck to contributors.
+b6d8e5669 Javadoc. Fixed broken / malformed links.
+99352b4f1 Improved verification logic in test().
+2a9568f09 Created inference package, moved statistical tests there.
+60c2400e7 Fixed package declarations.
+f7794b5b9 Moved TestStatisticTest to new inference package.
+c51d98d8b Fixed imports.
+6e8426b2c Moved BivariateRegression to multivariate subpackage.
+f7057c3ff Moved univariate statistical aggregates into univariate package.
+bbe1c785a Added tests for indicator functions. Contributed by: Christopher Schuck Pr #28343
+cbb93d0d7 Eliminated tabs.
+f5a510d4f Reordered checks in test() method to avoid NPE.
+2e884beb2 Added tests for AbstractUnivariateStatistic.
+9f1299ec9 Fixed error in copyright notic.
+75d34c629 Added missing fail stmnts, fixed index error
+d01b3bb2f BeanListUnivariateImpl was misplaced during the move.
+5afef994a Sorry, placed it in the wrong directory
+8975e90c9 BeanListUnivariateImpl was misplaced during the move.
+de950983b Removed author tags and emails, fixed link to nightlies.
+c82f497b9 Fixed a TODO by addid a isStrictlyIncreasing method.  This can be refactored later into a more reusable location.
+c952896cf Removed some TODO comments.
+aa676aa69 Added javadoc comments replete with Mathworld references.
+96840a4a3 Added some parameter javadoc comments.
+0505d2a32 Added exceptions to javadoc comments.
+8b7920c4b Updated dependencies to latest release versions collections: 3.0 (added to java-repository) beanutils: 1.6.1 discovery: 0.2 (added to java-repository)
+683a02723 Replace deprecated TreeBag with collections 3.0 version.
+576505a29 Javadoc.
+3064e53da Implemented addValue(double) using DynaBeans.
+d6892947c Updated dependencies.
+990748537 Added BivariateRegression section.
+7c918e3c6 Fixed formatting, eliminated swallowed exceptions.
+aff4070d6 Fixed typos.
+04e808a26 Added missing package.html files and added APL 2.0 to existing files.
+1d0286e29 Touched up the javadoc comments.
+ee53ecd19 Added user guide sections for complex numbers and distributions.
+9b7bab428 Added user guide entry for continued fractions.
+4952dd85d Fixed some checkstyle warnings.  Changed checkstyle settings to use APL 2.0.
+c415dd79a Fixed some checkstyle warnings.  Added some unit tests.
+063bb6b88 Unit tests.
+8490149ab Removed file to be replaced by TTestImpl, ChiSquareTestImpl.
+81da2fafa Removed file to be replaced by TTest, ChiSquareTest.
+3e97a3afb Removed file to be replaced by TTestTest, ChiSquareTestTest.
+257ee19b3 Initial commit of code split off from TestStatistic. Changed observed vectors to be long[] arrays and added support for independence tests using 2-way tables.
+a878b64c1 Initial commit of code split off from TestStatistic.
+50bda14d3 Initial commit of tests replacing TestStatisticTest.
+113c99fc4 Changed chi-square tests to pass long[] arrays of observed counts.
+d522e47b8 Added some unit tests for descriptive statistics.  Fixed bug dealing with resizing to infinite window size.
+631377f86 Removed failing test.  Should never have been committed.
+84839d3f0 Added unit tests.
+80b101bea Removed pending license investigation.
+21314a8b5 Replaced normal CDF routine with one based on the error function.
+5e4fd24bd Added significance tests section.
+4100eabf7 Updated missing userguide sections.
+0e424881f Changed binomial coeffient computations to allow n = k = 0, returning 1 in this case.  This is standard and also required for degenerate hypergeometric distribution computations.
+c6a310720 Improved documentation. Added x0 <= x1 check in cumulativeProbability. Required p < 1 in inverseCumulativeProbability.
+617f23017 Improved documentation.
+38293084b Added consistency checks for constructor parameters.
+cd6d71b96 Initial commit.
+73812e41d Modified to extend DiscreteDistributionAbstractTest. Added degenerate test cases.
+00865f38c javadoc typos.
+8d6e55fa9 Added missing sections.
+21c0a4d3d Added overview, removed statistical utilities (covered in stat section).
+7abfc91d9 Updated missing user guide sections.
+c434c7090 Added tests corresponding to examples in user guide.
+b224cbfcf Initial commit -- value object representing statistical summary.
+1ed7683a7 Added getSummary method returning StatisticalSummaryValues VO.
+da64b62f7 Added tests for getSummary() added to SummaryStatistics.
+f4e161390 Documented some runtime exceptions. PR: 29013
+b98f50b1c Fixed javadoc warnings.
+092b61c11 Javadoc.
+384e07ad4 Improved efficiency.
+410fb9d6f Removed a series of unused imports in various classes both source and test. PR: Obtained from: Submitted by: Reviewed by: CVS: ---------------------------------------------------------------------- CVS: PR: CVS:   If this change addresses a PR in the problem report tracking CVS:   database, then enter the PR number(s) here. CVS: Obtained from: CVS:   If this change has been taken from another system, such as NCSA, CVS:   then name the system in this line, otherwise delete it. CVS: Submitted by: CVS:   If this code has been contributed to Apache by someone else; i.e., CVS:   they sent us a patch or a new module, then include their name/email CVS:   address here. If this is your work then delete this line. CVS: Reviewed by: CVS:   If we are doing pre-commit code reviews and someone else has CVS:   reviewed your changes, include their name(s) here. CVS:   If you have not had it reviewed then delete this line.
+56d545478 Got rid of a number of those pesky "Auto-generated catch block" comments from test code. PR: Obtained from: Submitted by: Reviewed by: CVS: ---------------------------------------------------------------------- CVS: PR: CVS:   If this change addresses a PR in the problem report tracking CVS:   database, then enter the PR number(s) here. CVS: Obtained from: CVS:   If this change has been taken from another system, such as NCSA, CVS:   then name the system in this line, otherwise delete it. CVS: Submitted by: CVS:   If this code has been contributed to Apache by someone else; i.e., CVS:   they sent us a patch or a new module, then include their name/email CVS:   address here. If this is your work then delete this line. CVS: Reviewed by: CVS:   If we are doing pre-commit code reviews and someone else has CVS:   reviewed your changes, include their name(s) here. CVS:   If you have not had it reviewed then delete this line.
+9459e748c ComplexFormat now handles situations where either the real or imaginary part is NaN, POSITIVE_INFINITY, or NEGATIVE_INFINITY. Three new tests were added to address these situations. PR: Obtained from: Submitted by: Reviewed by: CVS: ---------------------------------------------------------------------- CVS: PR: CVS:   If this change addresses a PR in the problem report tracking CVS:   database, then enter the PR number(s) here. CVS: Obtained from: CVS:   If this change has been taken from another system, such as NCSA, CVS:   then name the system in this line, otherwise delete it. CVS: Submitted by: CVS:   If this code has been contributed to Apache by someone else; i.e., CVS:   they sent us a patch or a new module, then include their name/email CVS:   address here. If this is your work then delete this line. CVS: Reviewed by: CVS:   If we are doing pre-commit code reviews and someone else has CVS:   reviewed your changes, include their name(s) here. CVS:   If you have not had it reviewed then delete this line.
+e0452e4d7 Pre Issue 29012, getKurtosisClass() did not have a tolerance; therefore, any non-zero kurtosis was consistently mesokurtic.  Instead of getting into this level of detail, getKurtosisClass() has been removed, it is a subjective measure not appropriate for DescStat.
+2552cb1ae Modified t-test procedures to allow samples as small as 2 observations. PR # 29050 Reported by: Joel Freyss
+414788a04 Added test case for small samples, adjusted for PR #29050 changes.
+2ad68ba54 Javadoc fixes missed in PR #29050 changes.
+6c07bd13a Addressed exception "swallowing" in test coverage.  From Phil's recent email: "If the test case throws an unexpected exception, the test should fail.  ....[fix] these by changing the test method signature to throws Exception.  This also eliminates the need to import MathException everywhere."
+403e4e495 Added support for paired t-tests. PR #29049 Reported by: Joel Freyss
+c80262403 Added paired difference stats necessary to support paired t-test computations efficiently. PR #29049
+7c230bf2c Added tests for paired t-tests. PR #29049
+8e995890e Initial commit.
+b31439f3e Modified to extend ContinuousDistributionAbstractTest, improved coverage.
+dc8569711 Added endpoint order check to cumulativeProbability(double, double).
+1d5a4e2d3 Modified to extent ContinuousDistrbutionAbstractTest. Improved coverage.
+df23d31d6 Fixed some typos, formatting.
+229c78208 Modified to extend ContinuousDistributionAbstractTest, improved coverage.
+5b9f353ee Modified to extend ContinuousDistributionAbstract test, improved coverage.
+09d2c9d13 Modified to extent ContinuousDistributionAbstractTest.
+70950e0fe Javadoc fixes.
+63bf67954 Added implementation for paired t-test boolean method.
+03ec3fdca PR: 29000 Made ComplexFormat extend java.text.Format providing complex object formatting and parsing.
+82b4bc194 Removing BeanListUnivariate example from test cases. Improving ListUnivariate Serialization Example.
+01f63cf80 Consolidated AbstractDescriptiveStatistics into DescriptiveStatistics. Added Serialization interfaces where required.
+3126cdce8 Added Serialization UID where required.
+f8e77d4ff Moving BeanTransformer to Experimental
+3dbc735ae Removing Dependency on BeanUtils
+67d0cea18 Using standard jva.bean.Expression API to coerce property value in BeanTransformer.
+753885585 Exception is getting exposed where it wasn't shown before.
+a40de0d92 Now that we have BeanUtils "free" versions of these they do not need to be maintained in experimental.
+2e9819075 These Bean Classes have been added to experimental as internal classes in BeanListUnivariateImplTest
+8dd233d16 Removed Dependency on BeanUtils and regenereated build.xml to reflect changes.
+c3256e25e Test Example for serialization of Solvers and Functions.
+e9bba109e This class doesn't benefit from serialization, it has no internal state.
+45f78a21b Adding serialversionUID to control versioning and allow for implementations that would like to maintain serialization.
+7f04479e5 Adding serialversionUID to control versioning and allow for implementations that would like to maintain serialization.
+73d893501 Added support for equal variances tests.
+55e74ff9d My local settings forced downloads in Ant to Apache instead of Ibiblio. I've corrected this.
+5453c55ee This call to StringUtils did very little for the following conditional structure. Consolidated code and removed dependency on lang.
+5d8d91898 Removed unused imports
+09bbff13c Updated t-test docs to include paired, homoscedastic tests.
+a2b5dfb92 Dropped serialization.
+4aaa9403b Dropped rank method.
+cce3fc85c Converted tabs to spaces.
+73b3b9d80 Initial Commit of BigMatrix classes. PR #28819 Submitted by Matthew Inger
+d41fbb232 Corrected copyright date.
+c9f353cee Modified to extend AbstractContinuousDistribution. Changed to throw IllegalArgumentException instead of returning NaN for inverseCumulativeProbability argument not in [0,1].
+e571567af Modified to extend ContinuousDistributionAbstractTest.
+d8a43bf62 Cached DistributionFactory instance used to create TDistribution instances.
+444c87274 Cached DistributionFactory instance.
+1af2a2a25 Formatting only, Eliminated tabs and trailing spaces.
+e626217e4 PR: 29419 Added an implementation of regularized gamma function, Q(a, x) = 1 - P(a,x), based on a continued fraction.  This converges much faster for the large x case.  I added the example submitted by Scott as a test case and ran all the test cases with everything passing.
+272846b36 Removed BeanUtils from list of dependencies.
+15f4e86e9 Javadoc only.
+d83250a89 PR: 29414 I changed the continued fraction used in regularizedBeta resulting in faster convergence.  I added the test case provided by scott and ran all units tests with all of them passing.
+15aac108f removed some condition logic by changing the continued fraction representation.
+45224a8ea Combined Expandable, ContractableDoubleArrays into ResizableDoubleArray and dropped FixedDoubleArray.
+fc2664248 Formatting only. Removed tabs and trailing spaces.
+a6b433d25 Formatting only. Removed tabs.
+336444a75 Dropped load / save methods taking string file paths as arguments.
+e668ff96b Dropped (unimplemented) load / saveDistribution methods.
+b7ed15c61 Dropped load method taking string file path as argument.
+519542bdd Javadoc, formatting.
+49a083af1 Javadoc.
+1363c7d01 Changed test class names to match implementation classes.
+297d6c9d5 Added equals and hash methods for comparing / hashing double values.
+a749d017b Changed getUnivariateStatistic() implementation to return a new instance (so tests can use multiple instances).
+1d37fc5fd Added method to verify that serialization / deserialization preserves equals and hashCode (when this is supported).
+d4a4d302a Implemented equals and hashcode.
+f80d05b49 Added tests for equals and hashcode.
+43c35b992 Implemented equals and hashcode, making summaries with identical statistics equal.
+6cd6c15ff Added tests for serialization, equals and hashcode.
+fb78bf24b Added missing statistics in toString.
+24bb5fe88 Added serialization tests.
+b43afdc66 Eliminated no-op increments which will throw once *silent* increment does.
+f1ba9cea7 Improved javadoc. Eliminated unecessary / unused data members. Made increment() and clear() throw IllegalStatException when the statistic is based on an external moment. Ensured that Double.NaN is returned for n < 4.
+a3d72f790 Added tests to ensure NaN is returned for n<4
+91912d3f7 Javadoc.
+4a92f7c65 Formatting only. Eliminated tabs.
+528614eda Improved efficiency and javadoc.
+0b501b4ac Added tests for special values.
+e90f31a26 Improved javadoc, implementation.
+e5ea3a048 Added tests for special values.
+d3322d7d6 Made increment and evaluate methods consistent wrt NaN values, improved javadoc, formatting.
+fe63fc7a8 Added tests for special values.
+2b28400f9 Uncommented previously failing tests.
+3a385a5aa Made increment, evaluate consistent wrt NaN, improved javadoc.
+80af9ad49 Added tests for special values.
+a39d48f1e Javadoc.
+78ec9dc5b Enforced bounds on quantile, improved javadoc.
+a2e44f773 Added tests for special values, quantile range checking.
+328e70e31 Fixed license header, added missing javadoc.
+1b8645f8d Javadoc, formatting.
+f64734e87 Changed implementation to use TreeMap directly, eliminating [collections] depenency.
+8a52cbfdf Dropped [collections] dependency.
+8d1b142b0 regenerated Ant script; dependencies were removed.
+c28fd51e8 Fixed javadoc, checkstyle, and link warnings.  Made some corrections and additions to the user guide.
+b62121fda regenerated Ant script using relative paths.
+7cee8c8a9 Removed dead code.
+2e54805bf Removed dead code.
+51ca42702 Added more tests for bad input data.
+653035b43 Improved javadoc, simplified implementation, ensured NaN is returned when n=0.
+eebb5b0c4 Added test to ensure NaN is returned for n=0, and 0 for n=1.
+6a3874abd Improved javadoc, simplified implementation.
+1916ebe30 Added tests to make sure n=0 results in NaN, n=1 returns 0.
+0ad427869 Added tests for second, third, fourth moments.
+6e21d2399 Improved javadoc, simplified implemenentation.
+d7bc4a2d8 javadoc
+043e97c9f Implemented equals and hashcode.
+ee290a0a4 Added tests for StatisticalSummaryValues.
+f776bd2be javadoc
+2559dc40d Documented and fixed NaN handling.
+afe19bb84 Added tests for NaNs, infinite values.
+c9ac892c4 Added tests for n=0, 1.
+c1062adc0 Added small sample tests for 2nd+ order moments.
+c24f331cb Fixed, documented NaN handling.
+ee7756953 Added tests for NaN, infinite values, n=0,1
+0def426df Fixed, documented NaN handling; changed internal counter to long; replaced pow with *.
+e403d2df9 Added tests for NaN, infinite values, n=0,1.
+b77e14987 Made NaturalComparator member class static.
+bc5b99791 Removed link to external definition, as formula has been added to javadoc.
+610862cbb Made fields final.
+3f3c1b46e Made Sum instance local to evaluate. Improved javadoc.
+ef551125c javadoc
+0f3a32dd9 Added incrementAll(double[]) methods.
+cecda770c Changed evaluate method to use embedded moments instead of duplicating code.
+23691122e Added evaluate method taking mean as a parameter.
+29c4a3463 Added evaluate method taking mean as a parameter. Changed implementation to wrap, rather than extend Variance.
+d5a2cabb8 Add evaluate/increment consistency test.
+78a6df915 Catch NoClassDefFound Error when DiscoverClass not present, eliminating runtime dependency on [discovery], [logging]
+a4bde1dc4 Caught NoClassDefFound Error when DiscoverClass is not present, eliminating runtime dependency on [discovery], [logging]. Removed factory method taking string class name (use of Class.ForName()).
+9360c3783 Eliminated dependency on [logging].
+5895dba6f Changed getN() to return long. Changed evalutate() to return NaN if sample size is less than 3 (consistent w/ getResult()).
+43af86513 Changed getN() to return long.
+27cbce332 Added test to make sure NaN is returned when it should be.
+65b57b601 Removed tests for factory methods that have been removed.
+2f88509be Added test for getN() and evaluate/getResult consistency test for small samples.
+2ac0eb8cd Eliminated [lang] dependency.
+9ba5a237d Added tests for printStackTrace(), serialization.
+af2937a3e Added methods allowing exact values to be set using string representations.
+e3c013320 Added missing method for computing variance from mean with no subarray specified.
+96fc8f14c javadoc only.
+fbae62101 Added methods for computing variance using precomputed mean, javadoc.
+75dc4f119 Added tests for methods computing variance from mean, removed obsolete tests.
+6251c12a5 Changed to extend RuntimeException, removing [lang] dependency.
+f5a52ac0b Eliminated [lang] dependency and local path reference.
+4dc9b8ccb Eliminated [lang] dependency.
+f156491e8 Removed [lang] dependency.
+d6b8609c9 Removed redundant null check.
+f2a78ef3b Renamed ComplexMath to ComplexUtils.
+24a29e017 Added FunctionEvaluationException and test class.
+c267aedbf Renamed RealSolverTest to BrentSolverTest.
+c1e905742 Javadoc.
+2bf0772ff Javadoc.
+b3588619a Added argumentless constructor.
+b03610041 Dropped serialization.
+eb6fb6cda -Changed UnivariateRealFunction.solve() to throw FunctionEvaluationException. -Changed UnivariateRealSolver.solve() to throw more specific exceptions:   ConvergenceException if max iterations is exceeded   IllegalArgumentException if endpoints do not (appear to) bracket a root   FunctionEvaluationException if an error occurs evaluating the function -Changed UnivariateRealSolver setters to throw IllegalArgumentException  instead of MathException when input property values are out of range. -Changed AbstractContinuousDistribution.inverseCumulativeProbability to handle  corner cases where solution equals domain lower or upper bound. -Improved javadoc. -Improved test coverage.
+219db32c2 Added geometric mean to StatUtils.
+8c57bad83 Removed unused import.
+a94d38697 Changed implementation to wrap, rather than extend SumOfLogs.
+4ecbafad3 Changed wrapped Variance instance to private.
+2893f9bfd Moved instance field initialization into constructor.
+5bc7adf6b Added constructor.
+9a5b335e4 Changed some methods to return interface types. Improved javadoc.
+712cfcd10 Javadoc.
+020a06aab javadoc.
+92ad68608 Added test class for PolynomialSplineFunction.
+7c4049003 Added *last* missing sections :-)
+078e590d8 Fixed typo in toString(), added median.
+d1a8e962c Added test for toString().
+f457a74d0 Add test for getN.
+191ec1a14 javadoc
+207da9b29 Formatting, minor edits / updates.
+5316724b7 Changed to allow p=1 as argument to inverseCumulativeProbability.
+a33aa3962 Changed implementation to return correct inverse probabilities for p=0,1 (per discussion on commons-dev).
+2bc3611d2 Changed inverseCumulativeProbability to correctly handle p=0,1 as discussed on commons-dev.
+86b71e296 Removed basedir property, causes updated plugin to fail.
+f07896587 Changed inverseCumulativeProbability to return correct values for p=0,1 as discussed on commons-dev.
+458d322d0 Minor edits, formatting.
+2255b4353 Removed completed tasks, added Rational/Fraction class task for next release.
+478ad433a Changed statements about references to allow inline definitions, algorithm descriptions.
+bec758a4e Changed Task list label.
+b134bf41f Corrected inverseCumulativeProbability(0).
+77b718485 Removed boolean equalVariances flag from t-test API.
+225cfc7ac added default goal.
+61c175d0e Fixed two errors reported on commons-user / commons-dev: 1. addValue(object) and getXxx methods failing or returning incorrect results for Integer arguments when the freq table is not empty 2. getXxx methods failing / returning inconsistent values when invoked on an empty table.
+cf659c5f7 Added missing semicolon in example.
+41bbba82b Preparing for 1.0 release.
+32a8887dd Preparing for Release 1.0
+3ef96c779 Suppressed regeneration of build.xml; path bug still present in ant plugin 1.8.
+7eaff9c58 Prepare for RC1.
+3da223983 Added top level link to Javadoc
+1cb4160ce Added pregoals to copy NOTICE.txt to both distributions and to drop /experimental from source distro.
+90414be48 When content is generated, the stylesheets are copied out of commons-build instead of being linked to, this allows independent stylesheets to be used in distributions. Maintains look and feel when jakarta site is inaccessable.
+1788926ce Adding postGoal to copy css stylesheets from commons-build when site is generated. Please maintain this modification for consistent look and feel across commons subprojects.
+ead1ee60a Added link to Wiki, edited contributing section.
+ab8922119 Removed method marked for removal prior to release.
+ea75da05a Fixed javadoc typos.
+20ea8a015 info on creating patches
+68695e53f Renamed BivariateRegression to SimpleRegression.
+0715a1118 Javadoc. Made assumption about precomputed mean in variance computations explicit.
+45fe7d298 Javadoc. Made assumption about precomputed mean explicit.
+3f5862a60 Made assumption about precomputed mean explicit in javadoc.  Added missing method.
+0493b48d1 Modified regression section to reflect class name change.
+411c6c9b2 Javadoc.
+b39b6c707 Made standard matrix entry addressing explicit in javadoc.
+b1b111d8b Added public PGP keys file for signing releases.
+1f0fde531 Changed matrix indexing to be 0-based.
+71e95c4c4 Fixed "premature" 1.0 download links.
+9ffd5866c Fixed error computing cumulative frequencies when actual parameter is an Integer.  Reported to commons-dev list by Jon Langlois.
+c8b8ac237 Initial commit.
+acaf142f0 Prepare for 1.0 release. Turned on changes plugin report.
+e11c64e6b Prepare for 1.0 release.
+355e29867 Modified addValue(Object) to convert Integers to Longs, completing (hopefully ;-) fix of problem with integral type conversions reported to commons-dev by Jon Langlois.
+ff0fe8317 Added test case to ensure Integers passed to addValue as Object references are converted to Longs.
+7ae35df8c Added locale support to complex format.  Added test cases for specific locales. PR: 31325
+c528c90ae Added locale support to complex format.  Added test cases for specific locales. PR: 31325
+9ed2ab275 Added ComplexFormat fix.
+d43245186 Renamed .univariate -> .descriptive, .multivariate -> .regression
+517e5feaf Improved performance of logGamma. Pr #31522 Submitted by: Ken Geis Reviewd by: Phil Steitz
+4416f75d5 Add Ken Geis as contributor.
+b184eaef4 Updated to reflect recent changes.
+d99528598 Fix issue attribute name.
+e6ea6f71b Set changes.issue.template property.
+984e175bb Added submatrix accessors. Pr #30897 Submitted by: Kim van der Linde Reviewed by: Phil Steitz
+49a018936 Added Kim van der Linde to contributors, changed version to RC2.
+ef2faa199 Added row and column matrix accessors. Pr #30897.
+78677f222 Implemented equals and hashCode.
+4fe1f135a Formatting, javadoc, plus fix for toString to handle empty matrix.
+aa015cae6 Added test for toString.
+55a1e448c Added support for population variance computation.
+6140520e7 Improved coverage in population variance test.
+4fb4ec425 Javadoc.
+85b1fc5f5 Javadoc.
+0d564ce2f Added support for population standard deviation.
+488ed27c2 Removed data mutators from RealMatrix interface and RealMatrixImpl.
+73aa4c97d Initial commit of MatrixUtils, including RealMatrix factory methods.
+20eb63732 Changed factorial methods to return 1 for argument = 0. Pr #31687 Reported by: Fredrik Norin
+8b5b7b3ba Updated to reflect recent changes.
+c1bf641db Fixed error in slope parameter significance estimate Pr #31860 Reported by: Kim van der Linde
+b8dafee10 Fixed bugged test (pr #31860), added more R certified tests
+bcdc50d51 Pr #31860 fix.
+6303d4f97 Fixed typo.
+72857df1f Fixed test compile bug introduced in last commit.
+691be295d Fixed hashcode computation so elements in first row, col contribute.
+3cc04c99f Added Matrix-valued row, column, and subMatrix accessors as suggested by Kim van der Linde (Pr #30897). Implemented equals and hashcode. Modified toString() to handle empty matrix.
+730dad4cd Added tests for row, column, subMatrix accessors, equals and hashcode, toString.
+4bd409554 Removed entry mutators, making BigMatrix instances immutable (like RealMatrix).
+20a6b4de5 Modified tests to work with immutable BigMatrix.
+0ef8a93eb Added checks for validity of arrays supplied to constructors.
+d6f812567 Added methods to create BigMatrix instances.
+9000bde94 Updated to reflect BigMatrix changes.
+fd2df97aa Removed empty loop.
+90dcb817a Removed unused import.
+73c2e79c8 Removed unused import.
+6182573f5 Refactored distribution package so that more general distributions can be represented and added Poisson distribution. 1) Added Distribution, AbstractDistribution 2) Added IntegerDistribution, AbstractIntegerDistribution 3) Added PoissonDistribution contributed by Fredrik Norin (PR #31688)
+7e251707f Added Fredrik Norin to contributors.
+e2daf5fd1 Updated to reflect distribution package changes.
+e67ec1e16 Eliminated unecessary copying of external operand's data array in arithmetic operations. PR #31713
+9e6639abd Updated to reflect PR 31713 changes.
+297f7e849 Fixed copyright date.
+d4638be67 Removed broken link.
+78bf73cb6 Fixed broken javadoc link.
+1f6963b66 Prepare for RC2.
+2b1de18a2 Prepare for Rc2.
+81b1571ad added poisson description to user guide.
+01c927d65 Fixed spelling.
+a39153784 Fixed bug in ChiSquareTest isNonNegative function that was incorrectly rejecting 2-way tables with zero counts. Fixes PR #32531 Reported by: Hans van der Heijden
+facf275db Added test case using 2-way table containing zeros (illustrates PR #32531). Increased accuracy of target values in one test case.
+a403c7da8 Updated for 1.0 release.
+775bc4677 Updated for 1.0 release.
+b622f54ef Eliminate dup entry added by mistake in last commit.
+ba3834fa6 Removed STATUS file obsoleted by project.xml, changes.xml
+ec258cc16 Removed text file obsoleted by changes.xml.
+231b152ac Upped advertised JDK compatability level to 1.3.  - Complex equals uses Double.doubletoRawLongBits (fixing would make    equals less sensitive).  - Beta fails compilation (easy to fix)
+ab2028cdf Moved BeanTransformer classes to experimental directory. Partially addresses PR# 32538 (JDK 1.4 dependencies).
+6e57f9a1b Removed JDK 1.4 dependent code. PR# 32538.
+fdbecfc0b Updated to reflect PR# 32538 changes.
+d81e3a076 Prepare for 1.0 release.
+2b30dee0c Post-1.0 update.
+9ac7173ff Fixed error in comment.
+562b3a0b1 Increased precision of target values used in tests.
+786fc945f Initial commit - R verification tests.
+ca225527d Get NOTICE.txt included in META-INF of distribution jars.
+1dc2847be Include LICENSE.txt and NOTICE.txt in jars.
+0fd013488 Removed references to nagoya.  Replaced with issues and mail-archives
+9edd1441d Use SVN changelog
+3bad03d07 change http://nagoya.apache.org/bugzilla to http://issues.apache.org/bugzilla
+d53731afb added fraction class and fraction formatting classes.
+0bc811fa7 added rounding methods.
+19ddf2957 added cauchy distribution
+56305e980 fixed incorrect test data that was causing test failures.
+9cdfd53d3 svn:keywords correction
+2a9f2b625 convert .cvsignore to svn:ignore
+167aecf38 Created separate javadoc links for 1.0 release, 1.1-dev.
+9b4fe9da0 Added subversion links
+93a6d754c added weibull distribution
+5fc7e64e5 Changed siteAddress to cvs.apache.org and changed mailing list archive links to match commons site.
+ee310159d PR: 34230 Fixed bug in PolynomialSplineFunction to allow evaluation of the function at the last knot point.
+0b61f8440 updating copyright
+2eb28c766 Updated to reflect 34448 fix.
+4a4f843f0 Fixed javadoc errors. One-sided t-test significance adjustment was reversed in javadoc for boolean-valued test methods. BZ #34448 Reported by: Gilles Gaillard
+e368d0d70 Updated copyright dates.
+ddda136b4 Removed unused import.
+6a8214670 Fixed error in TTestImpl.homoscedasticTtest. Implementation was incorrectly using heteroscedastic t statistic. Also improved sensitivity of test cases. BZ #34677 Reported by: Gilles Gaillard
+746892442 Ported numerics improvements in commons lang Fraction implementation. Added utility methods for overflow-checked integer arithmetic and improved gcd method in MathUtils.
+2e929ff4a Added C. Scott Ananian to contributors.
+723dd64d2 Fixed order of entries, added due-to in last update.
+9d8f4849c Fixed javadoc typo
+a4d35ef08 Made PRNG pluggable for classes in the random package. * Added RandomGeneratorinterface extracted from java.util.random. * Added and abstract implementation, AbstractRandomGenerator providing default   implementations of methods based on nextDouble(). * Added a constructor taking a RandomGenerator as an argument to RandomDataImpl * Changed ValueServer to use a RandomData in its constructor. * Changes to 1.0 classes should be backward compatible   (including serialization).
+cd3a81c0b Added createXIdentityMatrix methods to MatrixUtils and deprecated getIdentity methods in RealMatrixImpl, BigMatrixImpl. Modified RealMatrixImpl, BigMatrixImpl constructors to throw IllegalArgumentExceptions instead of ArrayIndexOutOfBounds when dimension arguments are not positive.
+66f5351b0 fixed javadoc comments, added @since tags to new classes and methods, corrected hyperlinks in user guide, add fraction unit tests.
+27826c40d Minor site updates * Changed scm link to point to cgi * Edited down content on main page * Added direct link to svn on nav * Changed download link to point directly to math page
+2e21b43df added @since tag to new methods.
+f6da77e2b Added setSubMatrix methods to RealMatrix, BigMatrix. Modified copyIn methods to use setSubMatrix and moved array argument checking from constructors and copyIn to setSubMatrix. PR # 35007 Base implementation contributed by Rodrigo di Lorenzo Lopes
+c7c0a9169 Added config to support jar deployment.
+f1a988090 Added [math] prefix to Bugzilla templates.
+ad94c5d1d Added RandomAdaptor to complete PRNG pluggability framework, updated User Guide.
+8560cbf94 Javadoc, formatting.
+d7be6b375 Update content, fix typos.
+a21591868 Fix typos.
+4a0814bef Formatting, fix errors and typos.
+f66cdb3a5 Update content.
+f3612f96e Put site (and coming distro) on a diet - limit maven image copy.
+9271b906e Add id for Al.
+24d837eaf Eliminated redundant endpoint function evaluations in BrentSolver, SecantSolver. BZ #35042.
+59c267c22 Add 34042 fix.
+6ed937e73 Added factory for TTest, ChiSquareTest and TestUtils class with static methods to create instances and execute tests. PR #32663
+cd4c28ecc Revert inadvertent change from last commit.
+99b1bf42e Formatting to make checkstyle happy.
+e34b56db3 Javadoc.
+d06270236 Changed lcm to throw ArithmeticException (instead of returning bogus value) if the result is too large to store as an integer. PR # 35431 Submitted by: Jörg Weimar
+a5c011a64 Changed Fraction(double) to correctly handle near-integral arguments. PR # 35434 Submitted by: Jörg Weimar
+6161ecdc3 Emasculated MathException secalization test to work under jdk 1.3.
+3a9c36b48 Eliminated JDK 1.4 dependency.
+33e3fd583 Formmatting, changed a couple of 'updates' to 'fixes'.
+7209fa9fb Added description for 1.1 release.
+ce75526e1 Added style sheet to create release-notes.txt from changes.xml.
+3524bd6ca Eliminated trailing spaces.
+540caa1ad Eliminated tabs.
+837fb724f Eliminated tabs.
+30f22d948 Eliminated tabs.
+8f2acc76d Added integer parse restriction.
+18c40ecfc Changed to use maven announcement plugin instead of custom xsl.
+e56d480a4 Added announcement.file, compile.target, xdoc.copy.excludes.classic properties.
+0c2ac07ae Roll back changes inadverently made in R201919.
+733402907 Added Jorg Weimar to contributors.
+39d8bd9af Iniial commit.
+98b8a03a7 Fixed actual parameter types to eliminate jdk 1.5 compiler warning.
+d38e114e2 Removed setSubmatrix methods from RealMatrix, BigMatrix interfaces to preserve binary compatibility to 1.0 release.
+9ed32ecf6 Made src, binary distros unpack to different directories.
+28563ce90 Initial commit.
+0c3f02690 Changed to use custom sytlesheet for release notes.
+7411239c6 Changed release notes file name.
+c5f068219 Prepare for 1.1-RC1.
+22bbd5444 Changed description of submatrix change, version reference.
+46c3ad2c7 Fixed release notes file name.
+0c46bfc7f Added maven.compile.source property.
+b60a3ba1e Added missing @since tags.
+23e9e2da2 Eliminated dead code.
+c5a820aae Added missing svn props.
+cb85a3bc9 Test cases and (temporary?) fix for BZ 35904.
+48b9ef8b5 Prepare for 1.1-RC2.
+d2d2035be Regenerate using updated ant plugin to eliminate repeated downloads.
+4eb8044ae PR: 35904 Changed rounding methods to not rely on BigDecimal conversions which was causing numerical error.
+47b45c6fa PR 36084: Temp. files were not being deleted because open file streams were not being closed properly.
+bd34147ab Changed version to 1.2-dev, added Xiaogang Zhang to contributors.
+11796d4ed Added numerical integration classes contributed by Xiaogang Zhang.
+71fb92ebd Fixed svn props.
+fd07147f8 Merged changes in MATH_1_1 branch to trunk.  This includes revision 232577 through revision 234481.
+69d29afc4 Preliminary checkin of SoC code. Contributed by: Xiaogang Zhang
+b494c9f53 Fix complex square root for zero (#36266) Contributed by: Xiaogang Zhang
+154d4c999 Comment changes (#36211) Contributed by: Xiaogang Zhang
+e3ab7379e Merged changes in MATH_1_1 branch to trunk.  This includes revision 234481 through revision 240244.
+e1062a38b added test cases to increase test coverage.
+fe3ac4361 Merged changes from MATH_1_1 branch, r240245:r267516
+cab4468cb Improved contribution-related documentation.
+01dcb65ae Javadoc.
+a888d20dc Eliminated *here* links.
+d147d1ebd Preliminary checkin of SoC code. Contributed by: Xiaogang Zhang
+86fa786c1 Merging bug fixes in r267517:r321515 from MATH_1_1 branch.
+ab63431fb Fix typo (http://marc.theaimsgroup.com/?l=jakarta-commons-user&m=113088082306294&w=2)
+0dc42d33f Bug 37314 - Fixes to POMs
+045928c2f Added trivial script to selectively execute unit tests.
+82bb367f1 Added reminders for tabs, svn props.
+da48563fb Use groupId/artifactId consistently instead of simply id
+c911b5aaf Updated to reflect 1.1 release.
+3d70c862d Updated to reflect 1.1 release.
+87a3ee1f1 Added issue tracking page.
+c5768f066 Merged (final) src changes from MATH_1_1 release branch r321516-358399
+7f8947c03 Merged build fixes from MATH_1_1 release branch.
+a79382033 Merged userguide updates from MATH_1_1 release branch.
+cf6e4aa09 Added file build customization properties file.
+bbd084675 Added assertContains methods.
+25fcfe78f Removed dependency on ordering of roots using TestUtils.assertContains.
+159d0b4a9 Coding style changes to match the rest of [math].
+1cad2e0d6 Javadoc.
+372cc5eb5 Fix doc regressions caused by marging back the 1.1 branch.
+8daa059ad Changed wiki link.
+037327ba1 Replaced clover with cobertura, added pmd report.
+61f59a02e Simplified code, eliminated unecessary parameters in private methods.
+b38463a5e PR: 38091 ComplexFormat was not formatting double values with the provided NumberFormat.  Instead, the real part format was always used.
+26efbfe75 Adding doap files for each component for the projects.apache.org site
+3c7a14797 fixing pmc from name to url
+c8cd287a5 Modify maven build to add two non-standard attributes to the jar's manifest file to indicate the values of "maven.compile.source" and "maven.compile.target". Also modify the build to include an "Implementation-Vendor-Id" of "org.apache" in the jar's manifest.
+e6e3bee13 Added Pascal distribution contributed in BZ #38766.
+f10c7bda4 Adding PascalDistributionImpl inadvertently omitted in r381115.  Thanks, Gump!
+49a15fe6c Added Todd Parnell as contributor.
+55472ca4f Added comments to dependencies and added xdoc 1.9.2 dependency.
+4b3c30188 Eliminated main method.
+21dbde49c Javadoc. Complete change partially included in r385437.
+50b19813c Marked optional dependencies.
+99e81635e Moved R test sources to src/test.
+b38e48a3f Removed jdk 1.4 dependency in FractionFormatTest.
+51c7564a7 Switched url from bugzilla to jira
+0a83196d6 Corrected site host name.
+4d603413a Changed Bugzilla -> Jira.
+08e7d739b Changed maven changes plugin template to work with Jira.
+a43a4ea63 Added Pascal distribution implementation. JIRA: MATH-148 Contributed by Joni Salonen
+445d94e08 Eliminated tab character.
+9ebfb870a Modified ProperFractionFormat to reject embedded minus signs. JIRA: MATH-60 Reported by Nhung Nnguyen
+269822c06 Changed issue ids from BZ to Jira.
+3ebd27344 Suspended setSecureAlgorithm test, since it takes several minutes on Ubuntu.
+7ec35cf7f Added a nextAfter method in MathUtils to return the next machine-representable number in a specified direction from a given floating point number.  Used this to ensure that MathUtils.round does not return incorrect results for numbers with bad IEEE754 representations. JIRA: MATH-151 Reported by Buza Zoltán Patch submitted by Luc Maisonobe
+0303fffa1 Added Fast Fourier transform JIRA: MATH-140 Contributed by Xiaogang Zhang
+ac13472bb Improved javadoc for nextAfter.
+4d0b96e98 Javadoc fixes.
+00b139a1c Fixed bad issue attribute.
+075008dcd Modified getSumSquaredErrors method in SimpleRegression to always return a non-negative result. JIRA: MATH-85 Reported by Mark Osborn Patched by Luc Maisonobe
+0bab68b3a Changes to Math maven site/build: - removed dependency on commons-build - correct Jira --> JIRA - project specific JIRA links (all open Math issues etc)
+f05b6e1c3 Changing cvs.apache.org to people.apache.org. None of these locations appear to point to an svn or cvs url
+ddc239c8e Changing cvs.apache.org to people.apache.org. None of these locations appear to point to an svn or cvs url
+08f777574 Made constructors public in transform package.
+3b4059230 Fixing typo as pointed out by Remi Arntzen on commons-dev
+9022c8bc7 Switching viewcvs url to viewvc
+3da20f561 Switching viewcvs url to viewvc
+9c19b57f9 Peg Commons at JCL 1.0.4. Have only looked at proper for lack of cycles, can follow up with sandbox and dormant components as they graduate or get revived.
+a68f1cbcc Missing SVN properties, possibly some large diffs, no functional change.
+c0b59b081 Point DOAP files to JIRA.
+05195b77c Initial commit
+1d1e19921 Collection of patches to initial Mantissa sources: - Fixed a problem when switching functions triggered derivatives   discontinuities - Removed methods and classes that were deprecated in Mantissa   and do not need to be preserved in commons-math as backward compatibility   is not a problem for this newly integrated code - Changed Vector3D and Rotation to immutable classes for ease of use - Improved some javadoc in class Rotation JIRA: MATH-161 Submitted (with patches) by Luc Maisonobe
+b209e197b Formatting only. Eliminated tabs.
+78a4ef699 Fixed header. Switched from Windows to Unix line endings as a part of this - not sure if that's problematic or not, but I don't trust that I can hack this to remain windows specific
+c90167235 Fixing the license header. Something is up with this file, in svn diff it has a odd set of bytes on the front of the file. Possibly Windows BOM UTF-8 issue?
+4dd57aafc Fixed copyright header (committing in parts as the full commit timed out)
+47f3a2fd9 Fixed copyright header (committing in parts as the full commit timed out)
+c1615d1aa Fixed copyright header (committing in parts as the full commit timed out)
+baffc2428 Fixed copyright header (committing in parts as the full commit timed out)
+f3a8579c4 Fixed copyright header (committing in parts as the full commit timed out)
+8242bc264 Setting the maven repo - apologies if this borks anything
+cc73bfb42 Updated contributed sources - Mantissa 7 upgrade. JIRA: MATH-162
+d72010f44 added missing files from previous patches (JIRA:MATH-161 and JIRA:MATH-162)
+f55f1566f Maven 2 pom for Math. Tests that use getClass().getResource(String) don't work at the moment, unsure how to fix currently.
+32ea2a389 - refactored top level of Exception hierarchy, - added getPatern(), getArguments() and getMessage(Locale)   (names chosen for consistency with java.text.MessageFormat) - deprecated some raw constructors as the top level exception are too   coarse grained and intended only as base classes for easier to use classes - added several constructors for use by more fine grained derived classes
+ee71801e7 Added and used a specialized convergence exception for exceeded iteration counts
+21a95478c Added and used a specialized exception for continued fraction convergence errors
+1bd297823 Added and used a specialized exception for duplicate abscissas in sampled functions
+ee556907b Added and used a specialized exception for arguments outside domains
+08042a0c2 use properly the top level exceptions for too specific cases which don't need a devoted exception class
+c768f73cf fixed some missing serialVersionUID
+882493e7b added missing license headers (sorry)
+2fe2d9a4a set eol-style property to native
+2b25d6352 set eol-style property to native
+177aef7ab allow using locales with different variants
+8b4803708 make the code java 1.3 compatible
+2a4219105 fixed a wrong unicode encoding
+15d96cbaf added support for generation and analysis of random vectors
+7276d2de0 fixed javadoc typos
+b4bbd4672 updated errors prior to Mantissa integration
+7f8c5e256 deprecated the no argument constructor
+f3b02ccea added the estimation package from Mantissa
+4b1994a2f specialized exception for mismatched vectors or matrices dimensions
+e2ffb9057 added the ode package from Mantissa
+c3feb1661 added the geometry package from Mantissa
+cd301c9e1 added the optimization package from Mantissa
+dbd21b776 identified myself as a developer
+326ec7313 removed remnants of code transfered from Mantissa to commons-math
+c9903243a moved notice information from Mantissa to commons-math (concerning Levenberg-Marquardt and Gragg-Bulirsch-Stoer algorithms implementations)
+12dd062ae replaced a corrupted non-ASCII character by an entity
+9ddf255a7 implemented correlated random vectors generation
+358973c25 fixed javadoc errors
+96784db88 added an entry for Pascal distribution fixed typos fixed a code example
+aab8a1009 added constant for null vector
+6536c1df1 added a section on transform methods in the user guide
+83bd6ba8d added a section for the geometry package in the user guide
+c50e1c1eb added a section for the estimation package in the user guide
+9bcae682d added a section for the optimization package in the user guide
+642cf40de added a section for the ODE package in the user guide
+c9f8ae6c9 linked new sections to the rest of the user guide
+2f2f0713f announced Mantissa packages inclusion
+35af6fe1d Provided a factory pattern for the integrators
+cc6c1f22e Improved efficiency of evaluate method.
+dcb3ffa82 Fixed broken link to [discovery] API docs.
+b87e7190d Fixed xml parse errors.
+55b2cc8c0 MATH-120: finished review of pascal distribution.
+409d56d20 MATH-153: Corrected nextInt and nextLong to handle wide value ranges.
+3a2d1794c Fixed test resources directory.
+35b7e706c Added assemblies for source, binary distros.
+bb0055997 [MATH-156] use initial guess provided by the caller to BrentSolver.solve(), thus improving speed
+aee7901e2 fixed javadoc
+81310ec9a Configured assembly plugin, bumped commons parent version to 2.
+78727dd83 Javadoc only.  Fixed typo.
+42a78122d Fixed some typos, minor edits.
+fe13c2bcf Added back (deprecated) legacy constructors to restore backward compatibility.
+9f8370f33 eliminated unnecessary Double creation.
+a55628460 Javadoc only.
+9b0466f64 Javadoc. Replaced MathML entity with numeric character reference.
+fb8da6204 Javadoc only.
+cb1c0adcc javadoc: fixed missing semicolons in entity references
+7851eace4 Made license headers consistent, removed @author tag (with permission)
+e4a342449 Made license headers conistent, removed author tags (with permission)
+db9790e57 Made license headers conistent, removed author tags (with permission)
+f4abe5ed2 Made license headers conistent, removed author tags (with permission).
+53b3321e8 Made license headers conistent, removed author tags (with permission).
+a0cde055d Made license headers conistent.
+11d16247b Made license headers conistent.
+ed2a64483 Javadoc formatting and minor edits.
+9d2322535 Added resources for m2 site.
+5d5821667 Configured reports.
+f61c6e1a1 Fixed name.
+bb3ed2c0b Initial commit.
+bbb793aab Added site deployment config.
+836476d20 Added missing license headers.
+830f26924 Javadoc; changed string double generator to use valueOf.
+ad8f70639 Added clirr check and report.
+8d14277eb Removed dependency on DistributionFactory.  Added settable t distribution field.
+879a6c0e0 Removed dependency on DistributionFactory.  Added settable t distribution field.
+52775a6b7 Removed dependency on DistributionFactory.  Added settable chi-squared distribution field.
+de8c2adc6 Removed dependency on DistributionFactory.  Added settable gamma distribution field.
+b345aa99c Removed dependency on DistributionFactory.  Added settable normal distribution field.
+a012ec83e Removed dependency on DistributionFactory.
+739ed17f8 Javadoc only.  Made it clear that increment-getResult uses a different, less accurate, computing formula than evaluate for Variance. JIRA: MATH-163
+5bc120c5d Merging all the KEYS files into a single one. Storing this in trunks-proper, and it'll need exporting to http://www.apache.org/dist/jakarta/commons/KEYS when changed
+35414bc4f Increased default epsilon for Gamma, Beta function evaluation. JIRA: MATH-166 Reported and patched by Lukas Theussl
+9104ab39e Added log function. JIRA: MATH-158
+7323a8a8b Added two-sample (binned comparison) ChiSquare test JIRA: MATH-160 Thanks to: Matthias Hummel
+c3f151d32 Update NOTICE files in trunks-proper in light of TLP move (and add component names to NOTICEs where missing).
+78c589484 slightly improved documentation for random vectors generation
+d01b99cd4 trivial javadoc fix
+a4cc11257 Added recent contributors.
+c4b439e7a Added recent contributors - should have been in r554220.
+5976a62de Corrected error in exception text.
+13eb8cca1 Added test to confirm that nextUniform excludes endpoints.
+b8b6c66e1 Modified NormalDistributionImpl.cumulativeProbablity to catch MaxIterationsExceededException and return 0 or 1, resp. if the argument is more than 20 standard deviations from the mean.
+d91fee369 Remove jakarta references from m1 and m2 builds
+054e2bf2f Updating to reflect website change
+211584bc3 Moving to TLP
+a7f79b046 Moving back :)
+fb5a34e86 Moving to TLP
+d06b484f9 changed a character from isolatin-1 to UTF-8 encoding as specified in the XML header
+c5ad35927 Fixing the mailing list addresses
+6bee60e63 Moving to a css on the Commons site
+9e66e1f2c TLP related blanket changes:
+b0cfd5b55 Fixing svn locations after TLP move
+832bd9cb6 Move Commons TLP changes
+1001918f8 Apache Apache
+f4febb7fe Correct missing = signs in due-to
+a9b432313 Add missing license headers
+6945cbe89 new attempt to fix an encoding error
+f287c9388 TLP Move change wiki URLs from "wiki.apache.org/jakarta-commons" to "wiki.apache.org/commons"
+f8b552a1d don't need to use SSL for a read-only connection
+720bc3396 Step coberta back down to 2.0 - was causing build failures.
+04328af1f Removed coberta coverage check. Was causing install to fail
+980c3ae6f Temporarily disabled clirr compatibility check.
+1340aa1c1 fixed a mixed case error (setup vs. setUp) that prevented tests setup fixed the associated tolerance for some failing tests
+52b98250c replaced some references to Jakarta after commons switched as TLP
+ea14dd91d fixed numerous warnings in test code (unused fields/results, fields only set to null)
+282cd1de7 fixed a non-static call to a static method
+399b104b9 fixed a warning about a missing serialVersionUID
+90eb6a442 [MATH-165] basic implementation of a SimpleEstimationProblem
+9c2dd8a5f added missing Apache header
+d784ea2eb fixed a missing initialization
+1402a9267 removed warnings about unused return values/fields
+a7cc64271 Updated commons parent version to 4.
+22b8f2abb fixed an integer division error (should have been a float division)
+bdcd47026 changed getWindowSized to synchronized since setWindowSize was already synchronized
+8a8d0c016 removed warnings about internal test classes that should have been declared static
+6e0cf265e removed an uneeded throw declaration
+d76200811 Changing name to 'Commons Xxx'
+404971c56 [MATH-160] introduced a new UnknownDistributionChisSquareTest interface to hold the new methods without creating binary incompatibilities with commons-math 1.1 The factories have been deprecated and do not handle this new interface
+df7332416 fixed javadoc errors introduced with r574049
+5ae04469d fixed visibility of setMultiStart, it should be called only from within the minimizes methods
+c5cb64a7e improved test coverage
+3c00d3be1 fixed javadoc
+cfab1fd92 removed an unneeded else
+2d37d6707 improved test coverage
