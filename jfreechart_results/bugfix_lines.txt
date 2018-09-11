@@ -1,0 +1,1770 @@
+TimeZone saved = TimeZone.getDefault();
+TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
+import org.jfree.chart.util.TextUtils;
+Rectangle2D bounds = TextUtils.getTextBounds(text, g2, fm);
+package org.jfree.chart.util;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineMetrics;
+import java.awt.geom.Rectangle2D;
+import org.jfree.chart.ui.TextAnchor;
+public class TextUtils {
+public static Rectangle2D drawAlignedString(String text,
+Graphics2D g2, float x, float y, TextAnchor anchor) {
+Rectangle2D textBounds = new Rectangle2D.Double();
+float[] adjust = deriveTextBoundsAnchorOffsets(g2, text, anchor,
+textBounds);
+textBounds.setRect(x + adjust[0], y + adjust[1] + adjust[2],
+textBounds.getWidth(), textBounds.getHeight());
+g2.drawString(text, x + adjust[0], y + adjust[1]);
+return textBounds;
+public static Rectangle2D calcAlignedStringBounds(String text,
+Graphics2D g2, float x, float y, TextAnchor anchor) {
+Rectangle2D textBounds = new Rectangle2D.Double();
+float[] adjust = deriveTextBoundsAnchorOffsets(g2, text, anchor,
+textBounds);
+textBounds.setRect(x + adjust[0], y + adjust[1] + adjust[2],
+textBounds.getWidth(), textBounds.getHeight());
+return textBounds;
+private static float[] deriveTextBoundsAnchorOffsets(Graphics2D g2,
+String text, TextAnchor anchor) {
+float[] result = new float[2];
+FontRenderContext frc = g2.getFontRenderContext();
+Font f = g2.getFont();
+FontMetrics fm = g2.getFontMetrics(f);
+Rectangle2D bounds = getTextBounds(text, fm);
+LineMetrics metrics = f.getLineMetrics(text, frc);
+float ascent = metrics.getAscent();
+float halfAscent = ascent / 2.0f;
+float descent = metrics.getDescent();
+float leading = metrics.getLeading();
+float xAdj = 0.0f;
+float yAdj = 0.0f;
+if (anchor.isHorizontalCenter()) {
+xAdj = (float) -bounds.getWidth() / 2.0f;
+else if (anchor.isRight()) {
+xAdj = (float) -bounds.getWidth();
+if (anchor.isTop()) {
+yAdj = -descent - leading + (float) bounds.getHeight();
+else if (anchor.isHalfAscent()) {
+yAdj = halfAscent;
+else if (anchor.isVerticalCenter()) {
+yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);
+else if (anchor.isBaseline()) {
+yAdj = 0.0f;
+else if (anchor.isBottom()) {
+yAdj = -metrics.getDescent() - metrics.getLeading();
+result[0] = xAdj;
+result[1] = yAdj;
+return result;
+private static float[] deriveTextBoundsAnchorOffsets(Graphics2D g2,
+String text, TextAnchor anchor, Rectangle2D textBounds) {
+float[] result = new float[3];
+FontRenderContext frc = g2.getFontRenderContext();
+Font f = g2.getFont();
+FontMetrics fm = g2.getFontMetrics(f);
+Rectangle2D bounds = getTextBounds(text, fm);
+LineMetrics metrics = f.getLineMetrics(text, frc);
+float ascent = metrics.getAscent();
+result[2] = -ascent;
+float halfAscent = ascent / 2.0f;
+float descent = metrics.getDescent();
+float leading = metrics.getLeading();
+float xAdj = 0.0f;
+float yAdj = 0.0f;
+if (anchor.isHorizontalCenter()) {
+xAdj = (float) -bounds.getWidth() / 2.0f;
+else if (anchor.isRight()) {
+xAdj = (float) -bounds.getWidth();
+if (anchor.isTop()) {
+yAdj = -descent - leading + (float) bounds.getHeight();
+else if (anchor.isHalfAscent()) {
+yAdj = halfAscent;
+else if (anchor.isHorizontalCenter()) {
+yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);
+else if (anchor.isBaseline()) {
+yAdj = 0.0f;
+else if (anchor.isBottom()) {
+yAdj = -metrics.getDescent() - metrics.getLeading();
+if (textBounds != null) {
+textBounds.setRect(bounds);
+result[0] = xAdj;
+result[1] = yAdj;
+return result;
+public static Rectangle2D getTextBounds(String text, FontMetrics fm) {
+return getTextBounds(text, 0.0, 0.0, fm);
+public static Rectangle2D getTextBounds(String text, double x, double y,
+FontMetrics fm) {
+ParamChecks.nullNotPermitted(text, "text");
+ParamChecks.nullNotPermitted(fm, "fm");
+double width = fm.stringWidth(text);
+double height = fm.getHeight();
+return new Rectangle2D.Double(x, y - fm.getAscent(), width, height);
+protected void addEntity(EntityCollection entities, Shape area,
+XYDataset dataset, int series, int item,
+double entityX, double entityY) {
+Shape hotspot = area;
+if (getPlot().getOrientation() == PlotOrientation.VERTICAL) {
+hotspot = new Ellipse2D.Double(entityX - r, entityY - r, w, w);
+else {
+hotspot = new Ellipse2D.Double(entityY - r, entityX - r, w, w);
+addEntity(entities, dataAreaHotspot, dataset, series, item, 0.0, 0.0);
+addEntity(entities, null, dataset, series, item, transX1,
+transY1);
+TimeZone.class});
+new Date(latest), TimeZone.getDefault()});
+if (axis.isInverted()) {
+percent = -percent;
+axis.pan(percent);
+if (axis.isInverted()) {
+percent = -percent;
+axis.pan(percent);
+double x, double y, int domainAxisIndex, int rangeAxisIndex,
+crosshairState.updateCrosshairPoint(x, y, domainAxisIndex,
+rangeAxisIndex, transX, transY, orientation);
+crosshairState.updateCrosshairX(x, domainAxisIndex);
+crosshairState.updateCrosshairY(y, rangeAxisIndex);
+protected void updateCrosshairValues(CrosshairState crosshairState,
+double x, double y, double transX, double transY,
+PlotOrientation orientation) {
+updateCrosshairValues(crosshairState, x, y, 0, 0, transX, transY,
+orientation);
+int domainAxisIndex = plot.getDomainAxisIndex(domainAxis);
+int rangeAxisIndex = plot.getRangeAxisIndex(rangeAxis);
+updateCrosshairValues(crosshairState, x1, y1, domainAxisIndex,
+rangeAxisIndex, transX1, transY1, orientation);
+int domainAxisIndex = plot.getDomainAxisIndex(domainAxis);
+int rangeAxisIndex = plot.getRangeAxisIndex(rangeAxis);
+updateCrosshairValues(crosshairState, x1, y1, domainAxisIndex,
+rangeAxisIndex, transX1, transY1, orientation);
+int domainAxisIndex = plot.getDomainAxisIndex(domainAxis);
+int rangeAxisIndex = plot.getRangeAxisIndex(rangeAxis);
+updateCrosshairValues(crosshairState, x1, y1, domainAxisIndex,
+rangeAxisIndex, transX1, transY1, orientation);
+ChartViewer viewer = new ChartViewer(chart);
+yy + halfW));
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+public void setUp() {
+getTimeline();
+r1.setPaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setPaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setSeriesPaint(0, new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.white));
+r2.setSeriesPaint(0, new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.white));
+r1.setBasePaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setBasePaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setFillPaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setFillPaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setSeriesFillPaint(0, new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setSeriesFillPaint(0, new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setBaseFillPaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setBaseFillPaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setOutlinePaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setOutlinePaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setSeriesOutlinePaint(0, new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setSeriesOutlinePaint(0, new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setBaseOutlinePaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setBaseOutlinePaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setItemLabelPaint(new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.gray));
+r2.setItemLabelPaint(new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.gray));
+r1.setSeriesItemLabelPaint(0, new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.gray));
+r2.setSeriesItemLabelPaint(0, new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.gray));
+r1.setBaseItemLabelPaint(new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.gray));
+r2.setBaseItemLabelPaint(new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.gray));
+r1.setLegendTextPaint(0, new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setLegendTextPaint(0, new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setBaseLegendTextPaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r2.setBaseLegendTextPaint(new GradientPaint(1.0f, 2.0f, Color.blue,
+3.0f, 4.0f, Color.red));
+r1.setSeriesPositiveItemLabelPosition(0, new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
+r2.setSeriesPositiveItemLabelPosition(0, new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
+r2.setSeriesPositiveItemLabelPosition(1, new ItemLabelPosition(ItemLabelAnchor.INSIDE1, TextAnchor.CENTER));
+r1.setSeriesNegativeItemLabelPosition(0, new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
+r2.setSeriesNegativeItemLabelPosition(0, new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
+r2.setSeriesNegativeItemLabelPosition(1, new ItemLabelPosition(ItemLabelAnchor.INSIDE1, TextAnchor.CENTER));
+r1.setSeriesPaint(0, Color.black);
+r2.setSeriesPaint(0, Color.black);
+r1.setSeriesFillPaint(0, Color.yellow);
+r2.setSeriesFillPaint(0, Color.yellow);
+r1.setSeriesOutlinePaint(0, Color.yellow);
+r2.setSeriesOutlinePaint(0, Color.yellow);
+r1.setSeriesItemLabelPaint(0, Color.red);
+r2.setSeriesItemLabelPaint(0, Color.red);
+r1.setLegendTextPaint(3, Color.red);
+r2.setLegendTextPaint(3, Color.red);
+r1.setBaseLegendTextPaint(Color.green);
+r2.setBaseLegendTextPaint(Color.green);
+r1.setBasePaint(Color.blue);
+r1.setBaseLegendTextPaint(new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.blue));
+r2.setBasePaint(Color.red);
+r.setPaint(Color.orange);
+assertEquals(Color.orange, r.getItemPaint(0, 0));
+r.setOutlinePaint(Color.orange);
+assertEquals(Color.orange, r.getItemOutlinePaint(0, 0));
+r.setItemLabelPaint(Color.green);
+assertEquals(Color.green, r.getItemLabelPaint(0, 0));
+r1.setPaint(Color.red);
+r1.setSeriesPaint(0, Color.red);
+r1.setBasePaint(Color.red);
+r1.setOutlinePaint(Color.red);
+r1.setSeriesOutlinePaint(0, Color.red);
+r1.setBaseOutlinePaint(Color.red);
+r1.setItemLabelPaint(Color.blue);
+r1.setSeriesItemLabelPaint(0, Color.blue);
+r1.setBaseItemLabelPaint(Color.blue);
+r1.setBaseLegendTextPaint(new GradientPaint(1.0f, 2.0f, Color.red,
+3.0f, 4.0f, Color.green));
+assertEquals(Color.blue, r.getBasePaint());
+assertEquals(Color.blue, r.lookupSeriesPaint(0));
+assertEquals(Color.white, r.getBaseFillPaint());
+assertEquals(Color.white, r.lookupSeriesFillPaint(0));
+assertEquals(Color.gray, r.getBaseOutlinePaint());
+assertEquals(Color.gray, r.lookupSeriesOutlinePaint(0));
+XYPlot plot, XYDataset data, PlotRenderingInfo info) {
+public void testrefreshTicksWithZeroTickUnit() {
+TickUnits t1 = (TickUnits) NumberAxis.createIntegerTickUnits();
+TickUnits t1 = (TickUnits) NumberAxis.createIntegerTickUnits();
+TickUnits t1 = (TickUnits) NumberAxis.createIntegerTickUnits();
+TickUnits t2 = (TickUnits) NumberAxis.createIntegerTickUnits();
+CategoryAxis result = null;
+if (index < this.domainAxes.size()) {
+result = (CategoryAxis) this.domainAxes.get(index);
+AxisLocation result = null;
+if (index < this.domainAxisLocations.size()) {
+result = (AxisLocation) this.domainAxisLocations.get(index);
+else {
+for (int i = 0; i < this.domainAxes.size(); i++) {
+CategoryAxis axis = (CategoryAxis) this.domainAxes.get(i);
+if (axis != null) {
+axis.removeChangeListener(this);
+for (int i = 0; i < this.domainAxes.size(); i++) {
+CategoryAxis axis = (CategoryAxis) this.domainAxes.get(i);
+if (axis != null) {
+axis.configure();
+ValueAxis result = null;
+if (index < this.rangeAxes.size()) {
+result = (ValueAxis) this.rangeAxes.get(index);
+ValueAxis existing = (ValueAxis) this.rangeAxes.get(index);
+AxisLocation result = null;
+if (index < this.rangeAxisLocations.size()) {
+result = (AxisLocation) this.rangeAxisLocations.get(index);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis axis = (ValueAxis) this.rangeAxes.get(i);
+if (axis != null) {
+axis.removeChangeListener(this);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis axis = (ValueAxis) this.rangeAxes.get(i);
+if (axis != null) {
+axis.configure();
+CategoryDataset result = null;
+if (this.datasets.size() > index) {
+result = (CategoryDataset) this.datasets.get(index);
+return result;
+int result = -1;
+for (int i = 0; i < this.datasets.size(); i++) {
+if (dataset == this.datasets.get(i)) {
+result = i;
+break;
+return result;
+List axisIndices = new java.util.ArrayList(1);
+axisIndices.add(new Integer(axisIndex));
+if (index < 0) {
+throw new IllegalArgumentException("Requires 'index' >= 0.");
+Integer key = new Integer(index);
+this.datasetToDomainAxesMap.put(key, new ArrayList(axisIndices));
+if (index < 0) {
+throw new IllegalArgumentException("Negative 'index'.");
+else {
+if (index < 0) {
+throw new IllegalArgumentException("Requires 'index' >= 0.");
+Integer key = new Integer(index);
+this.datasetToRangeAxesMap.put(key, new ArrayList(axisIndices));
+if (index < 0) {
+throw new IllegalArgumentException("Negative 'index'.");
+ValueAxis axis = null;
+else {
+CategoryItemRenderer result = null;
+if (this.renderers.size() > index) {
+result = (CategoryItemRenderer) this.renderers.get(index);
+return result;
+CategoryItemRenderer result = null;
+for (int i = 0; i < this.datasets.size(); i++) {
+if (this.datasets.get(i) == dataset) {
+result = (CategoryItemRenderer) this.renderers.get(i);
+break;
+return result;
+int count = this.datasets.size();
+for (int datasetIndex = 0; datasetIndex < count; datasetIndex++) {
+CategoryDataset dataset = getDataset(datasetIndex);
+else if (this.orientation == PlotOrientation.VERTICAL) {
+else {
+int count = this.rangeAxes.size();
+for (int axisIndex = 0; axisIndex < count; axisIndex++) {
+ValueAxis yAxis = getRangeAxis(axisIndex);
+else {
+else {
+else {
+else if (layer == Layer.BACKGROUND) {
+else {
+else if (layer == Layer.BACKGROUND) {
+else {
+for(int i = 0; i < this.annotations.size(); i++) {
+Rectangle2D plotArea,
+AxisSpace space) {
+if (this.orientation == PlotOrientation.HORIZONTAL) {
+else if (this.orientation == PlotOrientation.VERTICAL) {
+for (int i = 0; i < this.domainAxes.size(); i++) {
+Axis xAxis = (Axis) this.domainAxes.get(i);
+Rectangle2D plotArea,
+AxisSpace space) {
+if (this.orientation == PlotOrientation.HORIZONTAL) {
+else if (this.orientation == PlotOrientation.VERTICAL) {
+else {
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+Axis yAxis = (Axis) this.rangeAxes.get(i);
+protected AxisSpace calculateAxisSpace(Graphics2D g2,
+Rectangle2D plotArea) {
+else {
+for (int i = 0; i < this.renderers.size(); i++) {
+for (int i = 0; i < this.renderers.size(); i++) {
+if (order == DatasetRenderingOrder.FORWARD) {
+for (int i = 0; i < this.datasets.size(); i++) {
+foundData = render(g2, dataArea, i, state, crosshairState)
+else {  // DatasetRenderingOrder.REVERSE
+for (int i = this.datasets.size() - 1; i >= 0; i--) {
+foundData = render(g2, dataArea, i, state, crosshairState)
+|| foundData;
+for (int i = 0; i < this.renderers.size(); i++) {
+for (int i = 0; i < this.renderers.size(); i++) {
+protected Map drawAxes(Graphics2D g2,
+Rectangle2D plotArea,
+Rectangle2D dataArea,
+PlotRenderingInfo plotState) {
+for (int index = 0; index < this.domainAxes.size(); index++) {
+CategoryAxis xAxis = (CategoryAxis) this.domainAxes.get(index);
+for (int index = 0; index < this.rangeAxes.size(); index++) {
+ValueAxis yAxis = (ValueAxis) this.rangeAxes.get(index);
+for (int i = 0; i < this.datasets.size(); i++) {
+CategoryDataset dataset = this.datasets.get(i);
+if (dataset != null) {
+result.add(dataset);
+if (dataset != null) {
+result.add(dataset);
+for (int i = 0; i < this.datasets.size(); i++) {
+else {
+int rangeAxisCount = getRangeAxisCount();
+for (int i = 0; i < rangeAxisCount; i++) {
+ValueAxis axis = getRangeAxis(i);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis rangeAxis = (ValueAxis) this.rangeAxes.get(i);
+if (rangeAxis != null) {
+if (useAnchor) {
+double sourceY = source.getY();
+if (this.orientation == PlotOrientation.HORIZONTAL) {
+sourceY = source.getX();
+double anchorY = rangeAxis.java2DToValue(sourceY,
+info.getDataArea(), getRangeAxisEdge());
+rangeAxis.resizeRange2(factor, anchorY);
+else {
+rangeAxis.resizeRange(factor);
+PlotRenderingInfo state, Point2D source) {
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis rangeAxis = (ValueAxis) this.rangeAxes.get(i);
+if (rangeAxis != null) {
+rangeAxis.zoomRange(lowerPercent, upperPercent);
+for (int i = 0; i < this.domainAxes.size(); i++) {
+CategoryAxis xAxis = (CategoryAxis) this.domainAxes.get(i);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis yAxis = (ValueAxis) this.rangeAxes.get(i);
+int datasetCount = this.datasets.size();
+for (int i = 0; i < datasetCount; i++) {
+Dataset dataset = (Dataset) this.datasets.get(i);
+int rendererCount = this.renderers.size();
+for (int i = 0; i < rendererCount; i++) {
+CategoryItemRenderer renderer
+= (CategoryItemRenderer) this.renderers.get(i);
+import org.jfree.data.general.Dataset;
+private Map datasetToDomainAxesMap;
+private Map datasetToRangeAxesMap;
+private List annotations;
+ValueAxis result = null;
+if (index < this.domainAxes.size()) {
+result = (ValueAxis) this.domainAxes.get(index);
+for (int i = 0; i < this.domainAxes.size(); i++) {
+ValueAxis axis = (ValueAxis) this.domainAxes.get(i);
+for (int i = 0; i < this.domainAxes.size(); i++) {
+ValueAxis axis = (ValueAxis) this.domainAxes.get(i);
+AxisLocation result = null;
+if (index < this.domainAxisLocations.size()) {
+result = (AxisLocation) this.domainAxisLocations.get(index);
+ValueAxis result = null;
+if (index < this.rangeAxes.size()) {
+result = (ValueAxis) this.rangeAxes.get(index);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis axis = (ValueAxis) this.rangeAxes.get(i);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis axis = (ValueAxis) this.rangeAxes.get(i);
+AxisLocation result = null;
+if (index < this.rangeAxisLocations.size()) {
+result = (AxisLocation) this.rangeAxisLocations.get(index);
+XYDataset result = null;
+if (this.datasets.size() > index) {
+result = (XYDataset) this.datasets.get(index);
+return result;
+int result = -1;
+for (int i = 0; i < this.datasets.size(); i++) {
+if (dataset == this.datasets.get(i)) {
+result = i;
+break;
+return result;
+if (index < 0) {
+throw new IllegalArgumentException("Requires 'index' >= 0.");
+if (index < 0) {
+throw new IllegalArgumentException("Requires 'index' >= 0.");
+private void checkAxisIndices(List indices) {
+HashSet set = new HashSet();
+for (int i = 0; i < count; i++) {
+Object item = indices.get(i);
+if (!(item instanceof Integer)) {
+throw new IllegalArgumentException(
+"Indices must be Integer instances.");
+XYItemRenderer result = null;
+if (this.renderers.size() > index) {
+result = (XYItemRenderer) this.renderers.get(index);
+return result;
+XYItemRenderer result = null;
+for (int i = 0; i < this.datasets.size(); i++) {
+if (this.datasets.get(i) == dataset) {
+result = (XYItemRenderer) this.renderers.get(i);
+if (result == null) {
+result = getRenderer();
+break;
+Set keys = this.backgroundDomainMarkers.keySet();
+Iterator iterator = keys.iterator();
+while (iterator.hasNext()) {
+Integer key = (Integer) iterator.next();
+clearDomainMarkers(key.intValue());
+Set keys = this.foregroundDomainMarkers.keySet();
+Iterator iterator = keys.iterator();
+while (iterator.hasNext()) {
+Integer key = (Integer) iterator.next();
+clearDomainMarkers(key.intValue());
+Set keys = this.backgroundRangeMarkers.keySet();
+Iterator iterator = keys.iterator();
+while (iterator.hasNext()) {
+Integer key = (Integer) iterator.next();
+clearRangeMarkers(key.intValue());
+Set keys = this.foregroundRangeMarkers.keySet();
+Iterator iterator = keys.iterator();
+while (iterator.hasNext()) {
+Integer key = (Integer) iterator.next();
+clearRangeMarkers(key.intValue());
+for(int i = 0; i < this.annotations.size(); i++){
+XYAnnotation annotation = (XYAnnotation) this.annotations.get(i);
+for (int i = 0; i < this.domainAxes.size(); i++) {
+Axis axis = (Axis) this.domainAxes.get(i);
+RectangleEdge edge = getDomainAxisEdge(i);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+Axis axis = (Axis) this.rangeAxes.get(i);
+RectangleEdge edge = getRangeAxisEdge(i);
+for (int i = 0; i < this.renderers.size(); i++) {
+drawDomainMarkers(g2, dataArea, i, Layer.BACKGROUND);
+for (int i = 0; i < this.renderers.size(); i++) {
+drawRangeMarkers(g2, dataArea, i, Layer.BACKGROUND);
+if (order == DatasetRenderingOrder.FORWARD) {
+int rendererCount = this.renderers.size();
+for (int i = 0; i < rendererCount; i++) {
+XYItemRenderer r = getRenderer(i);
+if (r != null) {
+r.drawAnnotations(g2, dataArea, domainAxis, rangeAxis,
+for (int i = 0; i < getDatasetCount(); i++) {
+foundData = render(g2, dataArea, i, info, crosshairState)
+|| foundData;
+for (int i = 0; i < rendererCount; i++) {
+XYItemRenderer r = getRenderer(i);
+if (r != null) {
+ValueAxis domainAxis = getDomainAxisForDataset(i);
+ValueAxis rangeAxis = getRangeAxisForDataset(i);
+r.drawAnnotations(g2, dataArea, domainAxis, rangeAxis,
+Layer.FOREGROUND, info);
+else if (order == DatasetRenderingOrder.REVERSE) {
+int rendererCount = this.renderers.size();
+for (int i = rendererCount - 1; i >= 0; i--) {
+XYItemRenderer r = getRenderer(i);
+if (i >= getDatasetCount()) { // we need the dataset to make
+continue;                 // a link to the axes
+if (r != null) {
+r.drawAnnotations(g2, dataArea, domainAxis, rangeAxis,
+Layer.BACKGROUND, info);
+for (int i = getDatasetCount() - 1; i >= 0; i--) {
+foundData = render(g2, dataArea, i, info, crosshairState)
+|| foundData;
+for (int i = rendererCount - 1; i >= 0; i--) {
+XYItemRenderer r = getRenderer(i);
+if (i >= getDatasetCount()) { // we need the dataset to make
+continue;                 // a link to the axes
+if (r != null) {
+ValueAxis domainAxis = getDomainAxisForDataset(i);
+ValueAxis rangeAxis = getRangeAxisForDataset(i);
+r.drawAnnotations(g2, dataArea, domainAxis, rangeAxis,
+int xAxisIndex = crosshairState.getDomainAxisIndex();
+ValueAxis xAxis = getDomainAxis(xAxisIndex);
+RectangleEdge xAxisEdge = getDomainAxisEdge(xAxisIndex);
+int yAxisIndex = crosshairState.getRangeAxisIndex();
+ValueAxis yAxis = getRangeAxis(yAxisIndex);
+RectangleEdge yAxisEdge = getRangeAxisEdge(yAxisIndex);
+for (int i = 0; i < this.renderers.size(); i++) {
+for (int i = 0; i < this.renderers.size(); i++) {
+protected Map drawAxes(Graphics2D g2,
+Rectangle2D plotArea,
+Rectangle2D dataArea,
+PlotRenderingInfo plotState) {
+for (int index = 0; index < this.domainAxes.size(); index++) {
+ValueAxis axis = (ValueAxis) this.domainAxes.get(index);
+axisCollection.add(axis, getDomainAxisEdge(index));
+for (int index = 0; index < this.rangeAxes.size(); index++) {
+ValueAxis yAxis = (ValueAxis) this.rangeAxes.get(index);
+if (yAxis != null) {
+axisCollection.add(yAxis, getRangeAxisEdge(index));
+int upper = Math.max(getDatasetCount(), getRendererCount());
+if (index < 0 || index >= upper) {
+throw new IllegalArgumentException("Index " + index
++ " out of bounds.");
+int upper = Math.max(getDatasetCount(), getRendererCount());
+if (index < 0 || index >= upper) {
+throw new IllegalArgumentException("Index " + index
++ " out of bounds.");
+else if ((tick.getTickType() == TickType.MAJOR)
+else if ((tick.getTickType() == TickType.MAJOR)
+public void drawAnnotations(Graphics2D g2,
+Rectangle2D dataArea,
+private List getDatasetsMappedToDomainAxis(Integer axisIndex) {
+List result = new ArrayList();
+for (int i = 0; i < this.datasets.size(); i++) {
+List mappedAxes = (List) this.datasetToDomainAxesMap.get(
+new Integer(i));
+result.add(this.datasets.get(i));
+else {
+result.add(this.datasets.get(i));
+private List getDatasetsMappedToRangeAxis(Integer axisIndex) {
+List result = new ArrayList();
+for (int i = 0; i < this.datasets.size(); i++) {
+List mappedAxes = (List) this.datasetToRangeAxesMap.get(
+new Integer(i));
+result.add(this.datasets.get(i));
+else {
+result.add(this.datasets.get(i));
+List mappedDatasets = new ArrayList();
+List includedAnnotations = new ArrayList();
+mappedDatasets.addAll(getDatasetsMappedToDomainAxis(
+new Integer(domainIndex)));
+mappedDatasets.addAll(getDatasetsMappedToRangeAxis(
+new Integer(rangeIndex)));
+Iterator iterator = mappedDatasets.iterator();
+while (iterator.hasNext()) {
+XYDataset d = (XYDataset) iterator.next();
+for (int i = 0; i < this.domainAxes.size(); i++) {
+ValueAxis domainAxis = (ValueAxis) this.domainAxes.get(i);
+if (domainAxis != null) {
+if (useAnchor) {
+double sourceX = source.getX();
+if (this.orientation == PlotOrientation.HORIZONTAL) {
+sourceX = source.getY();
+double anchorX = domainAxis.java2DToValue(sourceX,
+info.getDataArea(), getDomainAxisEdge());
+domainAxis.resizeRange2(factor, anchorX);
+else {
+domainAxis.resizeRange(factor);
+for (int i = 0; i < this.domainAxes.size(); i++) {
+ValueAxis domainAxis = (ValueAxis) this.domainAxes.get(i);
+if (domainAxis != null) {
+domainAxis.zoomRange(lowerPercent, upperPercent);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis rangeAxis = (ValueAxis) this.rangeAxes.get(i);
+if (rangeAxis != null) {
+if (useAnchor) {
+double sourceY = source.getY();
+if (this.orientation == PlotOrientation.HORIZONTAL) {
+sourceY = source.getX();
+double anchorY = rangeAxis.java2DToValue(sourceY,
+info.getDataArea(), getRangeAxisEdge());
+rangeAxis.resizeRange2(factor, anchorY);
+else {
+rangeAxis.resizeRange(factor);
+for (int i = 0; i < this.rangeAxes.size(); i++) {
+ValueAxis rangeAxis = (ValueAxis) this.rangeAxes.get(i);
+if (rangeAxis != null) {
+rangeAxis.zoomRange(lowerPercent, upperPercent);
+int count = this.datasets.size();
+for (int datasetIndex = 0; datasetIndex < count; datasetIndex++) {
+XYDataset dataset = getDataset(datasetIndex);
+if (dataset != null) {
+XYItemRenderer renderer = getRenderer(datasetIndex);
+if (renderer == null) {
+renderer = getRenderer(0);
+if (renderer != null) {
+int seriesCount = dataset.getSeriesCount();
+for (int i = 0; i < seriesCount; i++) {
+if (renderer.isSeriesVisible(i)
+&& renderer.isSeriesVisibleInLegend(i)) {
+LegendItem item = renderer.getLegendItem(
+datasetIndex, i);
+if (item != null) {
+result.add(item);
+int domainAxisCount = this.domainAxes.size();
+for (int i = 0; i < domainAxisCount; i++) {
+Axis axis = (Axis) this.domainAxes.get(i);
+int rangeAxisCount = this.rangeAxes.size();
+for (int i = 0; i < rangeAxisCount; i++) {
+Axis axis = (Axis) this.rangeAxes.get(i);
+int datasetCount = this.datasets.size();
+for (int i = 0; i < datasetCount; i++) {
+Dataset dataset = (Dataset) this.datasets.get(i);
+int rendererCount = this.renderers.size();
+for (int i = 0; i < rendererCount; i++) {
+XYItemRenderer renderer = (XYItemRenderer) this.renderers.get(i);
+else {
+import org.jfree.chart.event.PlotChangeEvent;
+Math.abs(x2 - x1), dataArea.getWidth());
+boolean success = false;
+boolean success = false;
+boolean success = false;
+boolean success = false;
+boolean success = false;
+boolean success = false;
+boolean success = false;
+boolean success = false;
+boolean success = false;
+XYDrawableAnnotation a2 = null;
+a2 = (XYDrawableAnnotation) a1.clone();
+public void drawItem(Graphics2D g2,
+XYItemRendererState state,
+Rectangle2D dataArea,
+PlotRenderingInfo info,
+XYPlot plot,
+ValueAxis domainAxis,
+ValueAxis rangeAxis,
+XYDataset dataset,
+int series,
+int item,
+CrosshairState crosshairState,
+int pass) {
+Shape shape = null;
+public void drawItem(Graphics2D g2,
+XYItemRendererState state,
+Rectangle2D dataArea,
+PlotRenderingInfo info,
+XYPlot plot,
+ValueAxis domainAxis,
+ValueAxis rangeAxis,
+XYDataset dataset,
+int series,
+int item,
+CrosshairState crosshairState,
+int pass) {
+public void drawItem(Graphics2D g2,
+XYItemRendererState state,
+Rectangle2D dataArea,
+PlotRenderingInfo info,
+XYPlot plot,
+ValueAxis domainAxis,
+ValueAxis rangeAxis,
+XYDataset dataset,
+int series,
+int item,
+CrosshairState crosshairState,
+int pass) {
+public CategoryItemRendererState initialise(Graphics2D g2,
+Rectangle2D dataArea,
+CategoryPlot plot,
+int rendererIndex,
+PlotRenderingInfo info) {
+double aRadius = 0;                 // average radius
+double yyAverage = 0.0;
+PlotState parentState,
+PlotRenderingInfo info) {
+public void zoomRangeAxes(double factor,
+PlotRenderingInfo info, Point2D source) {
+DrawingSupplier result = null;
+protected void drawItem(Graphics2D g2,
+int section,
+Rectangle2D dataArea,
+PiePlotState state,
+int currentPass) {
+boolean paintLine = false;
+tabs.insertTab(localizationResources.getString("General1"), null, createPlotPanel(), null, 0);
+Range result = null;
+int historyIdx = 0;
+StringBuffer b = new StringBuffer();
+StringBuffer b = new StringBuffer();
+StringBuffer buf = new StringBuffer("TitleEntity: ");
+buf.append("tooltip = ");
+buf.append(getToolTipText());
+return buf.toString();
+StringBuffer buf = new StringBuffer("PlotEntity: ");
+buf.append("tooltip = ");
+buf.append(getToolTipText());
+return buf.toString();
+StringBuffer buf = new StringBuffer("JFreeChartEntity: ");
+buf.append("tooltip = ");
+buf.append(getToolTipText());
+return buf.toString();
+StringBuffer buf = new StringBuffer("CategoryLabelEntity: ");
+buf.append("category=");
+buf.append(this.key);
+buf.append(", tooltip=").append(getToolTipText());
+buf.append(", url=").append(getURLText());
+return buf.toString();
+StringBuffer buf = new StringBuffer("AxisEntity: ");
+buf.append("tooltip = ");
+buf.append(getToolTipText());
+return buf.toString();
+public XYItemRendererState initialise(Graphics2D g2,
+Rectangle2D dataArea,
+XYPlot plot,
+XYDataset data,
+PlotRenderingInfo info) {
+public void drawItem(Graphics2D g2,
+XYItemRendererState state,
+Rectangle2D dataArea,
+PlotRenderingInfo info,
+XYPlot plot,
+ValueAxis domainAxis,
+ValueAxis rangeAxis,
+XYDataset dataset,
+int series,
+int item,
+CrosshairState crosshairState,
+int pass) {
+e.getMessage());
+import org.jfree.data.category.DefaultCategoryDataset;
+e.printStackTrace();
+import java.awt.geom.Rectangle2D;
+e.printStackTrace();
+e.printStackTrace();
+e.printStackTrace();
+TimeZone.getTimeZone("GMT"), Locale.UK);
+g1.add(new Double(1.5), new GradientPaint(1.0f, 2.0f, Color.red, 3.0f,
+4.0f, Color.blue));
+g2.add(new Double(1.5), new GradientPaint(1.0f, 2.0f, Color.red, 3.0f,
+4.0f, Color.blue));
+g1.add(new Double(0.5), Color.red);
+g2.add(new Double(0.5), Color.red);
+g1.add(new Double(1.5), new GradientPaint(1.0f, 2.0f, Color.red, 3.0f,
+4.0f, Color.blue));
+g1.add(new Double(1.5), new GradientPaint(1.1f, 2.2f, Color.red, 3.3f,
+4.4f, Color.blue));
+s.add(new Double(50.0), Color.blue);
+s.add(new Double(50.0), Color.red);
+s.add(new Double(25.0), Color.green);
+s.add(new Double(75.0), Color.yellow);
+buf.append(", tooltip=" + getToolTipText());
+buf.append(", url=" + getURLText());
+RectangleEdge result = Plot.resolveRangeAxisLocation(location,
+this.orientation);
+if (result == null) {
+result = RectangleEdge.opposite(getRangeAxisEdge(0));
+return result;
+RectangleEdge result = Plot.resolveDomainAxisLocation(location,
+this.orientation);
+if (result == null) {
+result = RectangleEdge.opposite(getDomainAxisEdge());
+return result;
+RectangleEdge result = Plot.resolveRangeAxisLocation(location,
+this.orientation);
+if (result == null) {
+result = RectangleEdge.opposite(getRangeAxisEdge());
+return result;
+if (point0 == null) point0 = point1; //new Point2D.Double(0, 0);
+if (point3 == null) point3 = point2; //new Point2D.Double(0, 0);
+if (alpha < 0.0f || alpha > 1.0f)
+TickType.MAJOR.equals(tick.getTickType()))
+if (counterClockwise)
+plot.getRangeAxis().setFixedDimension(15.0);
+axis2.setFixedDimension(10.0);
+import java.awt.print.PrinterJob;
+import org.eclipse.swt.widgets.MessageBox;
+PrinterJob job = PrinterJob.getPrinterJob();
+PageFormat pf = job.defaultPage();
+PageFormat pf2 = job.pageDialog(pf);
+if (pf2 != pf) {
+job.setPrintable(this, pf2);
+if (job.printDialog()) {
+try {
+job.print();
+catch (PrinterException e) {
+MessageBox messageBox = new MessageBox(
+this.canvas.getShell(), SWT.OK | SWT.ICON_ERROR);
+messageBox.setMessage(e.getMessage());
+messageBox.open();
+import java.awt.RenderingHints.Key;
+return new BasicStroke(this.gc.getLineWidth(), this.gc.getLineCap(),
+this.gc.getLineJoin());
+switch (bs.getLineJoin()) {
+case BasicStroke.JOIN_BEVEL :
+this.gc.setLineJoin(SWT.JOIN_BEVEL);
+break;
+case BasicStroke.JOIN_MITER :
+this.gc.setLineJoin(SWT.JOIN_MITER);
+break;
+case BasicStroke.JOIN_ROUND :
+this.gc.setLineJoin(SWT.JOIN_ROUND);
+break;
+switch (bs.getEndCap()) {
+case BasicStroke.CAP_BUTT :
+this.gc.setLineCap(SWT.CAP_FLAT);
+break;
+case BasicStroke.CAP_ROUND :
+this.gc.setLineCap(SWT.CAP_ROUND);
+break;
+case BasicStroke.CAP_SQUARE :
+this.gc.setLineCap(SWT.CAP_SQUARE);
+break;
+e.printStackTrace();
+System.err.println("Failed to clone.");
+e.printStackTrace();
+e.printStackTrace();
+e.printStackTrace();
+assertTrue(plot != null);
+double lengthX = maxx - minx;
+double lengthY = maxy - miny;
+double length = Math.min(lengthX, lengthY);
+double midX = minx + lengthX / 2.0;
+double midY = miny + lengthY / 2.0;
+double axisMax =  axis.getUpperBound();
+double xv = length / 2.0 * Math.cos(radians);
+double yv = length / 2.0 * Math.sin(radians);
+float x = (float) (midX + (xv * (adjustedRadius - axisMin)
+/ (axisMax - axisMin)));
+float y = (float) (midY + (yv * (adjustedRadius - axisMin)
+/ (axisMax - axisMin)));
+if (counterClockwise)
+angleDegrees = -angleDegrees;
+double radians = Math.toRadians(angleDegrees + this.angleOffset);
+double minx = dataArea.getMinX() + this.margin;
+double maxx = dataArea.getMaxX() - this.margin;
+double miny = dataArea.getMinY() + this.margin;
+double maxy = dataArea.getMaxY() - this.margin;
+double lengthX = maxx - minx;
+double lengthY = maxy - miny;
+double length = Math.min(lengthX, lengthY);
+double midX = minx + lengthX / 2.0;
+double midY = miny + lengthY / 2.0;
+double axisMin = getAxis().getLowerBound();
+double axisMax =  getAxis().getUpperBound();
+double adjustedRadius = Math.max(radius, axisMin);
+double xv = length / 2.0 * Math.cos(radians);
+double yv = length / 2.0 * Math.sin(radians);
+float x = (float) (midX + (xv * (adjustedRadius - axisMin)
+/ (axisMax - axisMin)));
+float y = (float) (midY + (yv * (adjustedRadius - axisMin)
+/ (axisMax - axisMin)));
+int ix = Math.round(x);
+int iy = Math.round(y);
+Point p = new Point(ix, iy);
+return p;
+else {
+return DatasetUtilities.findDomainBounds(dataset, includeInterval);
+xAxis = plot.getDomainAxisForDataset(index);
+else {
+return DatasetUtilities.findRangeBounds(dataset, includeInterval);
+g2.drawImage(source, null, shadowSize, shadowSize);
+int left = (shadowSize - 1) >> 1;
+int right = shadowSize - left;
+int shadowRgb = shadowColor.getRGB() & 0x00FFFFFF;
+int[] aHistory = new int[shadowSize];
+float sumDivider = shadowOpacity / shadowSize;
+for (int x = 0; x < shadowSize; x++, bufferOffset++) {
+if (++historyIdx >= shadowSize) {
+historyIdx -= shadowSize;
+for (int y = 0; y < shadowSize; y++, bufferOffset += dstWidth) {
+if (++historyIdx >= shadowSize) {
+historyIdx -= shadowSize;
+while (current <= end) {
+while (current <= end) {
+Rectangle2D savedDataArea = dataArea;
+dataArea = new Rectangle(0, 0, dataImage.getWidth(),
+dataImage.getHeight());
+dataArea = savedDataArea;
+g2.drawImage(dataImage, (int) savedDataArea.getX(),
+(int) savedDataArea.getY(), null);
+Rectangle2D savedDataArea = dataArea;
+dataArea = new Rectangle(0, 0, dataImage.getWidth(),
+dataImage.getHeight());
+dataArea = savedDataArea;
+g2.drawImage(dataImage, (int) savedDataArea.getX(),
+(int) savedDataArea.getY(), null);
+d.addItem(null, 2.0, 3.0, "R1", "C1");
+d.addItem(1.0, null, null, "R1", "C1");
+d.addItem(null, 1.0, null, "R1", "C1");
+d.addItem(null, null, 1.0, "R1", "C1");
+d.addItem(4.0, null, null, "R2", "C1");
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+public double getAngleOffset()
+return angleOffset;
+public void setAngleOffset(double offset)
+public void setShapesVisible(boolean shapesVisible) {
+this.shapesVisible = shapesVisible;
+else {
+Arc2D arc1 = new Arc2D.Double(unexploded, angle, extent / 2,
+Arc2D.OPEN);
+Point2D point1 = arc1.getEndPoint();
+Arc2D.Double arc2 = new Arc2D.Double(exploded, angle, extent / 2,
+Arc2D.OPEN);
+Point2D point2 = arc2.getEndPoint();
+double deltaX = (point1.getX() - point2.getX()) * explodePercent;
+double deltaY = (point1.getY() - point2.getY()) * explodePercent;
+return new Rectangle2D.Double(unexploded.getX() - deltaX,
+unexploded.getY() - deltaY, unexploded.getWidth(),
+unexploded.getHeight());
+else {
+return p.getRootPlot();
+import org.jfree.chart.axis.AxisLocation;
+public boolean isCounterClockwise()
+return counterClockwise;
+import org.jfree.chart.util.DefaultShadowGenerator;
+import java.lang.annotation.Annotation;
+import org.jfree.chart.LegendItem;
+ObjectInput in = new ObjectInputStream(
+new ByteArrayInputStream(buffer.toByteArray())
+);
+this.coefficients = coefficients.clone();
+return this.coefficients.clone();
+try {
+i2 = (XYDataItem) i1.clone();
+catch (CloneNotSupportedException e) {
+System.err.println("XYDataItemTests.testCloning: failed to clone.");
+new ByteArrayInputStream(buffer.toByteArray())
+);
+System.out.println(e.toString());
+import java.util.Arrays;
+import org.jfree.data.function.PolynomialFunction2D;
+oldt = t;
+oldy = y;
+Point2D pt = RectangleAnchor.coordinates(rect, anchor);
+Object[] v = new Object[] { this.numberFormat.format(
+crosshair.getValue()) };
+List values = Arrays.asList(new double[] {1.0});
+values = Arrays.asList(new double[] {2.0, 2.2});
+values = Arrays.asList(new double[] {-3.0, -3.2});
+values = Arrays.asList(new double[] {6.0});
+TimeSeries series = new TimeSeries(name, start.getClass());
+TimeSeries s1 = new TimeSeries("L&G European Index Trust", Month.class);
+TimeSeries s2 = new TimeSeries("L&G UK Index Trust", Month.class);
+return super.clone();
+public void testFindLiveItemsLowerBoundUnordered() {
+d.addSeries("S2", new double[][] {{1.0}, {2.0}});
+d.addSeries("S3", new double[][] {{1.0, 2.0}, {2.0, 2.0}});
+assertEquals(0, RendererUtilities.findLiveItemsLowerBound(d, 2, 1.0,
+assertEquals(0, RendererUtilities.findLiveItemsLowerBound(d, 2, 2.0,
+d.addSeries("S4", new double[][] {{1.0, 2.0, 1.5}, {2.0, 2.0, 2.0}});
+assertEquals(0, RendererUtilities.findLiveItemsLowerBound(d, 3, 2.0,
+d.addSeries("S5", new double[][] {{1.0, 2.0, 1.5, 1.8}, {2.0, 2.0,
+2.0, 2.0}});
+assertEquals(0, RendererUtilities.findLiveItemsLowerBound(d, 4, 2.0,
+public void testFindLiveItemsLowerBoundAscending() {
+d.addSeries("S2", new double[][] {{1.0}, {2.0}});
+d.addSeries("S3", new double[][] {{1.0, 2.0}, {2.0, 2.0}});
+d.addSeries("S4", new double[][] {{1.0, 2.0, 3.0}, {2.0, 2.0, 2.0}});
+d.addSeries("S5", new double[][] {{1.0, 2.0, 3.0, 4.0}, {2.0, 2.0,
+2.0, 2.0}});
+d.addSeries("S5", new double[][] {{1.0, 2.0, 2.0, 2.0, 3.0}, {2.0, 2.0,
+2.0, 2.0, 2.0}});
+public void testFindLiveItemsLowerBoundDescending() {
+d.addSeries("S2", new double[][] {{1.0}, {2.0}});
+d.addSeries("S3", new double[][] {{2.0, 1.0}, {2.0, 2.0}});
+d.addSeries("S4", new double[][] {{3.0, 2.0, 1.0}, {2.0, 2.0, 2.0}});
+d.addSeries("S5", new double[][] {{4.0, 3.0, 2.0, 1.0}, {2.0, 2.0,
+2.0, 2.0}});
+d.addSeries("S6", new double[][] {{3.0, 2.0, 2.0, 2.0, 1.0}, {2.0, 2.0,
+2.0, 2.0, 2.0}});
+public void testFindLiveItemsUpperBoundUnordered() {
+d.addSeries("S2", new double[][] {{1.0}, {2.0}});
+d.addSeries("S3", new double[][] {{1.0, 2.0}, {2.0, 2.0}});
+assertEquals(1, RendererUtilities.findLiveItemsUpperBound(d, 2, 0.0,
+assertEquals(1, RendererUtilities.findLiveItemsUpperBound(d, 2, 3.0,
+d.addSeries("S4", new double[][] {{1.0, 2.0, 1.5}, {2.0, 2.0, 2.0}});
+assertEquals(1, RendererUtilities.findLiveItemsUpperBound(d, 3, 0.0,
+assertEquals(2, RendererUtilities.findLiveItemsUpperBound(d, 3, 2.0,
+assertEquals(2, RendererUtilities.findLiveItemsUpperBound(d, 3, 3.0,
+d.addSeries("S5", new double[][] {{1.0, 2.0, 1.5, 1.8}, {2.0, 2.0,
+2.0, 2.0}});
+assertEquals(1, RendererUtilities.findLiveItemsUpperBound(d, 4, 0.0,
+assertEquals(3, RendererUtilities.findLiveItemsUpperBound(d, 4, 2.0,
+assertEquals(3, RendererUtilities.findLiveItemsUpperBound(d, 4, 3.0,
+assertEquals(3, RendererUtilities.findLiveItemsUpperBound(d, 4, 4.0,
+public void testFindLiveItemsUpperBoundAscending() {
+d.addSeries("S2", new double[][] {{1.0}, {2.0}});
+d.addSeries("S3", new double[][] {{1.0, 2.0}, {2.0, 2.0}});
+d.addSeries("S4", new double[][] {{1.0, 2.0, 3.0}, {2.0, 2.0, 2.0}});
+d.addSeries("S5", new double[][] {{1.0, 2.0, 3.0, 4.0}, {2.0, 2.0,
+2.0, 2.0}});
+d.addSeries("S5", new double[][] {{1.0, 2.0, 2.0, 2.0, 3.0}, {2.0, 2.0,
+2.0, 2.0, 2.0}});
+public void testFindLiveItemsUpperBoundDescending() {
+d.addSeries("S2", new double[][] {{1.0}, {2.0}});
+d.addSeries("S3", new double[][] {{2.0, 1.0}, {2.0, 2.0}});
+d.addSeries("S4", new double[][] {{3.0, 2.0, 1.0}, {2.0, 2.0, 2.0}});
+d.addSeries("S5", new double[][] {{4.0, 3.0, 2.0, 1.0}, {2.0, 2.0,
+2.0, 2.0}});
+d.addSeries("S6", new double[][] {{3.0, 2.0, 2.0, 2.0, 1.0}, {2.0, 2.0,
+2.0, 2.0, 2.0}});
+assertEquals(1.0, xysc.getIntervalWidth());
+s1.updateByIndex(0, -5.0);
+s1.updateByIndex(0, 1.0);
+s1.updateByIndex(0, 2.0);
+s1.updateByIndex(0, 0.0);
+s1.updateByIndex(1, 2.05);
+s1.update(new Double(1.0), 1.0);
+s1.update(new Double(1.0), 2.0);
+return value;
+return labelOutlineStroke;
+clone.zValues = DataUtilities.clone(zValues);
+DefaultIntervalCategoryDataset d
+= new DefaultIntervalCategoryDataset(starts, ends);
+starts, ends);
+starts, ends);
+starts, ends);
+assertEquals("1.000", s);
+r1.setShape(new Rectangle(1, 2, 3, 4));
+r2.setShape(new Rectangle(1, 2, 3, 4));
+r1.setSeriesShape(1, new Rectangle(1, 2, 3, 4));
+r2.setSeriesShape(1, new Rectangle(1, 2, 3, 4));
+r1.setBaseShape(new Rectangle(1, 2, 3, 4));
+r2.setBaseShape(new Rectangle(1, 2, 3, 4));
+r1.setLegendShape(0, new Line2D.Double(1.0, 2.0, 3.0, 4.0));
+r2.setLegendShape(0, new Line2D.Double(1.0, 2.0, 3.0, 4.0));
+r1.setBaseLegendShape(new Line2D.Double(5.0, 6.0, 7.0, 8.0));
+r2.setBaseLegendShape(new Line2D.Double(5.0, 6.0, 7.0, 8.0));
+if (clip == null)
+public void setTransform(AffineTransform Tx) {
+Transform transform = getSwtTransformFromPool(Tx);
+public void transform(AffineTransform Tx) {
+swtTransform.multiply(getSwtTransformFromPool(Tx));
+new ByteArrayInputStream(buffer.toByteArray())
+);
+System.out.println(e.toString());
+new ByteArrayInputStream(buffer.toByteArray())
+);
+System.out.println(e.toString());
+assertTrue(a1 instanceof PublicCloneable);
+assertTrue(a1 instanceof PublicCloneable);
+assertTrue(a1 instanceof PublicCloneable);
+assertTrue(a1 instanceof PublicCloneable);
+assertTrue(a1 instanceof PublicCloneable);
+assertTrue(a1 instanceof PublicCloneable);
+assertTrue(a1 instanceof PublicCloneable);
+assertTrue(a1 instanceof PublicCloneable);
+ClusteredXYBarRenderer r1 = new ClusteredXYBarRenderer();
+buffer.toByteArray()));
+ThermometerPlot p1 = new ThermometerPlot();
+ThermometerPlot p2 = new ThermometerPlot();
+assertTrue(p1.equals(p2));
+assertTrue(p2.equals(p1));
+XYPlot plot = new XYPlot();
+assertFalse(plot.removeDomainMarker(new ValueMarker(0.5)));
+XYPlot plot = new XYPlot();
+assertFalse(plot.removeRangeMarker(new ValueMarker(0.5)));
+NumberFormat.getInstance());
+NumberFormat.getInstance());
+new DecimalFormat("0.000"));
+new DecimalFormat("0.000"));
+HighLowItemLabelGenerator g1 = new HighLowItemLabelGenerator();
+HighLowItemLabelGenerator g2 = new HighLowItemLabelGenerator();
+new DecimalFormat("0.000"));
+new DecimalFormat("0.000"));
+new SimpleDateFormat("d-MMM"));
+new SimpleDateFormat("d-MMM"));
+IntervalCategoryItemLabelGenerator g1
+= new IntervalCategoryItemLabelGenerator();
+IntervalCategoryItemLabelGenerator g2
+= new IntervalCategoryItemLabelGenerator();
+MultipleXYSeriesLabelGenerator g1
+= new MultipleXYSeriesLabelGenerator();
+MultipleXYSeriesLabelGenerator g2
+= new MultipleXYSeriesLabelGenerator();
+StandardCategoryItemLabelGenerator g1
+= new StandardCategoryItemLabelGenerator();
+StandardCategoryItemLabelGenerator g2
+= new StandardCategoryItemLabelGenerator();
+StandardCategorySeriesLabelGenerator g1
+= new StandardCategorySeriesLabelGenerator();
+StandardCategorySeriesLabelGenerator g2
+= new StandardCategorySeriesLabelGenerator();
+StandardCategoryToolTipGenerator g1
+= new StandardCategoryToolTipGenerator();
+StandardCategoryToolTipGenerator g2
+= new StandardCategoryToolTipGenerator();
+StandardPieSectionLabelGenerator g1
+= new StandardPieSectionLabelGenerator();
+StandardPieSectionLabelGenerator g2
+= new StandardPieSectionLabelGenerator();
+StandardPieToolTipGenerator g1
+= new StandardPieToolTipGenerator();
+StandardPieToolTipGenerator g2
+= new StandardPieToolTipGenerator();
+StandardXYItemLabelGenerator g1
+= new StandardXYItemLabelGenerator();
+StandardXYItemLabelGenerator g2
+= new StandardXYItemLabelGenerator();
+StandardXYSeriesLabelGenerator g1
+= new StandardXYSeriesLabelGenerator();
+StandardXYSeriesLabelGenerator g2
+= new StandardXYSeriesLabelGenerator();
+StandardXYToolTipGenerator g1
+= new StandardXYToolTipGenerator();
+StandardXYToolTipGenerator g2
+= new StandardXYToolTipGenerator();
+StandardXYZToolTipGenerator g1
+= new StandardXYZToolTipGenerator();
+StandardXYZToolTipGenerator g2
+= new StandardXYZToolTipGenerator();
+SymbolicXYItemLabelGenerator g1
+= new SymbolicXYItemLabelGenerator();
+SymbolicXYItemLabelGenerator g2
+= new SymbolicXYItemLabelGenerator();
+double[] values = { -5.000000000000286E-5 };
+Number[] values = new Number[] { new Double(1.0) };
+values = new Number[] { new Double(1.0), null };
+values = new Number[] { new Double(1.0), new Double(Double.NaN) };
+new DecimalFormat("0.0"));
+new DecimalFormat("0.0"));
+new DecimalFormat("0.0"));
+new DecimalFormat("0.0"));
+new DecimalFormat("0.00"));
+new SimpleDateFormat("yyyy"), new DecimalFormat("0.0"));
+BoxAndWhiskerXYToolTipGenerator g1
+= new BoxAndWhiskerXYToolTipGenerator();
+BoxAndWhiskerXYToolTipGenerator g2
+= new BoxAndWhiskerXYToolTipGenerator();
+43.0));
+Color.red, new BasicStroke(1.0f)));
+Color.red, new BasicStroke(1.0f)));
+AxisSpace da1 = new AxisSpace();
+AxisSpace ra1 = new AxisSpace();
+LegendItemCollection c1 = new LegendItemCollection();
+new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0), true, Color.red,
+true, Color.yellow, new BasicStroke(1.0f), true,
+new Line2D.Double(1.0, 2.0, 3.0, 4.0), new BasicStroke(1.0f),
+Color.green));
+true, new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0), true,
+Color.red, true, Color.yellow, new BasicStroke(1.0f), true,
+new Line2D.Double(1.0, 2.0, 3.0, 4.0), new BasicStroke(1.0f),
+Color.green));
+CategoryPlot plot = new CategoryPlot();
+assertFalse(plot.removeDomainMarker(new CategoryMarker("Category 1")));
+CategoryPlot plot = new CategoryPlot();
+assertFalse(plot.removeRangeMarker(new ValueMarker(0.5)));
+OHLCDataItem item1 = new OHLCDataItem(new Date(1L), 1.0, 2.0, 3.0, 4.0,
+5.0);
+OHLCDataItem item2 = new OHLCDataItem(new Date(2L), 6.0, 7.0, 8.0, 9.0,
+10.0);
+OHLCDataItem[] items = new OHLCDataItem[] {item2, item1};
+return new Object[] { new Long(t.getMiddleMillisecond()),
+new Integer(dir), new Integer(force) };
+SeriesChangeEvent lastEvent;
+SeriesChangeEvent lastEvent;
+XIntervalSeries s1 = new XIntervalSeries("S1");
+XIntervalSeries s1 = new XIntervalSeries("S1");
+XIntervalSeries s1 = new XIntervalSeries("S1");
+d1.addSeries("S2", new double[][] { {1.0}, {2.0} });
+d2.addSeries("S2", new double[][] { {1.0}, {2.0} });
+Locale saved = Locale.getDefault();
+Locale.setDefault(Locale.UK);
+try {
+finally {
+Locale.setDefault(saved);
+Locale saved = Locale.getDefault();
+Locale.setDefault(Locale.UK);
+try {
+finally {
+Locale.setDefault(saved);
+TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
+Locale.setDefault(saved);
+rendererIndex, toolTip, url);
+BubbleXYItemLabelGenerator g1
+= new BubbleXYItemLabelGenerator();
+BubbleXYItemLabelGenerator g2
+= new BubbleXYItemLabelGenerator();
+BufferedImage.TYPE_INT_RGB);
+BufferedImage.TYPE_INT_RGB);
+double[][] s1 = new double[][] { x, y, z };
+double[][] s2 = new double[][] { x, y, z };
+double[][] s3 = new double[][] { x, y, z };
+double[][] s4 = new double[][] { x, y, z };
+double[][] s5 = new double[][] { x, y, z };
+BufferedImage.TYPE_INT_RGB);
+assertFalse(g1 instanceof PublicCloneable);
+assertFalse(g1 instanceof PublicCloneable);
+assertFalse(g1 instanceof PublicCloneable);
+dataset.addSeries("Series '1'", new double[][] { {1.0, 2.0},
+assertFalse(g1 instanceof PublicCloneable);
+private AxisChangeEvent lastEvent;
+new SimpleDateFormat("MMM"));
+new SimpleDateFormat("yyyy"));
+PeriodAxis axis = new PeriodAxis("TestAxis");
+axis.addChangeListener(this);
+this.lastEvent = null;
+axis.setRange(new DateRange(0L, 1000L));
+assertTrue(this.lastEvent != null);
+double[] a1 = new double[] { 1.0 };
+double[] a2 = new double[] { 1.0 };
+double[] a3 = new double[] { 0.5, 1.0 };
+this.zoomInBothMenuItem.setEnabled(
+isDomainZoomable & isRangeZoomable
+);
+this.canvas.getShell(), SWT.OK | SWT.ICON_ERROR);
+this.getBounds().width, this.getBounds().height );
+|| s!=null && !s.equals(this.canvas.getToolTipText()))
+|| this.chartBufferHeight != available.height ) {
+(NumberAxis) axis );
+this.otherEditor.updateChartProperties(chart );
+if (! validateMaximum(this.maximumRangeValue.getText()))
+if (! this.autoRange)
+"Horizontal" };
+p.setOrientation(this.plotAppearance.getPlotOrientation() );
+this.gc.setAlpha((int) (color.getAlpha()*acomp.getAlpha()));
+int alpha = (int) (acomp.getAlpha()*0xFF);
++ "setting paint to uniform black color" );
+(int) Math.round(rect2d.getHeight())
+);
+style,
+chart,
+DEFAULT_WIDTH,
+DEFAULT_HEIGHT,
+DEFAULT_MINIMUM_DRAW_WIDTH,
+DEFAULT_MINIMUM_DRAW_HEIGHT,
+DEFAULT_MAXIMUM_DRAW_WIDTH,
+DEFAULT_MAXIMUM_DRAW_HEIGHT,
+DEFAULT_BUFFER_USED,
+true,  // properties
+true,  // save
+true,  // print
+true,  // zoom
+true   // tooltips
+String[] extensions = { "*.png" };
+(selection.y + selection.height/2));
+new org.eclipse.swt.graphics.Point(0,0));
+new org.eclipse.swt.graphics.Point(0,0));
+public void setDisplayToolTips( boolean displayToolTips ) {
+this.canvas.getShell(), SWT.OK | SWT.ICON_ERROR );
+messageBox.setMessage( e.getMessage() );
+zoomInBoth( e.x, e.y );
+zoomInDomain( e.x, e.y );
+zoomInRange( e.x, e.y );
+zoomOutBoth( e.x, e.y );
+zoomOutDomain( e.x, e.y );
+zoomOutRange( e.x, e.y );
+if ( drawWidth == 0.0 || drawHeight == 0.0 ) return;
+chart.setBackgroundPaint( Color.white );
+chart.setBorderVisible( true );
+chart.setBorderPaint( Color.BLACK );
+chart.addSubtitle( subtitle );
+dlg.setText( localizationResources.getString(
+item2.setText(" " + localizationResources.getString( "Plot" ) + " ");
+new SelectionAdapter() {
+toggleAutoRange();
+if (! validateMinimum( this.minimumRangeValue.getText()))
+general.setText( localizationResources.getString("General"));
+XYPlot p = ( XYPlot ) plot;
+this.setData( stroke );
+setLayout( layout );
+swtTransform.rotate( (float) (theta * 180 / Math.PI));
+this.gc.drawString(text, (int) x, (int) ( y - fm ), true);
+a1.setMinorTickCount(9);
+a2.setMinorTickCount(9);
+g2.setClip(this.dialFrame.getWindow(frame));
+g2.setClip(this.dialFrame.getWindow(frame));
+g2.setClip(this.dialFrame.getWindow(frame));
+g2.setClip(this.dialFrame.getWindow(frame));
+item = series.getDataItem(-1);
+item = series.getDataItem(1);
+s1 = new ComparableObjectSeries(null);
+implements MarkerChangeListener {
+boolean b = e1.equals(e2);
+Arc2D.OPEN);
+p = this.gradientPaintTransformer.transform((GradientPaint) p, view);
++ this.extent, - this.extent, Arc2D.OPEN);
+throw new IllegalArgumentException("" +
+"The 'radius' must be positive.");
+if( !this.points. contains(p))
+label = new Text(general, SWT.BORDER);
+label.setText(axis.getLabel());
+label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+labelFontField = new Text(general, SWT.BORDER);
+labelFontField.setText(this.labelFont.toString());
+false));
+dlg.setFontList(new FontData[] { labelFont });
+if (font != null) {
+font.dispose();
+dlg.getFontList());
+labelFontField.setText(
+font.getFontData()[0].toString());
+labelFont = font.getFontData()[0];
+dlg.setRGB(labelPaintColor.getRGB());
+labelPaintColor = new Color(getDisplay(), rgb);
+colorCanvas.setColor(labelPaintColor);
+otherTabs = new TabFolder(other, SWT.NONE);
+TabItem item1 = new TabItem(otherTabs, SWT.NONE);
+Composite ticks = new Composite(otherTabs, SWT.NONE);
+showTickLabelsCheckBox = new Button(ticks, SWT.CHECK);
+showTickLabelsCheckBox.setText(localizationResources.getString(
+showTickLabelsCheckBox.setSelection(axis.isTickLabelsVisible());
+showTickLabelsCheckBox.setLayoutData(new GridData(SWT.FILL, SWT.CENTER,
+true, false, 3, 1));
+tickLabelFontField = new Text(ticks, SWT.BORDER);
+tickLabelFontField.setText(this.tickLabelFont.toString());
+dlg.setFontList(new FontData[] {tickLabelFont});
+if (font != null) font.dispose();
+dlg.getFontList());
+tickLabelFontField.setText(
+font.getFontData()[0].toString());
+tickLabelFont = font.getFontData()[0];
+showTickMarksCheckBox = new Button(ticks, SWT.CHECK);
+showTickMarksCheckBox.setText(localizationResources.getString(
+showTickMarksCheckBox.setSelection(axis.isTickMarksVisible());
+showTickMarksCheckBox.setLayoutData(new GridData( SWT.FILL, SWT.CENTER,
+true, false, 3, 1));
+return SWTUtils.toAwtFont(getDisplay(), tickLabelFont, true);
+axis.setTickMarksVisible(showTickMarksCheckBox.getSelection());
+axis.setTickLabelsVisible(showTickLabelsCheckBox.getSelection());
+shell = new Shell(display, SWT.DIALOG_TRIM);
+shell.setSize(400, 500);
+shell.setText(ResourceBundle.getBundle(
+shell.setLayout(layout);
+Composite main = new Composite(shell, SWT.NONE);
+titleEditor = new SWTTitleEditor(tab, SWT.NONE, chart.getTitle());
+item1.setControl(titleEditor);
+plotEditor = new SWTPlotEditor(tab, SWT.NONE, chart.getPlot());
+item2.setControl(plotEditor);
+otherEditor = new SWTOtherEditor(tab, SWT.NONE, chart);
+item3.setControl(otherEditor);
+Button ok = new Button(shell, SWT.PUSH | SWT.OK);
+updateChart(chart);
+shell.dispose();
+Button cancel = new Button(shell, SWT.PUSH);
+shell.dispose();
+shell.open();
+shell.layout();
+while (!shell.isDisposed()) {
+if (!shell.getDisplay().readAndDispatch()) {
+shell.getDisplay().sleep();
+autoRangeCheckBox = new Button(range, SWT.CHECK);
+autoRangeCheckBox.setText(localizationResources.getString(
+autoRangeCheckBox.setSelection(this.autoRange);
+class SWTPlotAppearanceEditor extends Composite
+SWTPlotAppearanceEditor(Composite parent, int style, Plot plot)
+strokeCanvas = new SWTStrokeCanvas(general, SWT.NONE);
+strokeCanvas.setStroke(plot.getOutlineStroke());
+strokeCanvas.setLayoutData(strokeGridData);
+selectStroke = new Spinner(general, SWT.BORDER);
+selectStroke.setMinimum(1);
+selectStroke.setMaximum(3);
+false));
+selectStroke.addSelectionListener(
+int w = selectStroke.getSelection();
+strokeCanvas.setStroke(new BasicStroke(w));
+strokeCanvas.redraw();
+outlinePaintCanvas.setLayoutData(outlineGridData);
+dlg.setRGB(outlinePaintCanvas.getColor().getRGB());
+outlinePaintCanvas.setColor(new Color(getDisplay(),
+rgb));
+backgroundPaintCanvas.setLayoutData(bgGridData);
+dlg.setRGB(backgroundPaintCanvas.getColor().getRGB());
+backgroundPaintCanvas.setColor(
+new Color(getDisplay(), rgb));
+orientation = new Combo(general, SWT.DROP_DOWN);
+orientation.setItems(orientationNames);
+orientation.select(index);
+orientation.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
+false, 2, 1));
+switch (orientation.getSelectionIndex()) {
+plotOrientation = PlotOrientation.VERTICAL;
+= PlotOrientation.HORIZONTAL;
+plotOrientation = PlotOrientation.VERTICAL;
+return backgroundPaintCanvas.getColor();
+return outlinePaintCanvas.getColor();
+return strokeCanvas.getStroke();
+showTitleCheckBox = new Button(general, SWT.CHECK);
+showTitleCheckBox.setSelection(this.showTitle);
+false, false));
+showTitleCheckBox.addSelectionListener(
+showTitle = showTitleCheckBox.getSelection();
+titleField = new Text(general, SWT.BORDER);
+titleField.setText(t.getText());
+fontField = new Text(general, SWT.BORDER);
+fontField.setText(titleFont.toString());
+selectFontButton = new Button(general, SWT.PUSH);
+selectFontButton.setText(localizationResources.getString("Select..."));
+selectFontButton.addSelectionListener(
+dlg.setFontList(new FontData[] { titleFont });
+if (font != null) font.dispose();
+dlg.getFontList());
+fontField.setText(font.getFontData()[0].toString());
+titleFont = font.getFontData()[0];
+selectColorButton = new Button(general, SWT.PUSH);
+selectColorButton.setText(localizationResources.getString("Select..."));
+selectColorButton.addSelectionListener(
+dlg.setRGB(titleColor.getRGB());
+titleColor = new Color(getDisplay(), rgb);
+colorCanvas.setColor( titleColor );
+public SWTOtherEditor(Composite parent, int style, JFreeChart chart)
+antialias = new Button(general, SWT.CHECK);
+antialias.setText(localizationResources.getString("Draw_anti-aliased"));
+antialias.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false,
+3, 1));
+antialias.setSelection(chart.getAntiAlias());
+backgroundPaintCanvas.setLayoutData(bgGridData);
+dlg.setRGB(backgroundPaintCanvas.getColor().getRGB());
+backgroundPaintCanvas.setColor(
+public class SWTPaintCanvas extends Canvas
+e.gc.setBackground(myColor);
+myColor.dispose();
+return myColor;
+myColor.dispose();
+implements DialLayer, Cloneable, Serializable {
+public DialPointer() {
+public DialPointer(int datasetIndex) {
+this.radius = 0.675;
+public static class Pin extends DialPointer implements PublicCloneable {
+public static class Pointer extends DialPointer implements PublicCloneable {
+this.radius = 0.9;
+private double angle;
+private double radius;
+private String label;
+public double getAngle() {
+return this.angle;
+public void setAngle(double angle) {
+this.angle = angle;
+notifyListeners(new DialLayerChangeEvent(this));
+public double getRadius() {
+return this.radius;
+public void setRadius(double radius) {
+this.radius = radius;
+public String getLabel() {
+return this.label;
+public void setLabel(String label) {
+if (label == null) {
+throw new IllegalArgumentException("Null 'label' argument.");
+this.label = label;
+public DialValueIndicator(int datasetIndex, String label) {
+DialScale scale = plot.getScaleForDataset(0);
+this(0.0, 100.0, 175, -170);
+double startAngle, double extent) {
+this.tickLabelFont = new Font("Dialog", Font.BOLD, 16);
+this.tickLabelPaint = Color.blue;
+this.minorTickCount = 4;
+this.tickLabelOffset = 0.10;
+this.majorTickIncrement = 10.0;
+this.tickRadius = 0.70;
+this.tickLabelsVisible = true;
+this.firstTickLabelVisible = true;
+this.tickRadius - this.minorTickLength);
+g2.draw(new Line2D.Double(pt0, pt1));
+if (this.minorTickCount > 0) {
+g2.setStroke(new BasicStroke(1.0f));
+g2.draw(new Line2D.Double(pt0, pt3));
+DialValueIndicator i1 = new DialValueIndicator(0, "Label");
+DialValueIndicator i2 = new DialValueIndicator(0, "Label");
+DialValueIndicator i1 = new DialValueIndicator(0, "Label");
+DialValueIndicator i2 = new DialValueIndicator(0, "Label");
+DialValueIndicator i1 = new DialValueIndicator(0, "Label");
+DialValueIndicator i1 = new DialValueIndicator(0, "Label");
+s1 = new StandardDialScale(10.0, 100.0, 0.0, 270.0);
+s2 = new StandardDialScale(10.0, 100.0, 0.0, 270.0);
+s1 = new StandardDialScale(10.0, 200.0, 0.0, 270.0);
+s2 = new StandardDialScale(10.0, 200.0, 0.0, 270.0);
+s1 = new StandardDialScale(10.0, 200.0, 20.0, 270.0);
+s2 = new StandardDialScale(10.0, 200.0, 20.0, 270.0);
+s1 = new StandardDialScale(10.0, 200.0, 20.0, 99.0);
+s2 = new StandardDialScale(10.0, 200.0, 20.0, 99.0);
+resourcePool.add(resource);
+for (Iterator it = resourcePool.iterator();it.hasNext();) {
+Resource resource = (Resource)it.next();
+resourcePool.clear();
+colorsPool.clear();
+resourcePool.clear();
+fontsPool.get(font);
+SWTUtils.toSwtFontData(gc.getDevice(), font, true));
+fontsPool.put(font, swtFont);
+swtColor = SWTUtils.toSwtColor(gc.getDevice(), awtColor);
+org.eclipse.swt.graphics.Color bg = gc.getBackground();
+org.eclipse.swt.graphics.Color fg = gc.getForeground();
+gc.setBackground(fg);
+gc.setForeground(bg);
+Transform t = new Transform(gc.getDevice());
+gc.drawPath(path);
+convertToSWT(image));
+gc.drawImage(im, x, y);
+gc.drawImage(image, x, y);
+float fm = gc.getFontMetrics().getAscent();
+gc.drawString(text, x, (int) (y - fm), true);
+float fm = gc.getFontMetrics().getAscent();
+gc.drawString(text, (int) x, (int) ( y - fm ), true);
+gc.setLineWidth((int) bs.getLineWidth());
+gc.setLineJoin(SWT.JOIN_BEVEL);
+gc.setLineJoin(SWT.JOIN_MITER);
+gc.setLineJoin(SWT.JOIN_ROUND);
+gc.setLineCap(SWT.CAP_FLAT);
+gc.setLineCap(SWT.CAP_ROUND);
+gc.setLineCap(SWT.CAP_SQUARE);
+gc.setLineStyle(SWT.LINE_SOLID);
+gc.setLineDash(swtDashes);
+gc.getTransform(swtTransform);
+gc.setTransform(swtTransform);
+gc.getTransform(swtTransform);
+gc.setTransform(swtTransform);
+gc.getTransform(swtTransform);
+gc.setTransform(swtTransform);
+gc.getTransform(swtTransform);
+gc.setTransform(swtTransform);
+gc.getTransform(swtTransform);
+gc.setTransform(swtTransform);
+gc.setTransform(toSwtTransform(Tx));
+gc.getTransform(swtTransform);
+return SWTUtils.toAwtColor(gc.getForeground());
+gc.getBackground().dispose();
+org.eclipse.swt.graphics.Color swtColor = SWTUtils.toSwtColor(gc.getDevice(), color);
+gc.setBackground(swtColor);
+return SWTUtils.toAwtColor(gc.getBackground());
+gc.getLineJoin());
+= new FontRenderContext(new AffineTransform(), true, true);
+return SWTUtils.toAwtColor(gc.getForeground());
+gc.setForeground(swtColor);
+FontData[] fontData = gc.getFont().getFontData();
+return SWTUtils.toAwtFont(gc.getDevice(), fontData[0], true);
+gc.setFont(swtFont);
+gc.setClipping(path);
+org.eclipse.swt.graphics.Rectangle clip = gc.getClipping();
+org.eclipse.swt.graphics.Rectangle clip = gc.getClipping();
+gc.setClipping(clip);
+gc.setClipping(x, y, width, height);
+return SWTUtils.toAwtRectangle(gc.getClipping());
+gc.setClipping(clipPath);
+gc.drawLine(x1, y1, x2, y2);
+gc.fillRectangle(x, y, width, height);
+import org.eclipse.swt.widgets.Listener;
+public JFreeChart chart;
+canvas.addPaintListener(new PaintListener() {
+public void paintControl(PaintEvent e) {
+Rectangle available = getBounds();
+if (chart == null) {
+available.width, available.height);
+return;
+SWTGraphics2D sg2 = new SWTGraphics2D(e.gc);
+boolean scale = false;
+int drawWidth = available.width;
+int drawHeight = available.height;
+if ( drawWidth == 0.0 || drawHeight == 0.0 ) return;
+scaleX = 1.0;
+scaleY = 1.0;
+if (drawWidth < minimumDrawWidth) {
+scaleX = (double) drawWidth / minimumDrawWidth;
+drawWidth = minimumDrawWidth;
+scale = true;
+else if (drawWidth > maximumDrawWidth) {
+scaleX = (double) drawWidth / maximumDrawWidth;
+drawWidth = maximumDrawWidth;
+scale = true;
+if (drawHeight < minimumDrawHeight) {
+scaleY = (double) drawHeight / minimumDrawHeight;
+drawHeight = minimumDrawHeight;
+scale = true;
+else if (drawHeight > maximumDrawHeight) {
+scaleY = (double) drawHeight / maximumDrawHeight;
+drawHeight = maximumDrawHeight;
+scale = true;
+if (useBuffer) {
+canvas.getData("double-buffer-image");
+if (chartBuffer == null
+|| chartBufferWidth != available.width
+|| chartBufferHeight != available.height ) {
+chartBufferWidth = available.width;
+chartBufferHeight = available.height;
+if (chartBuffer != null) {
+chartBuffer.dispose();
+chartBufferHeight);
+refreshBuffer = true;
+if (refreshBuffer) {
+GC gci = new GC(chartBuffer);
+SWTGraphics2D sg2d = new SWTGraphics2D(gci);
+if (scale) {
+sg2d.scale(scaleX, scaleY);
+canvas.setData("double-buffer-image", chartBuffer);
+sg2d.dispose();
+gci.dispose();
+refreshBuffer = false;
+sg2.drawImage(chartBuffer, 0, 0);
+else {
+getBounds().width, getBounds().height), getAnchor(), info);
+Rectangle area = getScreenDataArea();
+e.gc.drawLine(verticalTraceLineX, area.y, verticalTraceLineX, area.y + area.height);
+e.gc.drawLine(area.x, horizontalTraceLineY, area.x + area.width, horizontalTraceLineY);
+verticalTraceLineX = 0;
+horizontalTraceLineY = 0;
+if (zoomRectangle != null) e.gc.drawRectangle(zoomRectangle);
+sg2.dispose();
+Listener listener = new Listener() {
+public void handleEvent (Event event) {
+switch (event.type) {
+case SWT.MouseDown:
+Rectangle scaledDataArea = getScreenDataArea(event.x, event.y);
+zoomPoint = getPointInRectangle(event.x, event.y, scaledDataArea);
+Rectangle insets = getClientArea();
+int x = (int) ((event.x - insets.x) / scaleX);
+int y = (int) ((event.y - insets.y) / scaleY);
+anchor = new Point2D.Double(x, y);
+canvas.redraw();
+Object[] listeners = chartMouseListeners.getListeners(
+ChartMouseListener.class);
+if (listeners.length == 0) {
+return;
+ChartEntity entity = null;
+= info.getEntityCollection();
+if (entities != null) {
+entity = entities.getEntity(x, y);
+ChartMouseEvent chartEvent = new ChartMouseEvent(getChart(), mouseEvent, entity);
+for (int i = listeners.length - 1; i >= 0; i -= 1) {
+listeners[i]).chartMouseClicked(chartEvent);
+break;
+case SWT.MouseMove:
+if ( horizontalAxisTrace || verticalAxisTrace ) {
+horizontalTraceLineY = event.y;
+verticalTraceLineX = event.x;
+canvas.redraw();
+String s = getToolTipText(new MouseEvent(event));
+if (s == null && canvas.getToolTipText() != null
+|| s!=null && !s.equals(canvas.getToolTipText()))
+canvas.setToolTipText(s);
+if (zoomPoint == null) {
+return;
+scaledDataArea = getScreenDataArea(zoomPoint.x, zoomPoint.y);
+= getPointInRectangle(event.x, event.y, scaledDataArea);
+boolean hZoom = false;
+boolean vZoom = false;
+if (orientation == PlotOrientation.HORIZONTAL) {
+hZoom = rangeZoomable;
+vZoom = domainZoomable;
+else {
+vZoom = rangeZoomable;
+if (hZoom && vZoom) {
+else if (hZoom) {
+zoomRectangle = new Rectangle(zoomPoint.x, scaledDataArea.y,
+movingPoint.x - zoomPoint.x, scaledDataArea.height);
+else if (vZoom) {
+zoomRectangle = new Rectangle(
+scaledDataArea.x, zoomPoint.y,
+scaledDataArea.width, event.y - zoomPoint.y);
+canvas.redraw();
+break;
+case SWT.MouseUp:
+if (zoomRectangle == null) {
+Rectangle screenDataArea = getScreenDataArea(event.x, event.y);
+if (screenDataArea != null) {
+zoomPoint = getPointInRectangle(event.x, event.y, screenDataArea);
+if (popup != null && event.button == 3) {
+org.eclipse.swt.graphics.Point pt = canvas.toDisplay(event.x, event.y);
+displayPopupMenu(pt.x, pt.y);
+else {
+hZoom = false;
+vZoom = false;
+if (orientation == PlotOrientation.HORIZONTAL) {
+hZoom = rangeZoomable;
+vZoom = domainZoomable;
+else {
+vZoom = rangeZoomable;
+>= zoomTriggerDistance;
+>= zoomTriggerDistance;
+if (zoomTrigger1 || zoomTrigger2) {
+restoreAutoBounds();
+else zoom(zoomRectangle);
+canvas.redraw();
+zoomPoint = null;
+zoomRectangle = null;
+break;
+default:
+zoomPoint = null;
+zoomRectangle = null;
+canvas.addListener(SWT.MouseDown, listener);
+canvas.addListener(SWT.MouseMove, listener);
+canvas.addListener(SWT.MouseUp, listener);
+(int) (selection.y + selection.height)/2);
+z.zoomDomainAxes(0.0, this.info.getPlotInfo(), SWTUtils.toAwtPoint(this.zoomPoint));
+if ( properties ) {
+"Domain_Axis" ) );
+"Range_Axis" ) );
+Menu zoomOutMenu = new Menu( result );
+this.zoomOutDomainMenuItem.addSelectionListener( this );
+public static MouseEvent toAwtMouseEvent(org.eclipse.swt.widgets.Event event) {
+(long) event.time, SWT.NONE, event.x, event.y, 1, false);
+return true;
+return true;
+public interface DialScale {
+return true;
+return true;
+return true;
+return true;
+private double increment;
+public double getIncrement() {
+return this.increment;
+public void setIncrement(double increment) {
+this.increment = increment;
+if (this.increment != that.increment) {
+return false;
+int result = 193;
+long temp = Double.doubleToLongBits(this.increment);
+temp = Double.doubleToLongBits(this.lowerBound);
+DialLayer, Cloneable, PublicCloneable, Serializable {
+if (tickLabelsVisible) {
+return true;
+= new TestSuite("org.jfree.experimental.chart.plot.dial");
+public class DialPlotTests extends TestCase {
+r1.setIncrement(1.5);
+assertFalse(r1.equals(r2));
+r2.setIncrement(1.5);
+assertTrue(r1.equals(r2));
+p1.setGapRadius(7);
+p2.setGapRadius(7);
+Double.POSITIVE_INFINITY), d.getRangeBounds(false));
+Double.POSITIVE_INFINITY), d.getRangeBounds(true));
+import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
+assertEquals(0.9, r.getLowerBound());
+assertEquals(13.1, r.getUpperBound());
+assertEquals(0.8, r.getLowerBound());
+assertEquals(13.0, r.getUpperBound());
+assertEquals(1500.0, r.getLowerBound());
+assertEquals(1500.0, r.getUpperBound());
+assertEquals(1500.0, r.getLowerBound());
+assertEquals(1000.0, r.getLowerBound());
+assertEquals(2000.0, r.getUpperBound());
+assertEquals(1000.0, r.getLowerBound());

@@ -1,0 +1,1640 @@
+LANG-1402: Fixed comment
+(doc) Fix typos in classes of tuple package
+Fix javadoc errors reported by Java 11.
+[LANG-1238] Fix typo.[LANG-1290] StringUtils.join() with support for List<?> with
+configurable start/end indices. Fix XML.Fix broken XML.[LANG-1393] Add API SystemUtils.String getEnvironmentVariable(final
+String name, final String defaultValue). Fix @since tag.LANG-1384: Fix NPE when version >= 11
+
+The fix is likely to be insufficient if the version naming scheme changes.
+LANG-1371: Fix TypeUtils.parameterize to work correctly with narrower-typed varargs array
+
+add changes.xml entry
+LANG-1371: Fix TypeUtils.parameterize to work correctly with narrower-typed varargs array (closes #307)
+StringUtils#getDigits : Fix a small mistake in javadoc description. (closes #310)
+LANG-1370 Fix EventCountCircuitBreaker increment batch
+
+Fixes #incrementAndCheckState(Integer increment) by passing the increment downstream.
+Fix Javadoc typos.Fix up component id
+
+mvn commons:download-page -Dcommons.release.version=3.7
+-Dcommons.componentid=langLANG-1362: Fix tests DateUtilsTest for Java 9 with en_GB locale
+
+Add changes.xml entry.
+Fix DateUtilsTest to work reliably on Java 9. This closes #304.[LANG-1365] Fix NullPointerException in isJavaVersionAtLeast on Java 10, add SystemUtils.IS_JAVA_10, add JavaVersion.JAVA_10.
+
+Fix check-style violations.
+[LANG-1365] Fix NullPointerException in isJavaVersionAtLeast on Java 10,
+add SystemUtils.IS_JAVA_10, add JavaVersion.JAVA_10.Pft! Fix typo.Fix javadoc typos
+Fix typo stateme->statement
+
+This closes #288
+Fix ExceptionUtils#getStackFrame(String) javadoc (closes #274)
+
+ExceptionUtils#getStackFrame(String)'s javadoc contains a broken
+reference to SystemUtils#LINE_SEPARATOR (as the class name is not
+fully qualified, and there's no import of
+org.apache.commons.lang3.SystemUtils).
+
+This patch fixes the broken reference by replacing it it with a
+reference to System#lineSeparator(), which the method actually uses.
+Fix duplicated maven-jar-plugin configuration
+LANG-1337: Fix test failures in IBM JDK 8 for ToStringBuilderTest by specifying the ArrayList initial capacity.
+Deprecate CharEncoding and direct users to Java 7 classes
+
+Java 7 introduced java.nio.charset.StandardCharsets, which negates the
+need for our CharEncoding method. Additionally, the constants in the
+class now point to the constants defined in Java 7.
+
+Fixes: LANG-1334Avoid endless loop printing array with MultilineRecursiveToStringStyle
+
+Previous implementation was causing an endless loop by calling
+'super.appendDetail' rather than 'super.reflectionAppendArrayDetail'
+when it encountered an array type.
+
+Fixes: LANG-1319LANG-1317: Add MethodUtils#findAnnotation and extend MethodUtils#getMethodsWithAnnotation for non-public, super-class and interface methods
+
+fix bug introduced by last commit
+LANG-1167: Add null filter to ReflectionToStringBuilder
+
+Fix/add since javadoc tags, fix checkstyle violations and do other small clean-ups.
+Fixed the indentation in ArrayUtilsTest
+Fixed javadoc of MutableBoolean setTrue / setFalse (closes #260)
+Fix checkstyle xml by closing module tag
+LANG-1314: Fix javadoc creation on with Java 8
+
+Remove </p> tag from Computable's javadoc
+
+The standard javadoc doclet does not allow self closing tags (such as
+</p>). This patch removes such a tag from Computable's javadoc, as it's
+redundant anyway, as it's only used to create spaces between two
+existing paragraphs.
+LANG-1314: Fix javadoc creation on with Java 8
+
+Fix StirngUtils </p> tags in javadoc
+
+The paragraph
+
+</p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+
+appears in several places in the javadoc (presumably, copy-pasted from
+the original one to the others). This is obviously a mistake, as a
+paragraph should start with <p>, not with </p>.
+
+This patch fixes all the occurrences of this paragraph to the proper
+form:
+
+<p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+LANG-1314: Fix javadoc creation on with Java 8
+
+Add @param for <T> in ArrayUtils#insert
+LANG-1265: Build failures when building with Java 9 EA (closes #244)
+
+Fix build on Java 9 Build 157 by adding a java-9 maven profile. This is activated by default on Java 9 and opens up java.base classes for reflection, which makes all unit tests pass.
+Fix JsonToStringStyleTest.NestingPerson javadoc (closes #243)
+
+A {@link} javadoc can only reference a resolvable class name. The
+{@link} tag in NestingPerson's javadoc is thus broken, as it directly
+references JsonToStringStyle without qualifying it with the enclosing
+ToStringStyle class.
+
+This patch adds the enclosing class to the javadoc, thus "unbreaking"
+the reference.
+Fix FastDateParser#getStrategy(char, int, Calendar) javadoc (closes #242)
+
+The javadoc refers to a formatField parameter, which the method doesn't
+have.
+Reading the description and the method's code, this documentation
+clearly refers to the f parameter.
+
+This patch fixes the javadoc and aligns it with the method's parameters.
+Fix a few broken @literal tags (closes #233)
+
+The Javadoc of SystemDefaultsSwitch contains some broken @literal tags.
+Instead of {@literal @} to insert a '@' into the HTML, {@literal@}
+without the space is used, which does not work.
+Fix a number of Javadoc typos (closes #232)
+Fix copy-paste error in CharUtilsTest#testIsAsciiPrintable_char (closes #230)
+
+Line 238 has copy paste error from testIsAscii_char
+Fix for LANG-1286: RandomStringUtils random method can overflow...Fix javadoc in isAnyNotBlank
+Fixed typo in Javadoc.Fixes LANG-1292: WordUtils.wrap throws StringIndexOutOfBoundsExceptionFix javadoc for isAnyNotEmpty (closes #220)
+Fix unbox warning. Show when we are unboxing.LANG-1287: RandomStringUtils#random can enter infinite loop if end parameter is to small (closes #211)
+
+1.) Fixed possible infinite loop that can be caused by generating either digits or letters by calling with a to low end param.
+
+2.) Added (inclusive) and (exclusive) terms to javadoc of random method
+Fix compiler warning: exception not thrown.Fix test for IS_JAVA_XX constants.
+
+The test would never check anything, since it tested against the
+java.specification.name property, which has the value "Java Platform API
+Specification"
+LANG-1134: New methods for lang3.Validate (closes #190)
+
+Fixed method names; fixed differentObject to use Object.equals
+Fix whitespaces, add missing @since tag
+Fix ReflectionToStringBuilder toString javadoc
+
+- as is
+     * @param outputStatics
+     *            whether to include transient fields
+- to be
+     * @param outputStatics
+     *            whether to include static fieldsFix typo in toMap javadocFix typo in documentation of Range#isEndedBy (closes #166)
+LANG-1018: Fix precision loss on NumberUtils.createNumber(String) (closes #156)
+Fixing testTSVEmpty to use getTSVInstance instead of getCSVInstance (closes #164)
+LANG-1199: Fix implementation of StringUtils.getJaroWinklerDistance()
+
+Replace current implementation with Jaro-Winkler distance implementation taken from Apache Lucene.
+LANG-1244: Fix dead links in StringUtils.getLevenshteinDistance() javadoc
+LANG-1242: "\u2284":"&nsub;" mapping missing from EntityArrays#HTML40_EXTENDED_ESCAPE (closes #159)
+
+Fix commented out nsub in EntityArray
+Fix compiler type warningFix various Javadoc typos (closes #134)
+Add tests with a better comparator from #132. Fix formating.Fix Javadoc typo.Fix typo on appendIfMissing Javadoc.
+https://github.com/apache/commons-lang/pull/129[LANG-1211] Fix Javadoc for StringUtils.startsWithAny(CharSequence,
+CharSequence...)Fixing crlfs
+Registered the merged contribution from Jake Wang in changes.xml (Fix #123)
+Fixed line ending issues once and for all
+Merge branch 'master' of https://github.com/NickManley/commons-lang
+This closes #117
+LANG-1186 Fix NullPointerException in FastDateParser$TimeZoneStrategy
+Fix NullPointerException in FastDateParser$TimeZoneStrategyFix typo
+Javadoc: Fix typo but working is still awkward.Fix source repository location in doap file and on front page
+Fix whitespaces and indentation
+Fix wrong JavaDoc parameter name
+Fix potential NPE by checking for object identity instead of comparing one property only
+Merge branch 'LANG-1130'
+
+LANG-1130: Fix critical issues reported by SonarQube.
+Fixed critical issues in ClassUtils and TypeUtils. The
+other three issues are false positives.
+Fix SonarQube warning: The user-supplied array 'typeArguments' is stored directly.
+Fix SonarQube warning: org.apache.commons.lang3.ClassUtils.<static initializer for ClassUtils>()
+makes inefficient use of keySet iterator instead of entrySet iterator.
+Fix typo
+#LAN-1114 fixes bug in TypeUtils.equals(WildcardType, Type) where it was incorrectly returning true when the second argument was not a Wildcard type.
+LANG-1118 Fix StringUtils.repeat(char, int) dealing with negative repeat value
+Fix broken links in README.md. Thanks to Stian Soiland-Reyes.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1672246 13f79535-47bb-0310-9956-ffa450edef68
+LANG-1111 - Fix FindBugs warnings in DurationFormatUtils
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1671994 13f79535-47bb-0310-9956-ffa450edef68
+LANG-1107 Fix parsing edge cases in FastDateParser
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1671992 13f79535-47bb-0310-9956-ffa450edef68
+Fix copy past error
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1671044 13f79535-47bb-0310-9956-ffa450edef68
+Fix ant build
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1671032 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1669786 13f79535-47bb-0310-9956-ffa450edef68
+Further optimization of LANG-935:
+- Avoid toString of the replacement sequence by doing it once.
+- Avoid calculating the maximum when not needed.
+- Fixup comment for greedy algorithm
+
+Thanks to Fabian Lange.
+
+
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1669520 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc link
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1666365 13f79535-47bb-0310-9956-ffa450edef68
+Fix up Findbugs version so it works with Java 6
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1655027 13f79535-47bb-0310-9956-ffa450edef68
+LANG-1071: Fix wrong examples in JavaDoc of StringUtils.replaceEachRepeatedly(...), StringUtils.replaceEach(...). Thanks to Arno Noordover.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1648067 13f79535-47bb-0310-9956-ffa450edef68
+LANG-1041: Fix MethodUtilsTest so it does not depend on JDK method ordering. This fixes #30 from github. Thanks to Alexandre Bartel.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1628922 13f79535-47bb-0310-9956-ffa450edef68
+Fix for LANG-827: CompareToBuilder's doc doesn't specify precedence of fields it uses in performing comparisons
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1628165 13f79535-47bb-0310-9956-ffa450edef68
+Fix for LANG-1035: Javadoc for EqualsBuilder.reflectionEquals() is unclear
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1623970 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1620321 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc problem
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1613587 13f79535-47bb-0310-9956-ffa450edef68
+LANG-1024: Fix JavaDoc errors in test code
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1609902 13f79535-47bb-0310-9956-ffa450edef68
+Fix broken JavaDoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1599316 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1592811 13f79535-47bb-0310-9956-ffa450edef68
+LANG-1007: Fixing NumberUtils JAVADoc comments for max methods. This also fixes pull request #22 from github. Thanks to Thiago Andrade.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1592587 13f79535-47bb-0310-9956-ffa450edef68
+Add missing bug fix to changes.xml
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1590006 13f79535-47bb-0310-9956-ffa450edef68
+LANG-995: Fix bug with stripping spaces on last line in WordUtils.wrap(). This fixes #18 from github. Thanks to Andrey Khobnya
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1586649 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc errors in *TEST CODE* since mvn site fails when using Java 8 otherwise. Thanks to Oracle for teaching us how to write well formed HTML.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1585287 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc warnings by explaning why UnsupportedOperationException is thrown
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1585281 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc issues with JDK 1.8
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1583781 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc issues with JDK 1.8
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1583482 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc problems in Conversion
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1582687 13f79535-47bb-0310-9956-ffa450edef68
+Fix typos
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1582669 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc problems in ClassUtils
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1582667 13f79535-47bb-0310-9956-ffa450edef68
+LANG-992 Fix NumberUtils#isNumber() returns false for "0.0", "0.4790", et al
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1582585 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc 8 doclint issues.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1578214 13f79535-47bb-0310-9956-ffa450edef68
+Add Release notes for upcoming 3.3.1 bugfix release
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1577847 13f79535-47bb-0310-9956-ffa450edef68
+Preparing bugfix release 3.3.1
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1577842 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc link
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1570818 13f79535-47bb-0310-9956-ffa450edef68
+Fix raw type warnings, as pointed out by Duncan Jones
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1561722 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo introduced by myself :o)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1558513 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc problems
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1558512 13f79535-47bb-0310-9956-ffa450edef68
+LANG-940: Fix deprecation warnings; found some more usages
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1557592 13f79535-47bb-0310-9956-ffa450edef68
+Fix compiler warnings
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1557586 13f79535-47bb-0310-9956-ffa450edef68
+Fix typos
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1557585 13f79535-47bb-0310-9956-ffa450edef68
+LANG-940: Fix deprecation warnings
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1557584 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1557520 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1556853 13f79535-47bb-0310-9956-ffa450edef68
+LANG-937: Fix missing Hamcrest dependency in Ant Build
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1554848 13f79535-47bb-0310-9956-ffa450edef68
+Fix wrong download links
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1554660 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc typo.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1553928 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc warning
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1552680 13f79535-47bb-0310-9956-ffa450edef68
+Fix svn props
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1552659 13f79535-47bb-0310-9956-ffa450edef68
+Fix svnmailer charset (and make dummy change)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1545136 13f79535-47bb-0310-9956-ffa450edef68
+Fix issue number: 932 => 931
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1544775 13f79535-47bb-0310-9956-ffa450edef68
+Rewriting OctalUnescaper as a hand rolled parser (all of 4 characters), instead of trying to handle the conversion via repeated attempts to convert the numbers. This fixes bugs, see LANG-929, and also changes the behaviour for 'illegal' octals such as \999. Instead of throwing NumberFormatException, it will now ignore them. This seems the better behaviour. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1535914 13f79535-47bb-0310-9956-ffa450edef68
+Applying github pull request https://github.com/apache/commons-lang/pull/5, linked as LANG-928, fixing a bug in OctalEscaper trying to parse octal numbers longer than 3 digits
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1535911 13f79535-47bb-0310-9956-ffa450edef68
+Applying Thomas Neidhart's patch for LANG-905; fixing a bug in which EqualsBuilder considers two arrays of the same type to be equal, without considering the contents
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1535653 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc param tags
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1534760 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1533914 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1533798 13f79535-47bb-0310-9956-ffa450edef68
+Fixing typo in javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1533794 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc link
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1533402 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the documentation so that a random string of numbers and letters is not guaranteeing that a number or a letter will appear as reported by Andrzej Winnicki in LANG-902
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1532684 13f79535-47bb-0310-9956-ffa450edef68
+Fix JavaDoc link
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1531433 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1526818 13f79535-47bb-0310-9956-ffa450edef68
+Add missing separator between subclasses. Fix provided by Dave Hughes via github.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1525014 13f79535-47bb-0310-9956-ffa450edef68
+Fix type in JavaDoc. Fix provided by Dave Hughes via github.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1525013 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1519294 13f79535-47bb-0310-9956-ffa450edef68
+more assertions trying to flush out bugs I'd already fixed :P
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1483607 13f79535-47bb-0310-9956-ffa450edef68
+Fix some formatting.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1478487 13f79535-47bb-0310-9956-ffa450edef68
+[LANG-754] Fix ClassUtils.getShortName to only do a reverse lookup for array types.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1470174 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc api URLs
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1467378 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the @since for LANG-875
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1467205 13f79535-47bb-0310-9956-ffa450edef68
+Fix test failure comments
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1461679 13f79535-47bb-0310-9956-ffa450edef68
+Fix up URLs so they point to actual sites; this allows relative URLs to work properly
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1459912 13f79535-47bb-0310-9956-ffa450edef68
+Fixing urls to point to new oracle pages and not old, sometimes broken, sun urls
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1459653 13f79535-47bb-0310-9956-ffa450edef68
+Fixing link from javadoc to point to new oracle site
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1459652 13f79535-47bb-0310-9956-ffa450edef68
+Fix PMD: Avoid modifiers which are implied by the context.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1455892 13f79535-47bb-0310-9956-ffa450edef68
+Fix typo.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1448370 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1437065 13f79535-47bb-0310-9956-ffa450edef68
+[LANG-844] Fix javadoc of StringUtils.center methods, thanks to John Lindwall.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1396313 13f79535-47bb-0310-9956-ffa450edef68
+LANG-828 FastDateParser does not handle non-Gregorian calendars properly
+Fix bug in Java 7 (Locale.toString() format has changed)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1390189 13f79535-47bb-0310-9956-ffa450edef68
+Fix testParses() so it works for non-GMT timezones: the format must include hours to allow for GMT-offsets
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1389869 13f79535-47bb-0310-9956-ffa450edef68
+Fix hashCode() - t is not part of equals() check
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1388088 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc typos.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1329678 13f79535-47bb-0310-9956-ffa450edef68
+Fix test failures by clearing out the registry for tests that try
+to show that the registry is left clean.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1298262 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javdoc.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1295208 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javdoc.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1295127 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javdoc.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1295126 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the DateIterator javadoc to indicate the end date is inclusive, not 'not inclusive'
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1225117 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the StringUtils.split javadoc per Samurel Tardieu in LANG-783
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1225104 13f79535-47bb-0310-9956-ffa450edef68
+Fix various boxing errors
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1206700 13f79535-47bb-0310-9956-ffa450edef68
+[LANG-775] [LANG-776] fix related bugs dealing with type variable inheritance
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1203429 13f79535-47bb-0310-9956-ffa450edef68
+Fix typos: threadsafe -> thread-safe
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1202710 13f79535-47bb-0310-9956-ffa450edef68
+Fix Clirr reporting, now picks up correct version.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1199800 13f79535-47bb-0310-9956-ffa450edef68
+Fix my email entry.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1182397 13f79535-47bb-0310-9956-ffa450edef68
+LANG-752 Fix createLong() so it behaves like createInteger()
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1166820 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the OSGi SymbolicName by updating the commons.componentid. Issue identified by Brandon Harper in LANG-749
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1163904 13f79535-47bb-0310-9956-ffa450edef68
+Adding a basic FixedOrderComparatorTest
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1159026 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the component-name (aka artifactId in Maven language). LANG-741
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1158501 13f79535-47bb-0310-9956-ffa450edef68
+Fixing package names and adding excludes to the pom.xml for the parts of the collections framework that followed over
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1154844 13f79535-47bb-0310-9956-ffa450edef68
+Fixing package names so things compile. Removing Boolean and Transform usages in ComparatorUtils as those classes didn't come accross
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1154833 13f79535-47bb-0310-9956-ffa450edef68
+Adding a '.' to the end of every <action>. This fits the subsequent addition of 'Fixes' in the generated report
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1154113 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1153350 13f79535-47bb-0310-9956-ffa450edef68
+Fix PMD issues: "These nested if statements could be combined"
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1153241 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc to use the right exception types. Related to LANG-686
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1151343 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc. The replaceEachRepeatedly does in fact repeat. Related to LANG-686
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1151340 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the 3.0 release date
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1148225 13f79535-47bb-0310-9956-ffa450edef68
+Fixing test to use the right escaper; numeric entities and not unicode. LANG-728
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1148167 13f79535-47bb-0310-9956-ffa450edef68
+Fixing documentation; it was pointing to UnicodeEscaper and not NumericEntityEscaper. Also updated the API to not be Range based as we dropped that. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1148166 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc - it was pointing to the wrong translator
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1148164 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1148160 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc bug; Improve implementation and tests
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1133336 13f79535-47bb-0310-9956-ffa450edef68
+Fixing accidental switch to 'int' in r1131309
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1131310 13f79535-47bb-0310-9956-ffa450edef68
+Fix toString(format)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1127554 13f79535-47bb-0310-9956-ffa450edef68
+Fixed a test failure which occurred under certain circumstances (Java 1.5 with default locale GERMAN).
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1098403 13f79535-47bb-0310-9956-ffa450edef68
+Added more @since 3.0 CharSequence changes. Fixed an @since 3.1 to 3.0
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1092822 13f79535-47bb-0310-9956-ffa450edef68
+Fixed javadoc spelling errors.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1090932 13f79535-47bb-0310-9956-ffa450edef68
+Fix SVN keywords
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1090563 13f79535-47bb-0310-9956-ffa450edef68
+Fixing documentation post translate move to Range API
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1090522 13f79535-47bb-0310-9956-ffa450edef68
+Fixing @see reference
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1090514 13f79535-47bb-0310-9956-ffa450edef68
+Fix broken test - Sun Java and Eclipse casting nasturtiums at each other
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1090006 13f79535-47bb-0310-9956-ffa450edef68
+Fixed checkstyle warnings.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1082299 13f79535-47bb-0310-9956-ffa450edef68
+Fixing LANG-685 so that EqualsBuilder synchronizes on itself and not HashCodeBuilder
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1082042 13f79535-47bb-0310-9956-ffa450edef68
+Fix incorrect Javadoc re thrown exceptions; requires further change to private method
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1079417 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc warnings
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1079271 13f79535-47bb-0310-9956-ffa450edef68
+Fix order of modifiers to public static final
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1077925 13f79535-47bb-0310-9956-ffa450edef68
+Fix brace positions
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1077921 13f79535-47bb-0310-9956-ffa450edef68
+Fix missing new in example. Fix javadoc. Fix code style.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1076703 13f79535-47bb-0310-9956-ffa450edef68
+Fixing @params
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1065230 13f79535-47bb-0310-9956-ffa450edef68
+Fixing infinite recursion. Thankyou FindBugs
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1065198 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc for DateUtils.ceiling per LANG-672
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1062326 13f79535-47bb-0310-9956-ffa450edef68
+Fix up Javadoc for unsupported methods
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1057352 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc link.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1056248 13f79535-47bb-0310-9956-ffa450edef68
+Fixing NumberUtils.isNumber so that 1.1L is not considered a number. LANG-664
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1054202 13f79535-47bb-0310-9956-ffa450edef68
+LANG-658 Fix remaining entries
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1034798 13f79535-47bb-0310-9956-ffa450edef68
+LANG-658 Fix ograve entry
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1034794 13f79535-47bb-0310-9956-ffa450edef68
+[LANG-656] Fix Javadoc.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1032596 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the javadoc for indexOfAnyBut(CharSequence, char[]) per Dirk Starke's report
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1032220 13f79535-47bb-0310-9956-ffa450edef68
+COMMONSSITE-57 Fix announce mod_mbox link
+(I used version 1.4-SNAPSHOT of the commons-build-plugin to do this - need to release it and update commons-parent at some point)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@1005115 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc per LANG-643 to indicate an empty String is returned for negative length and not a thrown exception
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@989329 13f79535-47bb-0310-9956-ffa450edef68
+Fix wrong cast.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@984655 13f79535-47bb-0310-9956-ffa450edef68
+Fixing url to 3.0-beta javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@981384 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc example.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@966645 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the pass along of compareTransients to the reflectionCompare method as identified by Robert Radkiewicz in LANG-635
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@965941 13f79535-47bb-0310-9956-ffa450edef68
+Fix cloning of array types.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@960138 13f79535-47bb-0310-9956-ffa450edef68
+Fixing variable
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@956778 13f79535-47bb-0310-9956-ffa450edef68
+- Fix (LANG-624) SystemUtils.getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM
+- Refactor for unit testing.
+- Remove odd test code which is copy and pasted from SystemUtils, which therefore does not test anything.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@949140 13f79535-47bb-0310-9956-ffa450edef68
+Fixing indent
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@946903 13f79535-47bb-0310-9956-ffa450edef68
+Fixed LocalUtils typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@931821 13f79535-47bb-0310-9956-ffa450edef68
+Fix year for 2.5 release
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@930823 13f79535-47bb-0310-9956-ffa450edef68
+Fixing package name to WordUtils and String->CharSequence API change
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@930817 13f79535-47bb-0310-9956-ffa450edef68
+Fixing referred to method after API change. getInitializedObject became get
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@930816 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc to refer to CharSequence after API change
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@930815 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc per LANG-600. Examples already in tests. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@924372 13f79535-47bb-0310-9956-ffa450edef68
+Fix tabs to spaces, thank you Jörg.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@923386 13f79535-47bb-0310-9956-ffa450edef68
+Fix DefaultExceptionContext.addValue that overwrites information in a recursive situation (LANG-605). Allow explicit replacement of a label with the new replaceValue methods.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@923341 13f79535-47bb-0310-9956-ffa450edef68
+Fix defaultIsEmpty typing.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@922904 13f79535-47bb-0310-9956-ffa450edef68
+Fix threadsafety comments
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@918836 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc @see tags
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@918368 13f79535-47bb-0310-9956-ffa450edef68
+Fix raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@918238 13f79535-47bb-0310-9956-ffa450edef68
+Removing JDK 1.2/1.3 protecting bugfix. We're now on JDK 1.5. LANG-590
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@907384 13f79535-47bb-0310-9956-ffa450edef68
+Fixing LANG-585. Don't catch Throwable, catch Exception instead. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@905922 13f79535-47bb-0310-9956-ffa450edef68
+Fixed a test case that does not work on non-English locales.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@903421 13f79535-47bb-0310-9956-ffa450edef68
+Fix raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@902944 13f79535-47bb-0310-9956-ffa450edef68
+Fix paste typos
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@899260 13f79535-47bb-0310-9956-ffa450edef68
+Fix JUnit message to agree with test
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@899239 13f79535-47bb-0310-9956-ffa450edef68
+Fix timezone ;-)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@893548 13f79535-47bb-0310-9956-ffa450edef68
+Fixing LANG-538 - you need to call getTime() on a calendar sometimes to get it in the right state, otherwise the timezone gets out of whack. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@891542 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@891268 13f79535-47bb-0310-9956-ffa450edef68
+Fix generic map type
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@890413 13f79535-47bb-0310-9956-ffa450edef68
+Fix up some raw types.
+May need to adjust some types if lookup() is made generic (see LANG-564)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@890360 13f79535-47bb-0310-9956-ffa450edef68
+Fix up raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@890329 13f79535-47bb-0310-9956-ffa450edef68
+Fix up raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@890328 13f79535-47bb-0310-9956-ffa450edef68
+Fix Eclipse warnings
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@890327 13f79535-47bb-0310-9956-ffa450edef68
+Fixing package name. LANG-563
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@889227 13f79535-47bb-0310-9956-ffa450edef68
+Fixing @links to point to new lang3 package. LANG-563
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@889219 13f79535-47bb-0310-9956-ffa450edef68
+LANG-508 Fix tests broken by r885195
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@885913 13f79535-47bb-0310-9956-ffa450edef68
+Updating versions of reports, fixing bugs with Cobertura and JavaNCSS. Checkstyle still not understanding generics, but the 2.4 report errors so needs more investigation before trying that. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@884501 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@884493 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@884487 13f79535-47bb-0310-9956-ffa450edef68
+[LANG-501] There was a problem with inconsistent line endings in the last commit, so the svn:eol-style property was not set. Fixing now.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@883101 13f79535-47bb-0310-9956-ffa450edef68
+Fix most Eclipse warnings
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@882950 13f79535-47bb-0310-9956-ffa450edef68
+Fix generics
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@882949 13f79535-47bb-0310-9956-ffa450edef68
+Fix to handle null input array, and remove check for NULL
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@881209 13f79535-47bb-0310-9956-ffa450edef68
+Adding more tests, plus a rename of lessThan to elementBefore; greaterThan to elementAfter and bugfix so the new code works - LANG-551
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@833358 13f79535-47bb-0310-9956-ffa450edef68
+Fix internal raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829549 13f79535-47bb-0310-9956-ffa450edef68
+Fix internal raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829547 13f79535-47bb-0310-9956-ffa450edef68
+Fix some raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829545 13f79535-47bb-0310-9956-ffa450edef68
+Fix some raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829541 13f79535-47bb-0310-9956-ffa450edef68
+Fix some raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829538 13f79535-47bb-0310-9956-ffa450edef68
+Fix some raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829537 13f79535-47bb-0310-9956-ffa450edef68
+Fix some raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829535 13f79535-47bb-0310-9956-ffa450edef68
+Fix internal raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829534 13f79535-47bb-0310-9956-ffa450edef68
+Fix internal raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829398 13f79535-47bb-0310-9956-ffa450edef68
+Fix internal raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829395 13f79535-47bb-0310-9956-ffa450edef68
+Fix Eclipse case drop-thru warnings
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829391 13f79535-47bb-0310-9956-ffa450edef68
+Fix some raw types and other Eclipse warnings
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829375 13f79535-47bb-0310-9956-ffa450edef68
+Fix some raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829374 13f79535-47bb-0310-9956-ffa450edef68
+Fix internal raw types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829367 13f79535-47bb-0310-9956-ffa450edef68
+Fix raw Class types
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829364 13f79535-47bb-0310-9956-ffa450edef68
+Fix test case tear down that causes other tests to break
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@829348 13f79535-47bb-0310-9956-ffa450edef68
+Fixing compile error introduced after making variable final but leaving a path in which it can miss getting initialized
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@826946 13f79535-47bb-0310-9956-ffa450edef68
+Fixup raw types for private variables (non-API)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@819703 13f79535-47bb-0310-9956-ffa450edef68
+Fix svn:ignores.
+Update POM.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@802570 13f79535-47bb-0310-9956-ffa450edef68
+Fix failing unit test of Contexted(Runtime)Exception, adjust formatted message.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@802569 13f79535-47bb-0310-9956-ffa450edef68
+Fixing classes to not need UnhandledException and IllegalArgumentException
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@796078 13f79535-47bb-0310-9956-ffa450edef68
+Fixing classes to not need NullArgumentException
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@796070 13f79535-47bb-0310-9956-ffa450edef68
+Fixing bug in below/above implementations found while implementing NumericEntityEscaper
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@788257 13f79535-47bb-0310-9956-ffa450edef68
+Re-Fix DOAP tags
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@779542 13f79535-47bb-0310-9956-ffa450edef68
+Fix DOAP tags
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@779524 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc, unused import
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@775411 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@775410 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc to not reference removed method
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@754782 13f79535-47bb-0310-9956-ffa450edef68
+Fix Short test case
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@754549 13f79535-47bb-0310-9956-ffa450edef68
+Fix various Eclipse warnings (casts, unused vars, @Override)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@753655 13f79535-47bb-0310-9956-ffa450edef68
+Fix various Eclipse warnings (casts, unused vars)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@753654 13f79535-47bb-0310-9956-ffa450edef68
+Fixing package name. Removing import
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@753621 13f79535-47bb-0310-9956-ffa450edef68
+Fixing names of classes so they compile/run
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@751359 13f79535-47bb-0310-9956-ffa450edef68
+Applying Alexander Kjall's patch from LANG-480; along with a unit test made from his example. Fixes unicode conversion above U+00FFFF being done into 2 characters
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@749095 13f79535-47bb-0310-9956-ffa450edef68
+Fixed download link.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@737515 13f79535-47bb-0310-9956-ffa450edef68
+Fix for LANG-477 OutOfMemory with custom format registry and a pattern containing single quotes - thanks to Duncan Eley
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@733169 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the unit test as described in LANG-440. The truncate tests for AM_PM had been copied and were not testing againt the correct expected results. This will break the build. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@664642 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the docs as per LANG-442 - the href's were not working correctly
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@664635 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the locale to English as hex chars are all ascii
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@655256 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the toLowerCase locale as we're looking for english text as per LANG-432
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@655255 13f79535-47bb-0310-9956-ffa450edef68
+Applying Vincent Behar's second patch for LANG-419 - fixing a bug in abbreviate such that lower limits greater than the length of the string weren't working correctly
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@655246 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the html fix from Benjamin Bentmann in LANG-431 - unclosed tag
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@655203 13f79535-47bb-0310-9956-ffa450edef68
+Fix spelling.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@643943 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the javadoc for endsWithIgnoreCase as per LANG-418, and adding some javadoc to test the novel javadoc examples
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@640727 13f79535-47bb-0310-9956-ffa450edef68
+Fixing download links by pointing to the /downloads/ ones for the moment
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@640301 13f79535-47bb-0310-9956-ffa450edef68
+Adding a section on the bugfixes
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@640279 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the linking in the article to be inline rather than the failed attempt at links at the end of the lines. Also hooked the article up to the main page and release notes
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@640276 13f79535-47bb-0310-9956-ffa450edef68
+Fixing typo
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@639317 13f79535-47bb-0310-9956-ffa450edef68
+Fixing broken link on front page
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@637527 13f79535-47bb-0310-9956-ffa450edef68
+Fixing name in the description to not be Commons.Lang
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@637361 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the assemblies to say project.version instead of version to stop '2.4.1' leaking through from the JVM properties. Also making it project.artifactId while I'm doing this. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@637007 13f79535-47bb-0310-9956-ffa450edef68
+Fixing a possible overflow in the >> 1 divide by two by using >>> 1 instead. Findbugs pointed this out> 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@636641 13f79535-47bb-0310-9956-ffa450edef68
+Fix tests not compiling under JDK 1.3
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@634854 13f79535-47bb-0310-9956-ffa450edef68
+Applying my patch from LANG-412; fixing Peter Oxenham's report that the appendFixedWidthPadRight and appendFixedWidthPadLeft are not null safe if the nullText has not been set
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@627248 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the expected exception so the test doesn't fail (see LANG-180)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@616173 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc warning.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@612656 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc copyright year once and for all.
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@612317 13f79535-47bb-0310-9956-ffa450edef68
+Applying third patch from LANG-381. Fixes the minimum(float[]) type methods to correctly return NaN when it is in the array, and adds an IEEE754rUtils class that obeys the IEEE 754r update in which NaN in min/max methods should be ignored unless all values are NaN. 
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@609475 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the javadoc as per Tomasz Bartczak's report in LANG-384
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@606672 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the @see->@link bit so it doesn't have @link
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@597284 13f79535-47bb-0310-9956-ffa450edef68
+Fixing checkstyle issue - lack of braces after an if
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@597282 13f79535-47bb-0310-9956-ffa450edef68
+Fixing broken build due to JDK 1.5 Class.getSimpleName. Now uses ClassUtils.getShortClassName - LANG-333
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@594543 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@594410 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc - it's != and not ==. Returning false because two objects have the same class is dumb. This was my dumb typing for LANG-353
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@594275 13f79535-47bb-0310-9956-ffa450edef68
+Fixed minor javadoc errors (as per checkstyle)
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@591543 13f79535-47bb-0310-9956-ffa450edef68
+Fix source inconsistencies: Some methods used both "foo" and "this.foo" for ivar references; made it all "this.foo".
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@583608 13f79535-47bb-0310-9956-ffa450edef68
+Applying the fix and the test patches from LANG-346 - fixes bugs in DateUtils.round() for minutes and seconds. Patch from Dave Meikle
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@564053 13f79535-47bb-0310-9956-ffa450edef68
+Fixing svn locations after TLP move
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@561233 13f79535-47bb-0310-9956-ffa450edef68
+Fixing email addresses
+
+git-svn-id: https://svn.apache.org/repos/asf/commons/proper/lang/trunk@560800 13f79535-47bb-0310-9956-ffa450edef68
+Fixing LANG-320. I modified the tests to only check that the listed languages and countries are contained in the result, not that they exactly equal the result
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@508733 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@508731 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc warnings from checkstyle
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@504343 13f79535-47bb-0310-9956-ffa450edef68
+Fixing missing 'for's
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@501566 13f79535-47bb-0310-9956-ffa450edef68
+Fixing & messup that I reintroduced
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@501561 13f79535-47bb-0310-9956-ffa450edef68
+Fixed up release notes
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@501557 13f79535-47bb-0310-9956-ffa450edef68
+Fixed indentation/tabs. Eclipse wasn't setup right I guess
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@500497 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc example
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@492378 13f79535-47bb-0310-9956-ffa450edef68
+Fixing version number in nav
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@492003 13f79535-47bb-0310-9956-ffa450edef68
+Fixed incorrect JDK API link.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@491757 13f79535-47bb-0310-9956-ffa450edef68
+Adding bugfixes and improvements from JIRA
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@491129 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc link
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@491059 13f79535-47bb-0310-9956-ffa450edef68
+Fixed import. Also optimised list.toArray(..) to use new Token[list.size()] so that the passed in array is used and not reflection. Latter reported by FindBugs
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@489740 13f79535-47bb-0310-9956-ffa450edef68
+More tests, more bugfixes (aka rewrite of the guts). 
+
+It's looking much better, the only edge case that throws it for a loop is if things start on the 29th of February in a year. I've hacked it in the day mode, but I'm not sure why I had to do that - however I trust the brute force test to be right in day mode. 
+In month mode, it's even trickier as to what the correct answer is. How many months between 29th Feb and 28th of Feb the next year? The answer is 11, or with days included it's 11 months and 28 days. I can't see any reason to define that better, so I'm declaring that law. 
+
+Things are weird if you start on Feb 29 :)
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@488926 13f79535-47bb-0310-9956-ffa450edef68
+Fixing LANG-300 (reported by Jeremy Lemaire) - 1L to 9L incorrectly throw exceptions when passed into NumberUtils.createNumber. Fixed in both the math.NumbersUtils and the deprecated NumberUtils classes. 
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@488819 13f79535-47bb-0310-9956-ffa450edef68
+More unit tests and bugfixes. The currently failing test is commented out, so more bugfixes to come.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@486523 13f79535-47bb-0310-9956-ffa450edef68
+More tests added to DurationFormatUtilsTest and discovered bugs fixed in the DurationFormatUtils.formatPeriod method. 
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@485481 13f79535-47bb-0310-9956-ffa450edef68
+Fixng LANG-295 - thisBuf.length calls. There were two of the calls, so I've committed a unit test showing things are broken and a fix in both cases. 
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@469696 13f79535-47bb-0310-9956-ffa450edef68
+Fixing #LANG-294. The indexOf method did not take into account the size variable that limited the amount of the buffer that should be looked at. 
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@469677 13f79535-47bb-0310-9956-ffa450edef68
+Adding a unit test for #LANG-281 and a fix. The fix involves removing the reduceAndCorrect method. It appears that this method was doing sod all - which is worrying as it used to be important. I'm guessing that it was a bad fix for a bug that was then subsequently fixed with other code. I'll create a JIRA issue to create more tests to test out the +31 block of code. 
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@453818 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc example and adding a unit test to prove the example; as reported in #LANG-278
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@442618 13f79535-47bb-0310-9956-ffa450edef68
+Fixed javadoc typo as mentioned in #LANG-258
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@441929 13f79535-47bb-0310-9956-ffa450edef68
+Fixed 2nd javadoc bug mentioned in #LANG-277 and added more unit tests to match the javadoc examples
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@438574 13f79535-47bb-0310-9956-ffa450edef68
+Fix XML comment from a previous commit.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@437756 13f79535-47bb-0310-9956-ffa450edef68
+Fixing license header
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@437556 13f79535-47bb-0310-9956-ffa450edef68
+Fixing license header
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@437555 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the ASF copyright and placing it in the NOTICE file
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@437554 13f79535-47bb-0310-9956-ffa450edef68
+LANG-259 - Fix compareTo to check the type is the same
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@432748 13f79535-47bb-0310-9956-ffa450edef68
+Dropped the 2.1 bugfixes and new features. Moved bugzilla ids to jira ids
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@428651 13f79535-47bb-0310-9956-ffa450edef68
+Fix for LANG-272 - Minor JavaDoc changes to clean up checkstyle issues
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@420491 13f79535-47bb-0310-9956-ffa450edef68
+Fix for LANG-272 - minor build changes
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@420490 13f79535-47bb-0310-9956-ffa450edef68
+Fix char/Character methods in ArrayUtils
+LANG-267
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@419386 13f79535-47bb-0310-9956-ffa450edef68
+Fixed a bit of javadoc with bad xhtml
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@419177 13f79535-47bb-0310-9956-ffa450edef68
+Fixed escaping of backslash-u in javadoc notes for issue reported in LANG-66
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@418833 13f79535-47bb-0310-9956-ffa450edef68
+Fix compilation error
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@418568 13f79535-47bb-0310-9956-ffa450edef68
+Adding a test and a fix for LANG-100. This is a bug in which the randomly created String can sometimes be illegal unicode; because the code does not consider when relationships exist between characters. High and low surrogates are now dealt with, but I'm skipping private high surrogates because I can't find out what to do. Need to go plod very slowly through the spec. This site was very useful: http://www.alanwood.net/unicode/private_use_high_surrogates.html
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@417319 13f79535-47bb-0310-9956-ffa450edef68
+Fixing isSmoker attribute name to smoker to match the code example in both of these files - spotted by Corey Tripp in LANG-264
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@416495 13f79535-47bb-0310-9956-ffa450edef68
+Committing fix for LANG-140. By reversing the order of field calculation, Yu Peng's bug goes away
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@415317 13f79535-47bb-0310-9956-ffa450edef68
+Fixing Javadoc and adding Unit Test for the example for #LANG-261. 
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@411898 13f79535-47bb-0310-9956-ffa450edef68
+Fixing issue tracking link
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@406861 13f79535-47bb-0310-9956-ffa450edef68
+Fixing the lack of ClassLoader consideration in the compareTo methods of enum.Enum and enums.Enum, along with unit tests, as mentioned on Bugzilla entry #32619 by Kathy Van Stone. 
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@398812 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc nit: use the active voice.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@398809 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc nits.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@398808 13f79535-47bb-0310-9956-ffa450edef68
+Fixing issue #38569
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@394875 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc warnings
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@394727 13f79535-47bb-0310-9956-ffa450edef68
+Fixed spelling error
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@394265 13f79535-47bb-0310-9956-ffa450edef68
+Fix infinite loops leading to OutOfMemory with circular cause chain
+bug 37038
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@389900 13f79535-47bb-0310-9956-ffa450edef68
+Fix code style
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@384043 13f79535-47bb-0310-9956-ffa450edef68
+Fixing -1/1 bug as per #37661
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@383487 13f79535-47bb-0310-9956-ffa450edef68
+Fixing javadoc example error: #37507
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@383482 13f79535-47bb-0310-9956-ffa450edef68
+Fix formatting to lang standards
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@360513 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc examples
+bug 36850, pointed out by Maarten Coene
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@360508 13f79535-47bb-0310-9956-ffa450edef68
+Fixed formatting.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@357616 13f79535-47bb-0310-9956-ffa450edef68
+http://issues.apache.org/bugzilla/show_bug.cgi?id=37596
+The method DurationFormatUtils.formatDurationWords incorrectly outputs numbers
+ending in "1" without a plural "s" postfix for the time unit.
+Added a fix and tests that "1 <unit>s" gets converted to "1 <unit>" but that "11
+<unit>s" is left alone.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@348311 13f79535-47bb-0310-9956-ffa450edef68
+Removed tabs
+Fixed POM as per bug 37314
+Use groupId/artifactId instead of id
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@348046 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc comment
+from Rahul Akolkar
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@240462 13f79535-47bb-0310-9956-ffa450edef68
+Fix IndexOutOfBoundsException on padding
+bug 35756, from Reuben Sivan
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@240418 13f79535-47bb-0310-9956-ffa450edef68
+Fix license, style and svn properties
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@240401 13f79535-47bb-0310-9956-ffa450edef68
+Fix clone() and add a unit test.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@234360 13f79535-47bb-0310-9956-ffa450edef68
+Rewrite internal implementation, fix bugs, improve tests
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@234128 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@234034 13f79535-47bb-0310-9956-ffa450edef68
+Fix null handling behaviour on char[] methods
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@234018 13f79535-47bb-0310-9956-ffa450edef68
+Add StrMatcher and update StrBuilder and test cases to use it, plus fix other bugs
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@232652 13f79535-47bb-0310-9956-ffa450edef68
+Fix indexOf and lastIndexOf with null input
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@230921 13f79535-47bb-0310-9956-ffa450edef68
+Fix setLength()
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@230906 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc, notably exceptions
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@230904 13f79535-47bb-0310-9956-ffa450edef68
+Fix some Checkstyle and PMD warnings. Extract constants from in-lined '\n' and '\r' in StringUtils.java.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@230857 13f79535-47bb-0310-9956-ffa450edef68
+Fix PMD warning: Avoid instantiating Boolean objects; you can usually invoke Boolean.TRUE instead.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@230715 13f79535-47bb-0310-9956-ffa450edef68
+Fixes and better unit test code coverage from Nathan Beyer [nbeyer@kc.rr.com].
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@227149 13f79535-47bb-0310-9956-ffa450edef68
+Fixes and better unit test code coverage from Nathan Beyer [nbeyer@kc.rr.com].
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@226934 13f79535-47bb-0310-9956-ffa450edef68
+Fix ClassUtils.primitiveToWrapper() to handle Void.TYPE
+bug 34327, from Alban Peignier
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@219117 13f79535-47bb-0310-9956-ffa450edef68
+Fix 120-length warnings reported for 2.1-RC4 here: http://people.apache.org/~stevencaswell/commons-lang-2.1/docs/checkstyle-report.html
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@165657 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc copyright year.
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@161241 13f79535-47bb-0310-9956-ffa450edef68
+Fixes http://issues.apache.org/bugzilla/show_bug.cgi?id=33737.
+[lang] ExceptionUtils.addCauseMethodName(String) does not check for duplicates.
+Fix adds:
+ ExceptionUtils.removeCauseMethodName(String)
+ ExceptionUtils.isCauseMethodName(String)
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@155238 13f79535-47bb-0310-9956-ffa450edef68
+Fixes http://issues.apache.org/bugzilla/show_bug.cgi?id=33737.
+[lang] ExceptionUtils.addCauseMethodName(String) does not check for duplicates.
+Fix adds:
+ ExceptionUtils.removeCauseMethodName(String)
+ ExceptionUtils.isCauseMethodName(String)
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@155236 13f79535-47bb-0310-9956-ffa450edef68
+No bug fix but add a test like http://issues.apache.org/bugzilla/show_bug.cgi?id=33069.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@138012 13f79535-47bb-0310-9956-ffa450edef68
+ToStringStyle setArrayEnd handled null incorrectly
+bug 31933, fix from Masato Tezuka
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@138011 13f79535-47bb-0310-9956-ffa450edef68
+Added a trimmer matcher which is now used to determine
+which characters to trim off the left and right of tokens.
+the ignore matcher is now truly an ignore matcher, which
+will leave out any matching characters from all tokens.
+I also fixed a few minor bugs.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@138002 13f79535-47bb-0310-9956-ffa450edef68
+Handle Java version with text prefix, as found on HP-UX
+bug 32123, from Jason Gritman
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137994 13f79535-47bb-0310-9956-ffa450edef68
+Fix unescape to handle invalid entities
+bug 29149, from Dan Goldberg
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137988 13f79535-47bb-0310-9956-ffa450edef68
+Fix DateUtils.truncate oddity at the far end of the Date spectrum
+bug 31395, from Marc Portier
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137984 13f79535-47bb-0310-9956-ffa450edef68
+Rework DurationFormatUtils to have clearer API based on two types of formatting
+Fix millisecond formatting bug
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137977 13f79535-47bb-0310-9956-ffa450edef68
+Fix test for changed exception message
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137976 13f79535-47bb-0310-9956-ffa450edef68
+Fix bug where add() didn't use array type
+Remove unecessary calls to lastIndex() for performance
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137970 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc to refer to the correct entities
+from knuti at ibm
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137958 13f79535-47bb-0310-9956-ffa450edef68
+Fix for zero-padding of years.
+
+A commented out set of failing tests are added to the Unit Test and need to be addressed.
+
+Submitted by:	Jerson Chua
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137932 13f79535-47bb-0310-9956-ffa450edef68
+Fixed a typo in javadoc.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137916 13f79535-47bb-0310-9956-ffa450edef68
+Fixed a couple of typos in javadoc.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137915 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc warnings.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137900 13f79535-47bb-0310-9956-ffa450edef68
+Fixed numeric problems reported in PR #29294
+Submitted by: C. Scott Ananian
+Reviewed by: Phil Steitz
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137879 13f79535-47bb-0310-9956-ffa450edef68
+changed modify method to calculate the field offset and use the set method, rather than adding the offset and letting Calendar perform the calculation - this fixes http://issues.apache.org/bugzilla/show_bug.cgi?id=25560;
+updated javadocs on round method to explain how rounding across daylight saving time is handled
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137866 13f79535-47bb-0310-9956-ffa450edef68
+Fix since tag
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137839 13f79535-47bb-0310-9956-ffa450edef68
+Fix Enum equals to work correctly by reflection
+bug 28180, from Matthias Eichel
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137837 13f79535-47bb-0310-9956-ffa450edef68
+PR: http://issues.apache.org/bugzilla/show_bug.cgi?id=28468
+Fixed error in javadoc.
+Submitted by: Christian d'Heureuse
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137836 13f79535-47bb-0310-9956-ffa450edef68
+Fix replaceChars() to complete bug 25454
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137826 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc descriptions
+from Christian Ullenboom
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137823 13f79535-47bb-0310-9956-ffa450edef68
+Fixed some typos in javadoc.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137818 13f79535-47bb-0310-9956-ffa450edef68
+
+PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=27054
+Fixes to some Javadoc errors in ClassUtils
+Submitted by:	Janek Bogucki
+Reviewed by:	Gary Gregory
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137813 13f79535-47bb-0310-9956-ffa450edef68
+Fix spelling and scope
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137805 13f79535-47bb-0310-9956-ffa450edef68
+
+PR: http://nagoya.apache.org/bugzilla/show_bug.cgi?id=26656
+[lang][patch] Validate.java: fixes comment skew, removes unused loop counter.
+Submitted by:	Janek Bogucki
+Reviewed by:	Gary Gregory
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137775 13f79535-47bb-0310-9956-ffa450edef68
+Fixed bug in getDateInstance(int, TimeZone, Locale). See bz #26646.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137772 13f79535-47bb-0310-9956-ffa450edef68
+Fixed a couple of typos.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137755 13f79535-47bb-0310-9956-ffa450edef68
+Fixed typo in javadoc for isEquals, repored by Cameron Hayne, hayne at sympatico dot ca.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137743 13f79535-47bb-0310-9956-ffa450edef68
+Fix mistake and clarify javadoc spec for replace
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137730 13f79535-47bb-0310-9956-ffa450edef68
+Fixed error in javadoc for StringUtils.split and improved tests.
+Pr: 24911
+Submitted by Al Chou.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137711 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc of replace method
+bug 24056, from Russell Dittmar
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137688 13f79535-47bb-0310-9956-ffa450edef68
+Fixed typos in javadoc and some inline comments.
+Pr #22908.
+Patch submitted by Janek Bogucki.
+Reviewed by Phil Steitz.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137666 13f79535-47bb-0310-9956-ffa450edef68
+Fixed dist url and declared 2.1 as the next version
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137660 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc problems arising from recent commits
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137658 13f79535-47bb-0310-9956-ffa450edef68
+Fixed the crlf fixing for txt files in the binary build.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137646 13f79535-47bb-0310-9956-ffa450edef68
+Fix spelling of "acknowlegement" to "acknowledgement".
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137623 13f79535-47bb-0310-9956-ffa450edef68
+Added latest bugs to the bugfix list.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137601 13f79535-47bb-0310-9956-ffa450edef68
+Fix 2 Javadoc typos and cross-reference cap/uncapitaliZe methods ;-)
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137594 13f79535-47bb-0310-9956-ffa450edef68
+Javadoc fixes
+bug 22094, from Tim O'Brien
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137560 13f79535-47bb-0310-9956-ffa450edef68
+Fix RandomStringUtils to not throw NPE all the time
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137543 13f79535-47bb-0310-9956-ffa450edef68
+Fix CharSetUtils to not throw NPE all the time
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137538 13f79535-47bb-0310-9956-ffa450edef68
+Fixes arising from Clover report
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137530 13f79535-47bb-0310-9956-ffa450edef68
+Added in the bugs fixed in the last few weeks.
+Changed comment to say that these are the changes since 1.0.1.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137526 13f79535-47bb-0310-9956-ffa450edef68
+Javadoc fixes and improved tests
+bug 21952, from Phil Steitz
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137524 13f79535-47bb-0310-9956-ffa450edef68
+Fix http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21904 as suggested (but with the guard clause factored in a method.)
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137520 13f79535-47bb-0310-9956-ffa450edef68
+Fix bug in isNestedThrowable, shown on JDK<1.4
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137511 13f79535-47bb-0310-9956-ffa450edef68
+Fix Javadoc troubles
+from Phil Steitz
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137506 13f79535-47bb-0310-9956-ffa450edef68
+Fix stupid compile error....
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137489 13f79535-47bb-0310-9956-ffa450edef68
+Javadoc fixes
+bug 21758, from Pete Gieser
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137488 13f79535-47bb-0310-9956-ffa450edef68
+Javadoc fixes
+bug 21758, from Pete Gieser
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137487 13f79535-47bb-0310-9956-ffa450edef68
+Fix class so IS_JAVA_* and IS_OS_* constants work correctly.
+bug 21767, from Tetsuya Kaneuchi
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137485 13f79535-47bb-0310-9956-ffa450edef68
+Fix wrong javadoc
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137470 13f79535-47bb-0310-9956-ffa450edef68
+Fix split to use whitespace, remove StringTokenizer
+Performance tune some methods
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137452 13f79535-47bb-0310-9956-ffa450edef68
+Fixed leftPad() and rightPad() to correctly handle multi letter pad strings
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137449 13f79535-47bb-0310-9956-ffa450edef68
+Fix typos
+from Phil Steitz
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137432 13f79535-47bb-0310-9956-ffa450edef68
+Fix to correctly identify the original author
+from Brian S O'Neill
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137412 13f79535-47bb-0310-9956-ffa450edef68
+Added the bugs fixed by 2.0 to the release notes.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137409 13f79535-47bb-0310-9956-ffa450edef68
+Fixed Javadoc return tag.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137393 13f79535-47bb-0310-9956-ffa450edef68
+Add new empty array constants for number objects
+Declare variables as final
+Fix null behaviour to be null tolerant
+Javadoc null behaviour
+Fix formatting
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137380 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc comment
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137362 13f79535-47bb-0310-9956-ffa450edef68
+Fix bug in NumberUtils where '12a' was treated as a number.
+bug 20538, reported/fix by Eric Pugh/Phil Steitz
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137359 13f79535-47bb-0310-9956-ffa450edef68
+Fixed a problem with changed capitalization in test case.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137356 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc, a <u> was used instead of a <p>.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137324 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc, was missing a </code>.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137323 13f79535-47bb-0310-9956-ffa450edef68
+Fixed bug reported by Phil Steitz in which poorly placed casting was
+making all random methods return 0 :)
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137310 13f79535-47bb-0310-9956-ffa450edef68
+Fix broken links. Use thrid person in comment. Use @see tags.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137307 13f79535-47bb-0310-9956-ffa450edef68
+Fixed Antony's name. He wrote the original escape() method.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137300 13f79535-47bb-0310-9956-ffa450edef68
+Return of WordWrapUtils, fresh with bugs fixed in StringTaglib. Part of the
+reason for dropping it originally was that I knew my methods [wordWrap rather than wrapText or wrapLine] had nasty die-a-death bugs and hadn't had time to fix them. These got fixed as a part of String Taglib so I'm now personally happy with the code. As happy as you can ever be anyway without more tests to hurt it.
+
+Submitted by:	Henning Schmiedehausen
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137297 13f79535-47bb-0310-9956-ffa450edef68
+Escaping unicode uses capital letters e.g. \uABCD
+Found and fixed bug when unicode character is at the end of a string to unescape
+Added unit tests for above bug to both StringUtilsTest and StringEscapeUtilsTest
+StringUtils.[un]escape now call StringEscapeUtils.[un]escapeJava
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137291 13f79535-47bb-0310-9956-ffa450edef68
+Fix some Javadoc {@link}s and clean up some Javadoc comments to remove warnings generated when Javadoc from Java 1.4.1 is used.
+FYI, warnings like: This sentence is different from what will be interpreted as the first sentence in the
+next major release (when that interpretation will be internationalized), which is: <snip/>
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137287 13f79535-47bb-0310-9956-ffa450edef68
+Fix a missing javadoc </code> end tag.
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137282 13f79535-47bb-0310-9956-ffa450edef68
+Fix bug 16676: StackOverflow due to ToStringBuilder
+(http://issues.apache.org/bugzilla/show_bug.cgi?id=16676)
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137276 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc from checkstyle
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137252 13f79535-47bb-0310-9956-ffa450edef68
+Fix licences, dates and since tags
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137251 13f79535-47bb-0310-9956-ffa450edef68
+Update Enum initial sizes for JDK1.2 and JDK1.3
+from Mike Bowler, bug fix 16690
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137248 13f79535-47bb-0310-9956-ffa450edef68
+Add class level javadoc
+bug fix 16341
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137236 13f79535-47bb-0310-9956-ffa450edef68
+Remove unused code
+from Gary Gregory, bug fix 16284
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137235 13f79535-47bb-0310-9956-ffa450edef68
+Fix infinite recursion in inner classes reflection methods
+from Per Velschow
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137232 13f79535-47bb-0310-9956-ffa450edef68
+Fix infinite recursion in replace() when blank string used
+from Holger Krauth
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137231 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc where wrong method name specified
+from Michael Schulze
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137230 13f79535-47bb-0310-9956-ffa450edef68
+Fix to enable anonymous inner classes as Enums for functionality
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137220 13f79535-47bb-0310-9956-ffa450edef68
+Fix to handle anonymous inner classes
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137219 13f79535-47bb-0310-9956-ffa450edef68
+Fix to include superclass fields in reflection toString
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137217 13f79535-47bb-0310-9956-ffa450edef68
+Added a the fix for bug #14883.
+
+Submitted-by: Thomas Hawtin [tackline@tackline.demon.co.uk]
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137168 13f79535-47bb-0310-9956-ffa450edef68
+Added the second fix from Mark McDowell [mcdoma@ncs.com] for bug #14062
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137160 13f79535-47bb-0310-9956-ffa450edef68
+Fixed small bug and created test case
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137138 13f79535-47bb-0310-9956-ffa450edef68
+NumberRange.getMaximum returns the minimum, not the maximum.
+Test added to verify this, and then the bug fixed.
+SUBMITTED-BY:  Kasper R�nning
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137117 13f79535-47bb-0310-9956-ffa450edef68
+Fixed the example in the javadoc so it compiles.
+Submitted by: Janek Bogucki
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137107 13f79535-47bb-0310-9956-ffa450edef68
+Fix to be JDK1.2 compliant
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137106 13f79535-47bb-0310-9956-ffa450edef68
+Fix javadoc due to method sig change. Spotted by Mike Miller
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137105 13f79535-47bb-0310-9956-ffa450edef68
+made fix for bug id 13527 
+http://nagoya.apache.org/bugzilla/show_bug.cgi?id=13527
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137096 13f79535-47bb-0310-9956-ffa450edef68
+Fixed to allow a charset of "-" to work correctly.
+Submitted by:	Steve Downey
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137074 13f79535-47bb-0310-9956-ffa450edef68
+Added code from Steve Downey, 
+with some formatting changes and minor bug fixes
+
+
+git-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137017 13f79535-47bb-0310-9956-ffa450edef68

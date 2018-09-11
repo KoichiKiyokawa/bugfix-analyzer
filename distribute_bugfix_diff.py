@@ -44,7 +44,7 @@ def main():
         _insertions, _deletions = distribute_diff(diffs)  # 差分を振り分け
 
         # ひとつ古いコミットにチェックアウト
-        subprocess.call(['git', 'checkout', commits[i + 1].hexsha])
+        subprocess.call(['git', 'checkout', '--force', commits[i + 1].hexsha])
         # ソースコードを取得
         java_files_paths = subprocess.check_output(
             'find . -name *.java'.split())

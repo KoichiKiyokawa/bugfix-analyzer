@@ -1,0 +1,691 @@
+Fix for bug #75 - add same outline options as XYLineAndShapeRenderer.Fix test that fails in different timezones.Fix exception for explode percent.Fix JavadocsFix JavadocsFix sort order bug.Fix compilation errorFix NetBeans warningsFix NetBeans warningsFix for bug#48 (tooltips in HORIZONTAL orientation)Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix failing unit tests.Merge pull request #44 from SubliminalTitan/master
+
+Fix for multiple axes in which one or more is inverted results in incorrect pan direction on remaining axes.Fix for multiple axes in which one or more is inverted results in
+incorrect pan direction on remaining axes.Fix for bug #36Fix URL in Javadocs.Fix for bug #38Fix Javadoc warnings.Fix Javadoc warnings.Fix for bug #25.Merge pull request #24 from CorneliaXaos/master
+
+Fixed issues with ant build.Fixed issues with ant build.
+
+Ant Build attempts to copy /ChangeLog, /swt/, and other swt files in the lib.  Removal of these instructions allows ant to build successfully.Fix rendering issue for horizontal orientation.Fix failing test.Fix cloning test failure.Fix typo in headerFix Javadoc warning.Fix for auto tick selection when data values are extremely large.2014-08-22  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Change suggested by Ulrich Voigt:
+    * org/jfree/data/time/FixedMillisecond.java
+    (FixedMillisecond()): Avoid Date creation,
+    (FixedMillisecond(long)): Likewise,
+    (FixedMillisecond(Date)): Redirect to other constructor.Fix method name.Fix broken tests.Fix iteration over map based attributes.Fixed Javadoc warnings.Fixed Javadoc warnings.Fixed Javadoc warnings.Fixed Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix SONAR warning.Fix SONAR warning.Fix SONAR warning.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix SONAR warning.Fix SONAR warning.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix SONAR warning.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix Javadoc warnings.Fix typo.Fix typo.Fix Javadoc warnings.Fix Javadoc typo.2014-01-11  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * org/jfree/chart/renderer/xy/AbstractXYItemRenderer.java
+    (fillDomainGridBand): Fix rectangle dimension for vertical orientation.Fix Javadoc warning.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fixed NB warnings.Fix compiler warnings.Fix compiler warnings.Fix compiler warnings.Fix compiler warnings.Fix compiler warnings.Fix compiler warnings.Fix compiler warnings.Fixed some compiler warnings including those mentioned in bug #1115.Fix failing test.Fix Javadoc error.2013-09-17  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * org/jfree/chart/renderer/category/GradientBarPainter.java
+    (paintBar): Fix coordinate bug for gradient paint.2013-09-17  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * org/jfree/chart/renderer/category/GradientBarPainter.java
+    (paintBar): Fix coordinate bug for gradient paint.Fix Javadoc warning.Fix typo.Fix maxY for series that doesn't allow duplicates (JUnit test added as well).Fix maxY for series that doesn't allow duplicates (JUnit test added as well).Fix defect in new method, picked up by JUnit tests.Fixed comments.Fix SONAR warning.Fix Sonar warnings.Fix memory leak in SWT ChartComposite.Fix typo.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix NB warnings.Fix FindBugs warnings.Fix typos.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix some minor FindBugs warnings.Fix failing units tests.Remove incorrect calls to setFixedDimension.Fix for bug 2963199 by Jonas Rüttimann.Fix for bug 2963199 by Jonas Rüttimann.Fix for bug 3514487.Fix for bug 3514487.Bug 3425881/Patch 3450234 by Patrick Schlott/Christoph Schroeder, reviewed by Richard West
+    * org/jfree/chart/rendered/xy/XYDifferenceRenderer
+    (drawItemPass0): Fix problems with identical x-values.
+Bug 3484403:
+    * org/jfree/chart/axis/DateAxis
+    (refreshTicksHorizontal): Fix endless loop,
+    (refreshTicksVertical): Likewise;2012-01-08  David Gilbert <david.gilbert@object-refinery.com>
+
+    Bug 3445507:
+    * source/org/jfree/data/time/TimeSeriesCollection.java
+    (getRangeBounds(boolean)): New method,
+    (getRangeBounds(List, Range, boolean)): Fix combining of ranges.Fixed some Eclipse warnings.Fix date typo in header.Fix Javadoc tag typos.Fix Javadoc tag typo.Fix Javadoc tag typo.Fix Javadoc tag typos.Fix Javadoc tag typo.Fix Javadoc tag typo.Fix Javadoc warning - take 2.Fix Javadoc warning.2011-11-12  Martin Hoeller <martin.hoeller@xss.co.at>
+
+    Bug 3432721:
+    * org/jfree/chart/plot/PolarPlot.java
+    (translateToJava2D): Fix calculation to work with any axis,
+    (translateValueThetaRadiusToJava2D): eliminate duplicate code;
+    * tests/org/jfree/chart/plot/PolarPlotTests.java
+    (testTranslateToJava2D_NumberAxis): New method,
+    (testTranslateToJava2D_NumberAxisAndMargin): New method,
+    (testTranslateToJava2D_LogAxis): New method;Bug 3433405:
+    * org/jfree/chart/renderer/category/LineRenderer3D.java
+    (drawItem): Fixed eventually wrong item label position;2011-10-30  David Gilbert <david.gilbert@object-refinery.com>
+
+    * org/jfree/chart/renderer/category/IntervalBarRenderer.java
+    (drawInterval): Fix calculation of bar edge;
+    * org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+    (drawHorizontalItem): Fix calculation of bar edge;
+    (drawVerticalItem): Likewise;Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Bug 3428870:
+    * org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+    (drawHorizontalItem): Fixed offset problem with maximalBarWidth,
+    (drawVerticalItem): Likewise;2011-10-28  Martin Hoeller <martin.hoeller@xss.co.at>
+
+    Bug 3429707:
+    * org/jfree/chart/axis/LogAxis.java
+    (refreshTicksHorizontal): Fixed endless loop for 0 TickUnit
+    (refreshTicksVertical): Likewise;Fix tooltip offset when using shadow generator.Fixed Javadoc tags.Fixed JDK1.4 compilation issue.Fixed JDK1.4 compilation issue.Fixed line endings (from Windows to Unix)Fixed line endings (from Windows to Unix)Fixed line endings (from Windows to Unix)Fixed Javadoc warnings.Fixed line endings (from Windows to Unix)Fixed line endings (from Windows to Unix)Fixed Javadoc warnings.Fixed Javadoc warnings.Fixed line endings (from Windows to Unix)Fixed line endings (from Windows to Unix)Fixed Javadoc warnings.Fixed Javadoc typo.Fixed Javadoc warnings.Fixed Javadoc warnings.Fixed Javadoc typo and Eclipse warnings.Fixed Javadoc typo.Fixed Javadoc typo.Fixed Javadoc typo.Fix Javadoc comment and line delimiters.Fixed line endings (from Windows to Unix)Fixed line endings (from Windows to Unix)Fixed bug 3418287Fixed bug 3418287Fixed line endings (from Windows to Linux)Fix test target in Ant build script (thanks to Martin Krauskopf)Fix Annotation import.2010-02-09  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Bug 2947660:
+    * source/org/jfree/chart/renderer/category/AbstractCategoryRenderer.java
+    (getLegendItems): Fix null check.2010-02-09  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Bug 2947660:
+    * source/org/jfree/chart/renderer/category/AbstractCategoryRenderer.java
+    (getLegendItems): Fix null check.Fixed constructor.Fixed constructor.Fixed dates.2009-08-12  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/renderer/DefaultPolarItemRenderer.java
+    (getLegendItem): Handle multiple datasets,
+    * source/org/jfree/chart/plot/PolarPlot.java
+    (fixedLegendItems): New field,
+    (getFixedLegendItems): New method,
+    (setFixedLegendItems): Likewise,
+    (getIndexOf(PolarItemRenderer)): Likewise,
+    (getLegendItems): Handle multiple datasets,
+    (equals): Updated for new fields.Fixed typo in Javadocs.Fixed typo in Javadocs.Fixed typo - see bug 2826819.Fixed typo - see bug 2826819.Fix potential NPE if chart is null.Fixed failing test.Fixed iText jar file name.Fix build error.Fixed deprecation warnings.Fix for failing JUnit test.Fixed compile error.Fixed compile error.Fixed compile error.Fixed Javadoc typo.Fixed imports.2009-05-28  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/renderer/xy/StackedXYBarRenderer.java
+    (drawItem): Fixed bar alignment for inverted domain axis.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed FindBugs warnings.Fixed some checkstyle warnings.Fixed last commit.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed deprecation warnings.Fixed Javadoc warning.Fixed failing test.Fixed Javadoc errors.Fix method arguments.Fixed typo.Fixed deprecation warning.2009-04-01  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/ChartPanel.java
+    (panMask): New field,
+    (ChartPanel): Initialise panMask differently on MacOSX,
+    (mousePressed): Use panMask field,
+    (mouseDragged): Fixed signs on drag percents.2009-03-27  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/renderer/RendererUtilities.java
+    (findLiveItemsLowerBound): Fixed results for unsorted dataset,
+    (findLiveItemsUpperBound): Likewise,
+    (findLiveItems): Check case where upper index is less than lower.Fix for getRangeUpperBound() method.Fixed Eclipse warning.Fixed Eclipse warnings.Fixed imports.Fixed Eclipse warnings.Fixed Eclipse warning.Fixed Eclipse warning.Fixed Eclipse warning.2009-03-15  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/data/category/SlidingCategoryDataset.java
+    (getColumnKeys): Fixed loop index.
+Fixed deprecation warnings.Fixed deprecation warnings.Fixed NPE.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed deprecation warning.Fix previous entry.Fixed error in drawItem.Fixed locale sensitive tests.Fixed locale sensitive test.2009-02-04  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/renderer/category/CategoryItemRendererState.java
+    (getVisibleSeriesArray()): New method,
+    * source/org/jfree/chart/renderer/StackedAreaRenderer.java
+    (drawItem): Fix handling of renderAsPercentages,
+    (getStackValues): Likewise,
+    * source/org/jfree/data/DataUtilities.java
+    (calculateColumnTotal): New method,
+    (calculateRowTotal): Likewise.Fixed deprecation warnings.2009-01-28  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/renderer/AbstractRenderer.java
+    (equals): Fix shape test,
+    * tests/org/jfree/chart/renderer/junit/AbstractRendererTests.java
+    (testEquals): Modified to cover Shape.equals() bug.Fixed style warnings.Fixed imports.Fixed missing imports.Fixed doc error.Fix for bug 1955483.Fixed comments.Fixed compile error.Fixed typo.2008-09-26  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/renderer/category/WaterfallRenderer.java
+    (drawItem): Fixed bar misalignment when maxBarWidth is applied.2008-09-19  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Patch from Greg Darke, slightly modified:
+    * source/org/jfree/chart/renderer/xy/XYItemRendererState.java
+    (firstItemIndex): New field,
+    (lastItemIndex): Likewise,
+    (getFirstItemIndex): New method,
+    (getLastItemIndex): New method,
+    (startSeriesPass): Record first and last item indices,
+    * source/org/jfree/chart/renderer/xy/XYLineAndShapeRenderer.java
+    (State.startSeriesPass): Reset series state,
+    (drawItem): Removed code that is handled in State now,
+    (drawPrimaryLineAsPath): Fix check for last item.Fixed imports.Fixed typo.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Javadoc warnings.Fixed Eclipse warning.Fixed Javadoc warning.Fix for clone() method from 1.0.x branch.2008-06-26  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/axis/CategoryAxis.java
+    (getCategoryMiddle(Comparable, List, Rectangle2D, RectangleEdge)): 
+    New method,
+    * source/org/jfree/chart/plot/CategoryCrosshairState.java: New file,
+    * source/org/jfree/chart/plot/CategoryPlot.java
+    (crosshairDatasetIndex): New field,
+    (domainCrosshairVisible): Likewise,
+    (domainCrosshairRowKey): Likewise,
+    (domainCrosshairColumnKey): Likewise,
+    (domainCrosshairStroke): Likewise,
+    (domainCrosshairPaint): Likewise,
+    (CategoryPlot): Initialise new fields,
+    (indexOf): New method,
+    (isDomainCrosshairVisible): Likewise,
+    (setDomainCrosshairVisible): Likewise,
+    (getDomainCrosshairRowKey): Likewise,
+    (setDomainCrosshairRowKey): Likewise,
+    (getDomainCrosshairColumnKey): Likewise,
+    (setDomainCrosshairColumnKey): Likewise,
+    (getCrosshairDatasetIndex): Likewise,
+    (setCrosshairDatasetIndex): Likewise,
+    (getDomainCrosshairPaint): Likewise,
+    (setDomainCrosshairPaint): Likewise,
+    (getDomainCrosshairStroke): Likewise,
+    (setDomainCrosshairStroke): Likewise,
+    (draw): Handle crosshairs,
+    (render): Modified method signature to incorporate crosshair state,
+    (drawDomainCrosshair): New method,
+    (equals): Updated for new fields,
+    (writeObject): Likewise,
+    (readObject): Likewise,
+    * source/org/jfree/chart/plot/CombinedDomainCategoryPlot.java
+    (draw): Fixed crosshair support,
+    * source/org/jfree/chart/plot/CombinedRangeCategoryPlot.java
+    (draw): Likewise,
+    * source/org/jfree/chart/plot/CrosshairState.java
+    (datasetIndex): New field,
+    (getDatasetIndex): New method,
+    (setDatasetIndex): New method,
+    (getDomainAxisIndex): Deprecated,
+    (getRangeAxisIndex): Deprecated,
+    * source/org/jfree/chart/plot/XYCrosshairState.java: New subclass,
+    * source/org/jfree/chart/renderer/category/AbstractCategoryItemRenderer.java
+    (getItemMiddle): New method,
+    (updateCrosshairValues): Likewise,
+    * source/org/jfree/chart/renderer/category/AreaRenderer.java
+    (drawItem): Update crosshair state,
+    * source/org/jfree/chart/renderer/category/BarRenderer.java
+    (drawItem): Likewise,
+    * source/org/jfree/chart/renderer/category/CategoryItemRenderer.java
+    (getItemMiddle): New method,
+    * source/org/jfree/chart/renderer/category/CategoryItemRendererState.java
+    (crosshairState): New field,
+    (getCrosshairState): New method,
+    (setCrosshairState): Likewise,
+    * source/org/jfree/chart/renderer/category/GanttRenderer.java
+    (drawTasks): Update crosshair state,
+    (drawTask): Likewise,
+    (getItemMiddle): New method override,
+    * source/org/jfree/chart/renderer/category/LevelRenderer.java
+    (drawItem): Update crosshair state,
+    (getItemMiddle): New method override,
+    * source/org/jfree/chart/renderer/category/LineAndShapeRenderer.java
+    (drawItem): Update crosshair state,
+    * tests/org/jfree/chart/plot/junit/CategoryPlotTests.java
+    (testEquals): Updated for new fields.Fixed Javadoc warning.Fixed typo.Fixed compile error.2008-06-10  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/data/time/FixedMillisecond.java
+    (time): Changed from Date to long.
+Fixed Javadoc typo.Fixed Javadoc warnings.Fixed Javadoc warnings.2008-05-28  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/data/time/DateRange.java
+    (lowerDate): Changed from Date to long,
+    (upperDate): Likewise,
+    (DateRange(Date, Date)): Updated for field type change,
+    (DateRange(long, long)): Likewise,
+    (getLowerDate): Likewise,
+    (getUpperDate): Likewise,
+    (toString): Likewise,
+    * source/org/jfree/data/time/FixedMillisecond.java
+    (time): Changed from Date to long.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed whitespace warnings.Fixed whitespace warnings.Fixed Checkstyle warnings.Fixed whitespace warnings.Fixed whitespace warnings.Fix import error.Fixed broken testEquals() method.Fixed testEquals() and removed trailing whitespace.Fix API doc reference.2008-04-08  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/renderer/xy/CandlestickRenderer.java
+    (findRangeBounds): New method override,
+    * source/org/jfree/data/general/DatasetUtilities.java
+    (iterateRangeBounds(XYDataset)): Fixed typo for OHLCDataset.2008-04-08  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/renderer/xy/CandlestickRenderer.java
+    (findRangeBounds): New method override,
+    * source/org/jfree/data/general/DatasetUtilities.java
+    (iterateRangeBounds(XYDataset)): Fixed typo for OHLCDataset.2008-03-31  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/plot/PieLabelDistributor.java
+    (distributeLabels): Comment out adjustInwards() until it is working,
+    (adjustDownwards): Fix check for lower bound,
+    (adjustUpwards): Fix check for upper bound,
+    (distributeEvenly): Allow overlapping rather than exceeding bounds.2008-03-31  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/chart/plot/PieLabelDistributor.java
+    (distributeLabels): Comment out adjustInwards() until it is working,
+    (adjustDownwards): Fix check for lower bound,
+    (adjustUpwards): Fix check for upper bound,
+    (distributeEvenly): Allow overlapping rather than exceeding bounds.2008-03-28  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/data/general/DatasetUtilities.java
+    (sampleFunction2D): Fixed sample count bug.2008-03-28  David Gilbert  <david.gilbert@object-refinery.com>
+
+    * source/org/jfree/data/general/DatasetUtilities.java
+    (sampleFunction2D): Fixed sample count bug.2008-02-26  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Bug 1897580:
+    * source/org/jfree/data/DefaultIntervalCategoryDataset.java
+    (DefaultIntervalCategoryDataset(Comparable[], Comparable[], Number[][], 
+    Number[][]): Initialise seriesKeys and categoryKeys to empty arrays instead
+    of null for empty dataset,
+    (setCategoryKeys): Fixed argument check to handle empty dataset.2008-02-26  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Bug 1897580:
+    * source/org/jfree/data/DefaultIntervalCategoryDataset.java
+    (DefaultIntervalCategoryDataset(Comparable[], Comparable[], Number[][], 
+    Number[][]): Initialise seriesKeys and categoryKeys to empty arrays instead
+    of null for empty dataset,
+    (setCategoryKeys): Fixed argument check to handle empty dataset.2008-02-15  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Bug 1873160:
+    * source/org/jfree/chart/plot/DialPlot.java
+    (draw): Fix clipping issues.2008-02-15  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Bug 1873160:
+    * source/org/jfree/chart/plot/DialPlot.java
+    (draw): Fix clipping issues.2008-02-14  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Fixes bug 1892707:
+    * source/org/jfree/chart/text/TextBox.java
+    (draw): Correct alignment of content with respect to interior padding.2008-01-04  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/plot/XYPlot.java
+	(drawQuadrants): Fix painting error when quadrant origin is outside plot
+	area.2007-12-20  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Fixes bug 1848961:
+    * source/org/jfree/chart/renderer/category/GroupedStackedBarRenderer.java
+    (calculateBarW0): Use correct dataset index.2007-12-20  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Fixes bug 1848961:
+    * source/org/jfree/chart/renderer/category/GroupedStackedBarRenderer.java
+    (calculateBarW0): Use correct dataset index.2007-11-27  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/plot/CombinedDomainXYPlot.java
+	(setFixedRangeAxisSpaceForSubplots): Call new method in XYPlot,
+	* source/org/jfree/chart/plot/CombinedRangeXYPlot.java
+	(setFixedDomainAxisSpaceForSubplots): Likewise,
+	* source/org/jfree/chart/plot/XYPlot.java
+	(setFixedDomainAxisSpace(AxisSpace)): Delegate to new method,
+	(setFixedDomainAxisSpace(AxisSpace, boolean)): New method,
+	(setFixedRangeAxisSpace(AxisSpace)): Delegate to new method,
+	(setFixedRangeAxisSpace(AxisSpace, boolean)): New method.2007-11-30  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/LocalizationBundle_it.properties:
+	Fixed errors.2007-11-30  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/LocalizationBundle_it.properties:
+	Fixed errors.2007-11-27  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/plot/CombinedDomainXYPlot.java
+	(setFixedRangeAxisSpaceForSubplots): Call new method in XYPlot,
+	* source/org/jfree/chart/plot/CombinedRangeXYPlot.java
+	(setFixedDomainAxisSpaceForSubplots): Likewise,
+	* source/org/jfree/chart/plot/XYPlot.java
+	(setFixedDomainAxisSpace(AxisSpace)): Delegate to new method,
+	(setFixedDomainAxisSpace(AxisSpace, boolean)): New method,
+	(setFixedRangeAxisSpace(AxisSpace)): Delegate to new method,
+	(setFixedRangeAxisSpace(AxisSpace, boolean)): New method.Fixed version number.2007-11-22  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Fix for bug 1832432:
+    * source/org/jfree/data/time/TimeSeries.java
+    (clone): Reimplemented.2007-11-21  David Gilbert  <david.gilbert@object-refinery.com>
+
+    Fix for bug 1832432:
+    * source/org/jfree/data/time/TimeSeries.java
+    (clone): Reimplemented.Fixed FindBugs warning.Fixed FindBugs warning.Fixed FindBugs warning.Fixed typo in header.Fixed typo in header.2007-11-14  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+	(errorIndicatorStroke): New field,
+	(StatisticalBarRenderer): Initialise new field,
+	(getErrorIndicatorStroke): New method,
+	(setErrorIndicatorStroke): Likewise,
+	(drawHorizontalItem): Fix drawBarOutline and gradientPaintTransformer
+	omissions, and use new errorIndicatorStroke field,
+	(drawVerticalItem): Likewise,
+	(equals): Updated for new field,
+	(writeObject): Likewise,
+	(readObject): Likewise.2007-11-14  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/plot/CategoryPlot.java
+	(setWeight): Fire change event,
+	(setFixedDomainAxisSpace(AxisSpace)): Delegate to new method,
+	(setFixedDomainAxisSpace(AxisSpace, boolean)): New method,
+	(setFixedRangeAxisSpace(AxisSpace)): Delegate to new method,
+	(setFixedRangeAxisSpace(AxisSpace, boolean)): New method,
+	* source/org/jfree/chart/plot/CombinedDomainCategoryPlot.java
+	(setFixedRangeAxisSpaceForSubplots): Updated,
+	* source/org/jfree/chart/plot/CombinedRangeCategoryPlot.java
+	(setFixedDomainAxisSpaceForSubplots): Updated.Fixed Eclipse warning.Fixed Eclipse warning.Fixed FindBugs warning.Fixed checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed checkstyle warnings.Fixed Checkstyle warning.Fixed checkstyle warning.Fixed checkstyle warnings.Fixed checkstyle warnings.Fixed checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warnings.
+Fixed checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warning.Fixed Checkstyle warning.Fixed Checkstyle warning.Fixed Checkstyle warning.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warnings.Fixed Checkstyle warning.Fixed Checkstyle warnings.2007-11-12  David Gilbert  <david.gilbert@object-refinery.com>
+
+	Patch 1827829 from Richard West:
+	* source/org/jfree/chart/renderer/xy/XYBarRenderer.java
+	(drawItemLabel): Fixed NPE.2007-11-12  David Gilbert  <david.gilbert@object-refinery.com>
+
+	Patch 1827829 from Richard West:
+	* source/org/jfree/chart/renderer/xy/XYBarRenderer.java
+	(drawItemLabel): Fixed NPE.Fixed Eclipse warnings.Fixed Eclipse warnings.Fixed Eclipse warning.Fixed Eclipse warning.Fixed Eclipse warnings.Fixed Eclipse warning.Fixed Eclipse warnings.Fixed Eclipse warning.2007-11-05  David Gilbert  <david.gilbert@object-refinery.com>
+	
+	* source/org/jfree/chart/plot/XYPlot.java
+	(setFixedDomainAxisSpace): Fire change event,
+	(setFixedRangeAxisSpace): Likewise.Fixed Eclipse warnings.2007-10-24  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* experimental/org/jfree/experimental/chart/plot/dial/DialPlot.java
+	(pointers): New field,
+	(DialPlot): Delegate to new constructor,
+	(DialPlot(ValueDataset)): New constructor,
+	(addPointer): New method,
+	(getPointerIndex): Likewise,
+	(removePointer(int)): Likewise,
+	(removePointer(DialPointer)): Likewise,
+	(getPointerForDataset): Likewise,
+	(draw): Draw pointers in their own layer,
+	(equals): Check new pointers field,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialPointer.java:
+	Implemented PublicCloneable,
+	(DialPointer): Changed to protected,
+	(DialPointer(int)): Likewise, and changed default radius,
+	(Pin.setPaint): Added argument check,
+	(Pin.setStroke): Likewise,
+	(Pointer(int)): Removed radius setting,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialTextAnnotation.java
+	(getAnchor): New method,
+	(setAnchor): Likewise,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialValueIndicator.java
+	(DialValueIndicator): New constructor,
+	(DialValueIndicator(int, String)): Removed string argument,
+	(setDatasetIndex): Fire change event,
+	(setTemplateValue): Check for null argument,
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialFrame.java
+	(setInnerRadius): Added argument check,
+	(setOuterRadius): Likewise,
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialRange.java
+	(scaleIndex): New field,
+	(StandardDialRange(double, double)): Added field initialisations,
+	(getScaleIndex): New method,
+	(setScaleIndex): Likewise,
+	(draw): Get the correct scale,
+	(equals): Updated for new field,
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialScale.java
+	(minorTickPaint): New field,
+	(minorTickStroke): Likewise,
+	(tickLabelFormatter): Likewise,
+	(StandardDialScale): Updated for modified constructor signature,
+	(StandardDialScale(double, double, double, double)): Added two new 
+	arguments to signature,
+	(setMajorTickLength): Added argument check,
+	(setMinorTickCount): Likewise,
+	(setMinorTickLength): Likewise,
+	(getMinorTickPaint): New method,
+	(setMinorTickPaint): Likewise,
+	(getTickLabelFormatter): Likewise,
+	(setTickLabelFormatter): Likewise,
+	(draw): Fix major tick length, format labels with new formatter,
+	(equals): Updated for new fields,
+	(hashCode): Implemented,
+	(writeObject): Handle new fields,
+	(readObject): Likewise.
+2007-10-24  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* experimental/org/jfree/experimental/chart/plot/dial/DialPlot.java
+	(pointers): New field,
+	(DialPlot): Delegate to new constructor,
+	(DialPlot(ValueDataset)): New constructor,
+	(addPointer): New method,
+	(getPointerIndex): Likewise,
+	(removePointer(int)): Likewise,
+	(removePointer(DialPointer)): Likewise,
+	(getPointerForDataset): Likewise,
+	(draw): Draw pointers in their own layer,
+	(equals): Check new pointers field,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialPointer.java:
+	Implemented PublicCloneable,
+	(DialPointer): Changed to protected,
+	(DialPointer(int)): Likewise, and changed default radius,
+	(Pin.setPaint): Added argument check,
+	(Pin.setStroke): Likewise,
+	(Pointer(int)): Removed radius setting,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialTextAnnotation.java
+	(getAnchor): New method,
+	(setAnchor): Likewise,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialValueIndicator.java
+	(DialValueIndicator): New constructor,
+	(DialValueIndicator(int, String)): Removed string argument,
+	(setDatasetIndex): Fire change event,
+	(setTemplateValue): Check for null argument,
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialFrame.java
+	(setInnerRadius): Added argument check,
+	(setOuterRadius): Likewise,
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialRange.java
+	(scaleIndex): New field,
+	(StandardDialRange(double, double)): Added field initialisations,
+	(getScaleIndex): New method,
+	(setScaleIndex): Likewise,
+	(draw): Get the correct scale,
+	(equals): Updated for new field,
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialScale.java
+	(minorTickPaint): New field,
+	(minorTickStroke): Likewise,
+	(tickLabelFormatter): Likewise,
+	(StandardDialScale): Updated for modified constructor signature,
+	(StandardDialScale(double, double, double, double)): Added two new 
+	arguments to signature,
+	(setMajorTickLength): Added argument check,
+	(setMinorTickCount): Likewise,
+	(setMinorTickLength): Likewise,
+	(getMinorTickPaint): New method,
+	(setMinorTickPaint): Likewise,
+	(getTickLabelFormatter): Likewise,
+	(setTickLabelFormatter): Likewise,
+	(draw): Fix major tick length, format labels with new formatter,
+	(equals): Updated for new fields,
+	(hashCode): Implemented,
+	(writeObject): Handle new fields,
+	(readObject): Likewise.Fixed Eclipse warnings.2007-10-22  Henry Proudhon  <henry.proudhon@insa-lyon.fr>
+
+	* source/swt/org/jfree/experimental/chart/swt/ChartComposite.java: 
+	(chart): Made the chart field be private again,
+	(ChartComposite): Refactored class, now implements PaintListener, 
+	MouseListener and MouseMovedListener,
+	(zoom): Fixed bug with multiple plots,
+	(addChartMouseListener): Implemented,
+	(removeChartMouseListener): Likewise,
+	(restoreAutoDomainBounds): Fixed NPE,
+	(restoreAutoRangeBounds): Likewise,
+	(widgetDefaultSelected): Implemented,
+	(addSWTListener): New method,
+	(mouseDoubleClick): Likewise,
+	(mouseDown): Likewise,
+	(mouseUp): Likewise,
+	(mouseMove): Likewise,
+	(paintControl): Likewise,
+	* source/swt/org/jfree/experimental/swt/SWTUtils.java
+	(toAwtMouseEvent): changed method signature.2007-10-17  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* experimental/org/jfree/experimental/chart/plot/dial/AbstractDialLayer.java
+	(equals): New method override,
+	(clone): Likewise,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialBackground.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/DialCap.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/DialPlot.java
+	(setBackground): Fix listener registration,
+	(setCap): Likewise,
+	(setDialFrame): Likewise,
+	(addLayer): Likewise,
+	(getLayerIndex(DialLayer)): New method,
+	(removeLayer(int)): Likewise,
+	(removeLayer(DialLayer)): Likewise,
+	(addScale): Fix listener registration,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialPointer.java
+	(equals): New method override,
+	(Pin.equals): Likewise,
+	(Pin.readObject): New method,
+	(Pin.writeObject): Likewise,
+	(Pointer.equals): New method override,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialScale.java:
+	Now extends DialLayer,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialTextAnnotation.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/DialValueIndicator.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/SimpleDialFrame.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialFrame.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialRange.java
+	(increment): Removed field,
+	(setLowerBound): Added argument check,
+	(setUpperBound): Likewise,
+	(setBounds): New method,
+	(equals): Updated,
+	(hashCode): Likewise,
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialScale.java
+	(setTickRadius): Added argument check,
+	(setMajorTickIncrement): Likewise,
+	(setTickLabelPaint): Likewise,
+	(equals): Updated.
+	2007-10-17  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* experimental/org/jfree/experimental/chart/plot/dial/AbstractDialLayer.java
+	(equals): New method override,
+	(clone): Likewise,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialBackground.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/DialCap.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/DialPlot.java
+	(setBackground): Fix listener registration,
+	(setCap): Likewise,
+	(setDialFrame): Likewise,
+	(addLayer): Likewise,
+	(getLayerIndex(DialLayer)): New method,
+	(removeLayer(int)): Likewise,
+	(removeLayer(DialLayer)): Likewise,
+	(addScale): Fix listener registration,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialPointer.java
+	(equals): New method override,
+	(Pin.equals): Likewise,
+	(Pin.readObject): New method,
+	(Pin.writeObject): Likewise,
+	(Pointer.equals): New method override,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialScale.java:
+	Now extends DialLayer,
+	* experimental/org/jfree/experimental/chart/plot/dial/DialTextAnnotation.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/DialValueIndicator.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/SimpleDialFrame.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialFrame.java
+	(equals): Added call to super.equals();
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialRange.java
+	(increment): Removed field,
+	(setLowerBound): Added argument check,
+	(setUpperBound): Likewise,
+	(setBounds): New method,
+	(equals): Updated,
+	(hashCode): Likewise,
+	* experimental/org/jfree/experimental/chart/plot/dial/StandardDialScale.java
+	(setTickRadius): Added argument check,
+	(setMajorTickIncrement): Likewise,
+	(setTickLabelPaint): Likewise,
+	(equals): Updated.Fixed compile error.Fixed compositing issues when having both (i) alpha compositing channel and (ii) awt alpha transparent colors. SWT do not handle color transparency (only in the GC) so a composite object must be maintained and appropriately used when setting colors.Fixed compile error.2007-10-08	David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/plot/ValueMarker.java
+	(ValueMarker(double, Paint, Stroke, Paint, Stroke, float)): Fixed call
+	to super,
+	* tests/org/jfree/chart/plot/junit/ValueMarkerTests.java
+	(test1808376): New test method.2007-10-08	David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/plot/ValueMarker.java
+	(ValueMarker(double, Paint, Stroke, Paint, Stroke, float)): Fixed call
+	to super,
+	* tests/org/jfree/chart/plot/junit/ValueMarkerTests.java
+	(test1808376): New test method.2007-10-02  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+	(minimumRangeValueRow): New field,
+	(minimumRangeValueColumn): Likewise,
+	(minimumRangeValueIncStdDevRow): Likewise,
+	(minimumRangeValueIncStdDevColumn): Likewise,
+	(maximumRangeValueRow): Likewise,
+	(maximumRangeValueColumn): Likewise,
+	(maximumRangeValueIncStdDevRow): Likewise,
+	(maximumRangeValueIncStdDevColumn): Likewise,
+	(DefaultStatisticalCategoryDataset()): Initialise new fields,
+	(add(Number, Number, Comparable, Comparable)): Fixed calculation of bounds,
+	(updateBounds): New method,
+	(getRangeLowerBound): Observe includeInterval flag,
+	(getRangeUpperBound): Likewise,
+	* source/org/jfree/data/statistics/MeanAndStandardDeviation.java
+	(getMeanValue): New method,
+	(getStandardDeviationValue): Likewise,
+	(toString): Likewise,
+	* tests/org/jfree/data/statistics/junit/DefaultStatisticalCategoryDatasetTests.java
+	(testGetRangeBounds): Fixed broken test,
+	(EPSILON): New field,
+	(testAdd): New test method,
+	(testGetRangeLowerBound): Likewise,
+	(testGetRangeUpperBound): Likewise,
+	(testGetRangeBounds2): Likewise.2007-10-02  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+	(minimumRangeValueRow): New field,
+	(minimumRangeValueColumn): Likewise,
+	(minimumRangeValueIncStdDevRow): Likewise,
+	(minimumRangeValueIncStdDevColumn): Likewise,
+	(maximumRangeValueRow): Likewise,
+	(maximumRangeValueColumn): Likewise,
+	(maximumRangeValueIncStdDevRow): Likewise,
+	(maximumRangeValueIncStdDevColumn): Likewise,
+	(DefaultStatisticalCategoryDataset()): Initialise new fields,
+	(add(Number, Number, Comparable, Comparable)): Fixed calculation of bounds,
+	(updateBounds): New method,
+	(getRangeLowerBound): Observe includeInterval flag,
+	(getRangeUpperBound): Likewise,
+	* source/org/jfree/data/statistics/MeanAndStandardDeviation.java
+	(getMeanValue): New method,
+	(getStandardDeviationValue): Likewise,
+	(toString): Likewise,
+	* tests/org/jfree/data/statistics/junit/DefaultStatisticalCategoryDatasetTests.java
+	(testGetRangeBounds): Fixed broken test,
+	(EPSILON): New field,
+	(testAdd): New test method,
+	(testGetRangeLowerBound): Likewise,
+	(testGetRangeUpperBound): Likewise,
+	(testGetRangeBounds2): Likewise.2007-10-02  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/data/statistics/BoxAndWhiskerItem.java
+	(BoxAndWhiskerItem(double, double, double, double, double, double, 
+	double, double, List)): New constructor,
+	* source/org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java
+	(minimumRangeValue): Changed from Number to double,
+	(minimumRangeValueRow): New field,
+	(minimumRangeValueColumn): Likewise,
+	(maximumRangeValue): Changed from Number to double,
+	(maximumRangeValueRow): New field,
+	(maximumRangeValueColumn): Likewise,
+	(DefaultBoxAndWhiskerCategoryDataset): Updated for changed field types,
+	(add): Fix updating of cached range values,
+	(getRangeLowerBound): Update for changed field type,
+	(getRangeUpperBound): Likewise,
+	* tests/org/jfree/data/statistics/junit/DefaultBoxAndWhiskerCategoryDataset.java
+	(testAdd): New test method,
+	(testAddUpdatesCachedRange): Likewise,
+	(testConstructor): Likewise.2007-10-02  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/data/statistics/BoxAndWhiskerItem.java
+	(BoxAndWhiskerItem(double, double, double, double, double, double, 
+	double, double, List)): New constructor,
+	* source/org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java
+	(minimumRangeValue): Changed from Number to double,
+	(minimumRangeValueRow): New field,
+	(minimumRangeValueColumn): Likewise,
+	(maximumRangeValue): Changed from Number to double,
+	(maximumRangeValueRow): New field,
+	(maximumRangeValueColumn): Likewise,
+	(DefaultBoxAndWhiskerCategoryDataset): Updated for changed field types,
+	(add): Fix updating of cached range values,
+	(getRangeLowerBound): Update for changed field type,
+	(getRangeUpperBound): Likewise,
+	* tests/org/jfree/data/statistics/junit/DefaultBoxAndWhiskerCategoryDataset.java
+	(testAdd): New test method,
+	(testAddUpdatesCachedRange): Likewise,
+	(testConstructor): Likewise.Fixed bug in clone() method.2007-08-03  David Gilbert  <david.gilbert@object-refinery.com>
+
+	Fix for bug 1766646:
+	* source/org/jfree/chart/renderer/xy/XYBlockRenderer.java
+	(findDomainBounds): Check for null,
+	(findRangeBounds): Likewise.2007-08-03  David Gilbert  <david.gilbert@object-refinery.com>
+
+	Fix for bug 1766646:
+	* source/org/jfree/chart/renderer/xy/XYBlockRenderer.java
+	(findDomainBounds): Check for null,
+	(findRangeBounds): Likewise.2007-07-10  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* tests/org/jfree/chart/renderer/xy/junit/ClusteredXYBarRendererTests.java
+	(EPSILON): New field,
+	(testFindDomainBounds): Fixed compile errors,
+	* tests/org/jfree/data/time/junit/TimePeriodValuesCollectionTests.java
+	(EPSILON): New field,
+	(testGetDomainBoundsWithoutInterval): Fixed compile errors,
+	(testGetDomainBoundsWithInterval): Likewise.Fixed clipping issues (those were apparent with multiple plot).
+Also fixed a bug in zooming with multiple plots.2007-07-03  David Gilbert  <david.gilbert@object-refinery.com>
+
+	* source/org/jfree/chart/plot/XYPlot.java
+	(drawZeroDomainBaseline): No need to cast to AbstractXYItemRenderer,
+	(setFixedDomainAxisSpace): Fire event,
+	(setFixedRangeAxisSpace): Likewise.

@@ -5,11 +5,13 @@ TARGET_SHA = {
     'commons-math': 'e009e73e7512a36ab6fa8933fba7de454c4fa39a',
     'closure-compiler': '739189d54feb7523a33917dbb1b0d6cf996e554c',
     'commons-lang': '6dc3a6db11d7e63c960ccc6cf48aa15d6f00e903',
+    'jfreechart': '520a4be69ba932061ab9b89f328842caf152e1d9',
+    'mockito': 'e51a0515ac8440572cf1af80f7aa620d51e8075e',
+    'joda-time': 'add3cf9f2ba7aad62f3f96a43fdd69ee944c3eae',
 }
 
 
-# バグ修正のコミットだと見分ける条件 for commons-math
-# FixedDの単語がなく、fixの単語があるもの
+# バグ修正のコミットだと見分ける条件
 def is_bugfix_commit(item, filename):
     commit_message = item.message
     if filename == 'commons-math':
@@ -23,6 +25,14 @@ def is_bugfix_commit(item, filename):
         return (commit_message.find('bug') > -1
                 and commit_message.find('fix') > -1
                 or commit_message.find('Fix') > -1)
+    elif filename == 'jfreechart':
+        return (commit_message.find('Fix') > -1)
+    elif filename == 'mockito':
+        return (commit_message.find('Fix') > -1
+                or commit_message.find('fix') > -1)
+    elif filename == 'joda-time':
+        return (commit_message.find('Fix') > -1
+                or commit_message.find('fix') > -1)
 
 
 # その行がコメント、もしくは特に意味のない行であったらFalseを返す

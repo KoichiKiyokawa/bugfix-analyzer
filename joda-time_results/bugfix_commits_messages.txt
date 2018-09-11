@@ -1,0 +1,1648 @@
+Fix Javadoc
+Add Instant.EPOCH
+
+Fixes #472
+Add factories to Instant
+
+Add Instant.ofEpochMilli()
+Add Instant.ofEpochSecond()
+Fixes #458
+Merge pull request #452 from alxndrsn/docs
+
+Fix title of Ethiopic calendar doc pageFix title of Ethiopic calendar doc page
+Merge pull request #451 from Nipel-Crumple/patch-1
+
+Fix typo in key_partial.xmlFix typo in key_partial.xml
+
+Change `milliseond -> millisecond`Add Kazakh language translations
+
+Update after PR
+Fixes #446
+Fix travis
+fix-npe-in-TestZoneInfoCompiler Fixed NullPointerException in class TestZoneInfoCompiler.
+Avoid double addition in lenient chronology
+
+Setting the field twice needs to be avoided
+Fixes #432
+Clarify Instant.withMillis() Javadoc
+
+Fixes jodaorg.github.io#5
+Merge pull request #430 from fanofxiaofeng/master
+
+fix typo (from 'expeceted' to 'expected')fix typo (from 'expeceted' to 'expected')
+Merge pull request #429 from fanofxiaofeng/patch-1
+
+change several 'a' to 'an' and fix one typochange several 'a' to 'an' and fix one typo
+Merge pull request #426 from alb-i986/patch-1
+
+Fix typo in javadocFix typo in PeriodFormatterBuilderMerge pull request #422 from mernst/documentation-fixes
+
+Fix documentation typosFix documentation typos
+Handle plus/minus of months correctly
+
+Errors close to Integer.MIN_VALUE/MAX_VALUE
+Fixes #418
+Merge pull request #412 from bug-bulletin-forks/fix-typos
+
+Fix some Javadoc typosFix some Javadoc typos
+Fix printer that outputs data twice
+
+Fix bug in DateTimePrinterInternalPinter
+Fixes #409
+Convert non-ASCII TimeZone
+
+Where the name of the time-zone has Arabic or other digits
+Fixes #381
+Update tests for JDK 9
+
+Fixes #394
+Comparing two nulls in DateTimeComparator
+
+Fixed bug where clock read twice
+Fixes #404
+Handle locale correctly zone info compiler
+
+Fixes #397
+Close buffered reader correctly in zone info compiler
+
+Fixes #396
+Better documentation of comparisons
+
+Fixes #401
+Merge pull request #392 from pgpx/284-sources
+
+fixes #284 - Generate source and Javadoc artifacts for no-tzdb artifactfixes #284 - Generate source and Javadoc artifacts for no-tzdb artifact
+Fix historic time-zone data
+
+Fixes #373
+Fix time-zone parser
+
+Meet tzvalidate test data
+Fixes #373
+Fix Duration docs
+
+Fixes #388
+Fix bug in time-zone binary search
+
+The fix in v2.9.2 caused problems when the time-zone being parsed
+was not the last element in the input string. New approach uses up-front
+grouping to reduce the search space based on the common slash separator
+Fixes #386
+See #332
+Add Duration.dividedBy(long,RoundingMode)
+
+Fix formatting
+Fixes #69, fixes #379
+Add Norwegian period translations
+
+Update following PR
+Fixes #378
+Add Norwegian period translations
+
+Update following PR
+Fixes #378
+Load timezone resources in doPrivileged block
+
+Fix test to compile
+Ensure system classpath also wrapped
+Fix link to release notes
+Fix bug when adding months
+
+Fixes #361
+Fix bug when adding months
+
+Fixes #361
+Add Turkish period translations
+
+Fixes #364
+Make DateTimeUtils.SYSTEM_MILLIS_PROVIDER public
+
+Fixes #357
+Prepare for v2.9.2
+
+Fixes #346
+Merge pull request #343 from emopers/baos_339
+
+Fixing DataOutputStream usageMerge pull request #344 from arthurc/fix-comment-typo
+
+Fixed comment typoFixed comment typoFixing usage of DataOutputStream
+Fixing usage of ObjectOutputStream decorated with ByteArrayOutputStream
+Merge pull request #332 from pandacalculus/master
+
+fixes bug in timezone resolution that prevents some timezones being resolvedfixes subtle bug in timezone binary search
+ Fixed bug in ZoneInfoCompiler.java and added a test
+Fix bug around 1970-01-01
+
+Bug introduced by min/max changes #190
+Fixes #328
+Fix pom.xml
+Fix basic parsing where additional plus sign
+
+Based on code by Hari Shankar - https://github.com/hshankar
+Fixes #86
+Allow min/max dates
+
+Provide some form of support for date-times up to the min/max of Long
+At the margins, calculations will be slightly imperfect
+UTC is used for the min/max
+Fixes #297
+Fixes #190
+Better error message for interval constructor
+
+Fixes #321
+Better error message for malformed tzdb files
+
+Fixes #319
+Add Russian period translations
+
+Fixes #320
+text mistake fix
+Fixed bug in ZoneInfoCompiler.java and added a test
+Fixed bug with uncaught overflow in Interval
+
+Fixes #315
+Merge pull request #315 from Rok-Piltaver/master
+
+Overflow bug fix and documentation fixFixed bug with uncaught overflow in org/joda/time/base/AbstractInterval.toDurationMillis method.
+Corrected mistake in documentation of org/joda/time/Interval.withEndMillis method.
+Add Czech period translations
+
+Fixes #313
+Fix daysAdd Italian period translations
+
+Fixes #312
+Add DateTimeFormatter methods for StringBuilder
+
+Fixes #298
+Clarify PeriodFormatterBuilder docs
+
+It is in an invalid state once built
+While in theory this could be worked around,
+the effort to do so exceeds the possible benefits
+Fixes #309
+Add Interval.parseWithOffset(String)
+
+Provides a way to parse the fixed offset in an interval string
+Fixes #299
+Fixes #296
+Merge faster time-zone parsing
+
+Fixes #282
+Merge pull request #304 from hansjoachim/exract
+
+Fixes typo. s/exract/extract/Fixes typo. s/exract/extract/
+Merge pull request #300 from tkawachi/patch-1
+
+Fix javadocFix javadocFix to handle JDK 8u60
+
+Time-zone formatting data changed
+Fix indentation
+Merge pull request #287 from arend-von-reinersdorff/patch-1
+
+Fix link to 2.8 upgrade notesFix link to 2.8 upgrade notesFix Property.toInterval()
+
+Change dateTime.hourOfDay().toInterval() to retain the chronology
+Change applies to abstract class, so affects most date-time classes
+Fixes #262
+Merge pull request #259 from jishi9/master
+
+Fixed Seconds.standardSecondsIn javadocFixed Seconds.standardSecondsIn javadocFormat Etc/* time-zone without using Etc prefix
+
+Fixes #244
+Separate logging from time-zone compilation
+
+Fixes #246
+Update to time-zone data 2015a
+
+Fixes #243
+Fix Parsing of negative periods less than a second
+
+Fixes #238
+Fix Javadoc
+
+Fixes #241
+Fix DateTime.withDate() DateTime.withTime()
+
+Algorithm incorrectly changed hour of day
+Happened mid-change when DST dates were hit
+New algorithm avoids an IllegalInstantException when moving to DST gap
+Fixes #233
+Clarify definition of ISO chronology
+
+Fixes #231
+Encode properties files using unicode escapes
+
+Re-encode files using unicode escapes to avoid encoding issues
+Fixes #228
+Fix MonthDay.plusDays()
+
+Algorithm incorrect when adding caused month to change twice
+Used incorrect way of getting current value of partial
+Fixes #227
+Tiny copy-paste typo fix
+Fix release notes
+Ensure period formatting locale used
+
+PeriodFormatter.withLocale() now uses the locale to change the pattern
+PeriodFormat.wordBased() now pushes the locale into the formatter
+Fixes #187
+Fixes #191
+Fix Asia/Dhaka time-zone
+
+Problem caused by time-zone ending at 24:00 on December 31st
+Model change as being as 23:59:59.999
+Fixes #208
+Add DateTime.withDate and DateTime.withTime
+
+Fixes #213
+Add no-tzdb jar file
+
+A second project output
+Same files, just no tzdb data (or ZoneInfoCompiler)
+Fixes #220
+Added new system property for time-zone loading
+
+New system property "org.joda.time.DateTimeZone.Folder"
+If set, then it is treated as a file system folder
+to load time-zone data from using ZoneInfoProvider
+Fixes #37
+Fix maven co-ordinates
+
+Fixes #214Fix name provider
+
+Name provider relied on tzdb short names matching JDK data names
+This has ceased to be true due to recent changes in tzdb
+Add improved matching based on summer/winter
+Data returned still depends on the JDK data, not the tzdb
+Fixes #175
+Fix tests to allow old/new tz data to compile
+
+Still not happy with the activities of the TZDB maintainer
+Handle complex prefix/suffix combinations
+
+For example, 'M' for months and 'm' for minutes.
+Parser is generally case insensitive, but handle this specific case
+Fixes #194
+Fixes #203
+Merge pull request #205 from kwangbkim/master
+
+Fixed typo convertor -> converterFixed typo convertor -> converter
+Fix tests to allow old and new time-zone data to compile
+
+Not happy with the activities of the TZDB maintainer
+Add time-zone databse version to manifest
+
+Key = Time-Zone-Database-Version
+Based on pull request by @longhua
+Fixes #176
+Fixes #183
+Update following pull request
+
+Fixes #173
+Fixes #182
+Merge pull request #182 from longhua/fix_#173
+
+Don't advance to dayOfWeek if it is 0
+
+See #182Don't advance to dayOfWeek if it is 0
+
+If 24:00 is used with a specific day, it will advance to next Monday, since advance is set to true and dayOfWeek is updated to 1.
+
+To fix #173:
+1, don't set advance to true if dayOfWeek is 0.
+2, don't update dayOfWeek if it is 0.
+Alter LocalDate.toDateTime to be more consistent
+
+Additional release notes
+Fixes #177
+Alter LocalDate.toDateTime to be more consistent
+
+Alter LocalDate.toDateTime(LocalTime)
+Alter LocalDate.toDateTime(LocalTime, DateTimeZone)
+Document/test equivalent in LocalDateTime
+
+A null LocalTime is delegated to ensure no change in behaviour
+Otherwise daylight saving gap and overlap has changed
+During DST gap changed from IllegalFieldValueEx to IllegalInstantEx
+During DST overlap it now selected the earlier offset
+
+Change avoids use of currentTimeMillis() and avoids issue #177
+Fixes #177
+Fix deadlock due to DateTimeZone.UTC
+
+Referencing DateTimeZone and FixedDateTimeZone from two
+threads at startup could deadlock
+Add package scoped UTCDateTimeZone class to avoid this
+
+DateTimeZone.UTC has changed implementation type
+It used to be a FixedDateTimeZone
+Now it is a UTCDateTimeZone
+This avoids a potential deadlock scenario
+Serialization is unaffected
+This change will only be observable if you cast the
+UTC constant to FixedDateTimeZone
+Fixes #171
+Handle suffixes/affixes that clash
+
+For example, m for minutes and ms for milliseconds
+Improve on patch by adjusting memory model issues
+Fixes #154, fixes #169
+Handle suffixes/affixes that clash
+
+For example, m for minutes and ms for milliseconds
+Fixes #154, fixes #169
+Create base class for affixes that will solve #154.Fix parsing with PeriodFormatter containing composite affix.Assure correct order of regex affixes during parsing.Add regex based period formats
+
+Fixes #166
+Assure immutability of RegExAffix. Fix formatting.Remove vicious tabs. Fix order of the supported languages in
+PeriodFormat#wordBased(Locale) method's javadoc.Fix page title
+Fixed conversion from Local to UTC
+
+DateTimeZone.getOffsetFromLocal() method
+Fixed to handle the last cutover in DST history correctly
+Rewrite docs and tests
+Fixes #76
+Fix Period construction during DST overlap
+
+If one end was within a DST overlap and the other end
+beyond the overlap then the calculated period was incorrect
+Fixes #156
+Better Javadoc for formatters
+
+Fixes #97
+Parse based on CharSequence internally
+
+Only access to CharSequence is via DateTimeParserBucket
+Fixes #111
+Merge pull request #149 from vrozkovec/master
+
+Fixed incorrect javadocfixed javadoc
+fixed javadoc description
+Avoid creating Partials with order weekyear-year
+
+Define year as greater than weekyear
+Fixes #96
+Fixes #98
+Enhance Javadoc for parse and toString
+
+Fixes #142
+Increased performance of symbols lookup
+
+Cache was never used
+Weak map seems like overkill
+Fixes #143
+Fix Javadoc for ReadableDuration
+
+See #137
+Handle weird TimeZone implementations with null ID
+
+Calling DateTimeZone.forTimeZone() would break if the ID was null
+Fixes #133
+Adjust pull request to use AtomicReferenceArray
+
+Fixes #129, #127
+Increased performance of chrnology lookup
+
+Fixes #126
+Support Appendable throughout printing
+
+Ensure that Appendable can be used efficiently in printing
+Fixes #120
+Fixes #121
+Fixes #122
+Ensure time-zone offset print methods have same code
+
+Testing revealed no difference in behaviour
+Fixes #122
+Fixup pull request - make it work on JDK 5
+Ensure isLeap() returns correct result for day fields
+
+day-of-month and day-of-year should report leap days
+Fixes #110
+Fixup pull request
+DateTime/MutableDateTime constructors taking millis now validate
+
+Previously, new DateTime(Long.MAX_VALUE) would be accepted, now it will be rejected
+This ensures that the maximum/minimum year are respected
+Fixes #100
+Fix DataNuclues related link
+
+Fixes JodaOrg/jodaorg.github.io#1
+Fixup pull request
+Merge pull request #99 from rowanhill/tiny-tidy-up
+
+Tiny typo fixesTiny typo fixes
+Avoid another NPE in Partial.with
+
+Fixes #95
+Fix NPE in Partial.with()
+
+Also ensure unsupported duration fields are compared properly
+Fixes #93
+Fix NPE in Partial.with()
+
+Also ensure unsupported duration fields are compared properly
+Fixes #93
+Adding zero no longer changes the offset during DST overlap
+
+Fixes #77
+Prevent creation of invalid partials via Partial.with(DateTimeFieldType,int)
+
+Validation in this method was not as thorough as that in the constructor
+This allowed invalid partials to be created
+Fixes #88
+Fix NPE in DateTimeUtils.isContiguous with weird partials [#89]
+
+Fixes #89
+DurationField is incorrect in complex DateTimeField instances
+
+Fixes #92
+Fixup pull request
+Merge pull request #85 from haguenau/master
+
+Spelling fixes for DurationFixup pull request for fraction of second
+
+Fixes #62
+Fix handling of PeriodType when either years or months missing
+
+Fixes #79
+Fix IANA time zone database links
+
+Fixes #83
+Merge pull request #71 from seva-ask/fixForSerializationException
+
+Caches should not be serialized
+
+Harmless change, even though it is unnecessary in normal serializationAdd Duration multipliedBy/dividedBy/negated
+
+Tweak pull request
+Fixes #72
+Remove unnecessary volatile on LocalDate has code instance variable
+
+LocalDate hash code meets criteria of the racy single-check idiom
+Fixes #68
+Enhance home page link to release notes
+
+Fixes #66Fix README reference to change notes
+
+See #66Remove uncaughtException calls
+
+Previously the code called ThreadGroup.uncaughtException() which was invalid
+Now it throws a RuntimeException or logs to System.err
+Fixes #59
+Enhance Javadoc wrt parsing of format patterns
+
+Fixes #60
+Merge pull request #53 from RenniePet/Fix-FAQ
+
+One too many "are"s in the heading.Move to using m2e Maven Eclipse plugin
+
+Fix build
+Fix GJChronology.plus/minus across cutover and year zero
+
+Fixes #28
+When subtracting a number of years from a date in the GJChronology there are two considerations
+The cutover date might be crossed, and year zero might be crossed (there is no year zero in GJ)
+Previously, each were handled separately, but not together. Now it is fixed
+As part of this change, the minimum cutover instant was set to 0001-01-01 (Gregorian)
+Better thread-safety in ISODateTimeFormat
+
+Fixes #45
+Better thread-safety in ISODateTimeFormat
+
+Fixes #45
+Add LocalDateTime.toDate(TimeZone)
+
+Provides an alternate way to create a java.util.Date that avoids some synchronization
+Fixes #48
+Maximum size for pattern cache
+
+Fixes #49
+Fix DateTimeFormatter.parseInto() where it obtains the default year
+
+Previously, wrong year could be obtained at year start/end in non UTC zones
+Now obtains year using the chronology of the ReadWritableInstant
+Fixes #21
+Define equals/hashcode in Chronology
+
+Previous definition relied on identity from caches
+Weird cases can circimvent that
+Fixes #36
+Define equals/hashcode in Chronology
+
+Previous definition relied on identity from caches
+Weird cases can circimvent that
+Fixes #36
+Fix chronology cache synchronization
+
+Fixes #44
+Complete deprecation of DateMidnight
+
+Fixes #41
+Fix test case
+Fix to allow offsets from -00:01 to -00:59
+
+Fixes #42
+Ensure there is a max/min valid offset in DateTimeZone
+
+Fixes #43
+Merge pull request #38 from mebigfatguy/master
+
+fix javadoc @link tagsfix javadoc @links
+Days.daysBetween fails for MonthDay
+
+Problems around leap year
+Fixes #22
+Merge pull request #29 from celkins/fix-javadoc-typo
+
+Fix invalid ISO 8601 duration syntax in javadoc exampleFix invalid ISO 8601 duration syntax in javadoc example
+Fix short time-zone name parsing to match the longest name
+Fix pom
+Update to time-zone data 2013b
+
+Fixes #14
+Fix ZoneInfoCompiler and DateTimeZoneBuilder multi-threading
+
+Fixes #18
+Fix link
+Fix typos
+Fix patch and update project files (Duration string parsing)
+Merge pull request #10 from mkneissl/master
+
+Fix Duration conversion from String for negative millisecond durations.Fix Duration conversion from String for negative millisecond durations.
+Fix LocalTime Javadoc
+Javadoc fix to Years [169]
+Fix withMaximumValue()/withMinimumValue() to handle DST gap
+
+https://sourceforge.net/p/joda-time/bugs/159/
+Accept pull request
+
+Fixes #9
+Add Japanese translation of word-based periods
+
+This commit adds Japanese translation of word-based periods and
+support for parsing the strings of languages lacking word spacing.
+The following files are added or modified.
+
+- messages_ja.properties
+
+- PeriodFormat#wordBased:
+  Add available languages in the Javadoc description.
+
+- PeriodFormatter#Separator#parseInto:
+  The previous impl. fails when any separator is an empty string.
+  This commit fixes the problem.
+
+- TestPeriodFormat:
+  Add unit tests for Japanese.
+  Also add tests whether parsing correctly throws an exception
+    when a string has rendundant separators
+    AND seperators for the language are not empty.
+
+- pom.xml: Add Kasper Laudrup (author of Danish translation)
+  and Hajime Senuma (author of this commit).
+Fix calculation of month length when day-of-month specified is less than 1
+
+Fixes SF bug 165
+Fix fromCalendarFields()/fromDateFields() to handle era BC correctly
+
+Fixes #8
+Merge pull request #7 from dancojocar/patch-1
+
+Fix typo in DateTimeUtils default time-zone namesFix typo
+
+Use "America/Chicago" instead of "America/Chigaco"Fix to handle cross-time-zone issues properly rather than always using UTC [163]
+
+MutableDateTime.setDate(ReadableInstant)
+Fix to handle cross-time-zone issues properly rather than always using UTC
+
+MutableDateTime.setDate(ReadableInstant)
+Fix tests to match changes Spanish resource file
+Fix to avoid exception for times before 1970 with non-zero milli-of-second
+Fix period formatter to correctly output values negative milliseconds [3564249]
+
+Fix is between zero and -1 second
+Fix formatter cannot print/parse code
+
+Code to check if formatter cannot print/parse didn't work properly
+Merge pull request #4 from jlavallee/patch-1
+
+Fix typo in Jollyday descriptionFix typo in Jollyday descriptionFix MonthDay add/subtract around Feb29 [3528941]
+FieldUtils.safeMultiply(long,int) [3520651]
+
+Fix implementation to throw exception for (Long.MIN_VALUE, -1)
+Fix DateTimeFormatter.parseInto() [3522138]
+
+Revert behaviour back to v1.x when parseInto month/day only
+Fix cut and paste in docs
+Fixup ant script
+Fix validation in BasicChronology.getDateTimeMillis
+
+Previously this allowed a millisOfDay value one too large
+Fix multiplication of Long.MIN_VALUE by -1 in safeMultiply()
+Fix time zone later/earlier offset methods in Western hemisphere [3476684]
+Fix multi-lingual period format for using English from another language default [3471414]
+
+An empty messages file ensures the bunde loader works correctly
+Fix references to removed methods in user guide
+Fix PeriodType caching
+
+Spotted by Greg and Laura Inozemtseva
+Fix GJChronology to allow some leap year dates in JulianChronology to be created [3446915]
+Fix broken hyperlink, notified by "Gent, R.H. van (Rob)"
+Fix zone id parsing for ids like America/Dawson_Creek [3427389]
+Javadoc fix to MutablePeriod [3413869]
+Fix time-zone names in non-English locales on JDK1.6 [3412910]
+Fix release date
+Support parsing of date-time zone names like BST or British Summer Time
+
+Fix code to avoid source and binary incompatibility
+Rework fix to ensure immutable classes by using volatile instance variables
+
+Original fix relied on a reflection hack that isn't guaranteed to work
+Duraton.toPeriod(), new Period(long), new MutablePeriod(long) [3264409]
+Fixed to obey Javadoc. Previously, they didn't obey the Javadoc if the default time-zone had no daylight savings.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1610 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix ant build to handle joda-convert
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1602 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Handle broken serialization in other tools [3117678]
+Some tools can't handle the joda-time stub serialization, kludge a fix for them
+Also add final to some variables
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1601 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix ant file now joda-convert needed for compilation
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1600 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fix in PeriodFormatterBuilder [3100939]
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1582 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Duration.toString
+Fixed to work correctly for negative values
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1577 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix DateTimeZone.getDefault [3048468,3056104]
+Handle missing user.timezone system property on Android that resulted in stack overflow
+investigated by/patch suggeted by Matias Brunstein Macri
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1567 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix maven tests to work in German locale
+patch from Ansgar Konermann
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1566 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fixes
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1560 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix generics implementation to retain binary compatibility
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1555 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor fixes
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1551 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix whitespace
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1550 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixes ported from working on v1.6.1
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1534 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix time zone compiler to handle 24:00 [2804258]
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1490 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix fromDateFields() where j.u.Date before 1970
+reported by Jure Mercun
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1471 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix whitespace and line endings
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1430 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix possible concurrency hole in PeriodFormatBuilder.Separator [2820871]
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1404 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix website text [2865266]
+raised by Timothy Tucker
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1399 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix method name typo - DateTimeFormatter.getChronolgy() [2783325]
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1389 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix DST cutover issues for LocalDate.toInterval() [2487417]
+Raised by Luc Claes
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1380 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fix in Months [2721880]
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1379 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix so that builder works even when system time zone isn't UTC.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1378 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix javadoc and licence
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1359 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix period formatting printZeroRarelyFirst() [2025928]
+from Sarah Brake
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1349 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix user guide example, bug 1945908
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1344 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix millisecond parsing, fix basic parsers too lenient
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1341 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix copyright dates
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1339 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed offset time zones calculated incorrect periods - fix isPrecise()
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1334 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix Javadoc timezone definitions, from Simen Rokaas [Open discussion]
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1325 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix document title
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1324 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+ZonedChronology fix to roundFloor/roundCeiling (regression from 1.4) [1887104]
+Bug affected DST cutover in Autumn for time fields (not date fields)
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1323 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix getOffsetFromLocal DST gap adjustment.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1315 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Assorted minor fixes, from Bob Japenga
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1288 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bundle to be a jar not a zip
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1284 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix test so it isn't influenced by DST cutover
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1258 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix DateTime parsing of text containing non-letters, also make less greedy [1788282]
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1257 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed defect in localized Gregorian/Julian symbol cache which severely impacted formatting performance when using null (default) locale.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1247 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed @since tags.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1246 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Added appendFixedDecimal and appendFixedSignedDecimal methods to DateTimeFormatterBuilder.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1245 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Add Period normalizedStandard(), normalizedStandard(PeriodType)
+Fix Period withXxx() to throw UnsupportedOperationException
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1243 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix Period plus*() and minus*() to throw correct exception as per javadoc
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1239 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix javadoc
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1237 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix spelling
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1236 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix DateTimeZone to better handle spring DST cutover
+bugs 1710316, 1747219, 1755158
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1232 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix and test LenientChronology to ensure it works with time zones
+bug 1755161
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1231 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed links to Subversion.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1228 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed links to Subversion.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1227 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bug where some time zones (S.Africa) use same abbreviated zone name for summer and winter
+bug 1716305
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1223 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix mailing list links
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1220 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix DateTimeFormat javadoc to explain time zone parsing restriction better [OpenDiscussion 1721909]
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1219 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bug where some time zones (Australia) use same abbreviated zone name for summer and winter
+bug 1716305
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1218 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Bug fix: LenientChronology might incorrectly adjust a valid hour field near DST transition
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1217 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+DateTimeZone did not properly convert fixed offset zones to java.util.TimeZone
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1203 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix period formating from throwing NegativeArraySizeException
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1195 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix spelling error, from Guilherme Chapiewski
+Add JSR 310 link
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1192 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixes to make maven happy
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1187 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix spelling error, from Jean-Philippe Martin by email
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1180 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix minor spelling error pointed out by Matt Benson.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1161 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bug where Chronology instances were compared by identity instead of equals()
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1139 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc comment fix.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1137 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed text value of ReadablePartial fields when using GJChronology.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1128 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix svn setup
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1108 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Test and fix local string parsing
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1104 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Reset interval behaviour back to v1.2, except fixing a bug in overlaps() when passing in null
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1101 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Bug fix Interval overlap/gap methods so they return intervals with the correct chronology
+Spotted by Jozsef Hontvari
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1098 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix Javadoc
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1093 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix Local Object constructors
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1084 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix spelling
+spotted by Andreas Deininger
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1083 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed @since tags.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1079 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests to compile with changed converters
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1076 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests caused by extracting chronologies to constants
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1075 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Constructing TimeOfDay with String value no longer accepts date fields, and 'T' prefix is now optional.
+
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1073 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor fix in error range reporting
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1072 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed test for those not living in Europe/London time zone.
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1070 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+fixed counts in comments
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1056 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed overflow when getting year field from instants at Long.MAX_VALUE and LONG.MIN_VALUE.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1051 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fixes
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1050 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix Interval.overlaps when comparing against empty interval
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1045 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed documentation errors
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1037 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+More fixes, ugh.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1036 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed text.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1035 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix test time zone
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1030 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix to ensure that zone is not lost on toDateTime et al
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1027 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed conversion methods toDateTime, toDateTimeISO, toMutableDateTime, and toMutableDateTimeISO to preserve the time zone
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1022 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fixes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1018 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix date time zone hashcode
+from FindBugs
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@1000 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix hashcode on partial property classes
+from FindBugs
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@999 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix parser to correctly estimate parsed length
+from FindBugs
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@998 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix grammer
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@982 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix licensing statements pre 1.0
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@981 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix DateTimeFormat pattern letter K
+from Maxim Zhao
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@977 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@975 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix version for 1.2
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@973 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix and enhance javadoc
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@971 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bugs in partial add methods when starting from a leap day
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@970 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bug where wrong month length was being returned
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@968 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix docs from Chronology change
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@967 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix Date and Calendar conversion (tests) on JDK1.3
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@945 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix to compile on JDK1.3 by use of reflection
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@937 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Add tests and fix duration/add bugs in Coptic and Ethiopic chronology
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@935 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed formatting of time zone name near DST transition.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@920 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed conversions to and from java.util.Date and java.util.Calendar where time zone rules differ between JDK and Joda-Time.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@919 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix serialization bug introduced with last commit.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@918 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+In ZonedChronology, fixed getting text values for fields from getAs[Short]Text(int value, Locale locale).
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@916 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix grammer
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@914 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Add notes for coptic bug fix and scalar performance improvement
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@906 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed regression in month of year calculation which affected max days in a month
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@904 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix Javadoc
+from Gwyn Evans
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@898 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix ZonedChronology ReadablePartial getMax/Min Value methods
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@882 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix example to something that actually compiles
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@880 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix website for maven 1.0.2
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@879 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix download locations and release date
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@876 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix joda-time version
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@875 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix META-INF
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@874 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix scripts for 0.8
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@873 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix scripts for 0.8
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@872 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix dist so maven works
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@870 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix paths so maven works
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@869 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix javadoc
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@865 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix invalid xml
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@859 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix javadoc warning
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@843 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed spelling error.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@842 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Emphasise most important fixed bug
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@807 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix javadoc tags
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@800 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix since tag
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@798 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bug in DateTimeFormatterBuilder.canBuildFormatter() where it always returned false
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@794 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@789 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bug in withChronologyRetainFields because no validation occurred
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@787 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix test to work reliably as part of larger test suite
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@785 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed number parser leniency bug with respect to sign characters.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@784 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix serialization of DateTime/DateMidnight property classes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@783 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix serialization of DateTime/DateMidnight property classes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@782 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed bug in parsing periods that had fields which always printed zeros.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@781 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fix
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@772 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@770 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed parsing date where format includes era.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@768 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@764 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+minor comment fix
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@758 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Bug fix for parsing two digit year pattern with more or less than two digits.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@750 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fixes.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@731 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix typos.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@728 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix problem with test under JDK1.3
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@719 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed SF link.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@713 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor fixes.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@712 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix formatters section
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@709 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix package javadoc
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@708 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix parameter names.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@704 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+minor comment fix
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@693 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor comment fixes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@688 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix ant script to find and download junit itself
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@659 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Test and fix bugs in Buddhist Chronology
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@654 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bug preventing zero from being set
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@642 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bugs and javadoc
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@637 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@636 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Comment on NPE fix
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@619 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Bug fix setting default zone if DST is off.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@601 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix to compile on JDK1.5
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@593 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Bux fix handing offset based default time zones
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@592 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix period parsing bugs.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@584 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix parsing of fractional seconds.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@583 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix isAfter(Interval) to correctly handle dates that abut
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@579 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Doc fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@578 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fix
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@576 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix to allow parsing of PT1H7M57S
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@575 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix NullPointerException bug.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@574 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix minor typo.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@573 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor doc fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@571 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix comment link.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@570 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor doc fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@569 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Checkstyle fixes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@563 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Checkstyle fixes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@561 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix hyperlink
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@560 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix checkstyle for 0.98
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@553 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed javadoc tags
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@540 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix interval tests to match reality
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@535 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Remove redundent code and fix bug
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@524 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Add noMillis methods, javadoc and fix bugs
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@514 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix interval to use chronology throughout
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@499 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix test case
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@490 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix test
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@479 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix and simplify zero handling in period format
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@458 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix BasePartial to restore constructor removed by mistake
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@447 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix test
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@436 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix javadoc tag.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@434 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed javadoc tags.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@423 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc tag fixes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@413 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bug from testing
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@395 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed @param tag
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@394 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix to use correct set method on writable interval
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@383 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed bug in parsing dates with an incomplete set of fields. They were defaulting to whatever they were on 1970-01-01.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@382 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed parsing bug that would consume wrong suffix for field.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@381 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed javadoc tags.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@374 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@367 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Tests and fixes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@366 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix API and Javadoc via testing
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@362 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests after TimePeriod creation
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@361 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests after TimePeriod creation
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@360 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Cache time zones looked up by fixed offset.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@354 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests to handle chronology issues and withDurationType
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@349 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix bugs by using instant chronology correctly in add methods
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@347 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc and fixes from testing
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@335 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix hashcode and toString from testing
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@332 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix null handling from testing
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@331 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests to actually be sensible
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@327 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed deserialization.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@324 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix from testing
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@319 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed javadoc tag
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@315 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@313 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix equals hashcode contract, move and rework rounding code from interface
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@311 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix equals hashcode contract
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@310 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed assertion.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@308 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix test
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@305 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed param tags.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@296 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed first sentence.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@293 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed @link tag.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@290 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed comment typo.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@272 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed javadoc comment.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@268 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed javadoc comment.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@267 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed javadoc link.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@266 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix tests now that null means now in comparator
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@258 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixes from testing
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@254 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixes resulting from testing
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@252 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix constructor javadoc
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@250 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix broken @link tags.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@248 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed @param doc
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@227 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix ObjectChronology constructor to use converter properly
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@221 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed bug parsing time zone offset where zero offset text is an empty string.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@214 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix javadoc param tags
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@208 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Typo fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@206 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed usage message.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@201 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix for bug 954058, which caused an ExceptionInInitializerError to be thrown if the system property "user.timezone" specified an explicit offset.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@200 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix method details
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@197 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix getAsText to avoid infinite recursion
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@190 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor comment fixes
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@180 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Yet another minor comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@153 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@146 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed definition of ISO century related fields.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@138 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Javadoc fixes.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@135 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed bug which caused getInstance to fail on second identical call.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@134 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@131 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Typo fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@129 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix broken link.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@124 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Support negative weekyears; fixed minor bug in matching parser.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@123 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed bug when constructing with non-ISO chronologies.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@121 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed bug when weekyear changes cross cutover.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@120 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@118 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix column name.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@104 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Bug fixes in set matching parse.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@103 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix a bug in timezone obtaining
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@96 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+In set, fix range check for fields with imprecise ranges.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@88 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix repository URL.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@71 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@48 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Usage comment fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@45 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix links.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@37 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fixed post goal.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@36 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix build script
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@26 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Fix maven build to new UTCProvider
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@24 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1
+Minor error formatting fix.
+
+
+git-svn-id: https://joda-time.svn.sourceforge.net/svnroot/joda-time/trunk@16 1e1cfbb7-5c0e-0410-a2f0-f98d92ec03a1

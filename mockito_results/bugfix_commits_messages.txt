@@ -1,0 +1,3168 @@
+fix VerificationWithTimout javadoc comment (#1281)
+
+as opposed to VerificationAfterDelay, VerificationWithTimout doesn't support never()Merge pull request #1238 from mockito/backport-fixes
+
+Backport fixes release/2.x to masterMerge branch 'release/2.x' into backport-fixes
+Merge pull request #1257 from mockito/self-invoke-fix
+
+Fixes #1254 and #1256: improved check for self-invocation.Update Kotlin to latest version (#1263)
+
+* Update Kotlin to latest version
+
+* Update kotlin dependency syntax
+
+* Fix the build
+Fixes #1254 and #1256: improved check for self-invocation.
+Merge pull request #1250 from mockito/java-10
+
+Fixes #1243: Support for new version number 10.Fixes #1243: Support for new version number 10.
+Enable Checkstyle for checking license headers (#1242)
+
+* Enable Checkstyle for checking license headers
+
+* Enable license check for all subprojects and fix test license headers
+
+* Apply license task to all projects
+Merge branch 'release/2.x' into backport-fixes
+Merge pull request #1220 from mockito/backport-fixes
+
+Backport fixes from release/2.x to masterMerge branch 'release/2.x' into backport-fixes
+Merge pull request #1218 from mockito/bb-update
+
+Updated Byte Buddy and ASM dependencies. Fixes #1215.Merge pull request #1217 from mockito/fix-self-invoke-check
+
+Fixes #1183: Make override check more forgiving to accomondate Kotlin compile patterns.Updated Byte Buddy and ASM dependencies. Fixes #1215.
+Fixes #1183: Make override check more forgiving to accomondate Kotlin compile patterns.
+Fixes #1211: Improve @deprecated JavaDoc (#1214)
+
+Use junit.Assert instead of junit.framework.TestCase (#1209)
+
+Fix JUnit imports throughout the project to use the standard
+org.junit.Assert assertions instead of the obsolete
+junit.framework.TestCase assertions which just delegate to Assert's
+methods.Merge pull request #1203 from mockito/sf
+
+Fixed documentation issue, added unit testsMerge pull request #1041 from mockito/backport-fixes
+
+Backport fixes of release/2.x to masterMerge branch 'release/2.x' into backport-fixes
+
+Also bump Build Scan version for Gradle 4 compatibility.
+Fix failing test
+
+The original value in master branch was isNull(). Maybe that behavior can be
+different if compiled with Java 6 compatibility.
+Fixed documentation issue, added unit tests
+
+- While working on new verification started listeners (#1191) I found an instance of incorrect documentation. I added unit tests and simplified the documentation.
+- Currently, we do guarantee the order in which invocation listeners get notified. Some of our users might have started to depend on this behavior. I added unit tests and fixed the Javadoc. In general, it is seems useful to guarantee the order. This way, the API is more predictable, easier to use.
+Fix another test failing with Java 9
+Fix issue with inline mock maker and Gradle 4
+Fix warning in Gradle 4
+Fixes #1189: Add stable module name (#1195)
+
+This patch adds a stable module name to the produced JAR in order to
+be forwards compatible to Java 9.Fix javadoc in PluginLoader#withAlias' javadoc (#1201)
+
+Fix the misuse of @Deprecated in PluginLoader#withAlias - @Deprecated
+is an annotation, while the correct javadoc tag is @deprecated.Merge branch 'master' into backport-fixes
+Merge branch 'release/2.x' into backport-fixes
+Fix #1155: thenThrow(Class) with invalid Throwable type (#1162)
+
+* Fix for #1155 thenThrow(Class) now fails when the given Throwable type
+is not declared on the stubbed method
+
+* Added tests for Mockito.thenThrow() / doThrow() and fixed stubbing state
+after failure
+
+* Fixed checkstyle issues
+
+* Checkstyle issues again
+
+* Tried to fix the eof checkstyle issue
+
+* Checkstyle EOF fix
+
+* organized imports
+
+* Removed @SurpressWarnings("all") in order to see unused imports.
+Fixed some compiler warnings.
+
+* Fixed test regression
+
+* Added a test for a stubbing with an undeclared checked exception.
+
+* Added more tests
+Fixes 977: Javadoc on verifyZeroInteractions (#1199)
+
+Make the javadoc of Mockito#verifyZeroInteractions to make it more
+obvious that it does the same thing as
+Mockito#verifyNoMoreInteractions.Fixed typo
+
+[ci skip]Merge pull request #1181 from mockito/performance-fix
+
+#1179: Fix performance regression caused by use of method graph compiler.Removed build on jdk7
+
+- I have tried to get the build working with jdk7 but I couldn't get it to work. I kept getting: Exception in thread "main" javax.net.ssl.SSLException: java.security.ProviderException. We remember this issue from our Jdk6 build, we could not fix it and eventually we have stopped building with Jdk6.
+- We still publish with Java6 compatibility and we have animal sniffer set up to catch regressions. It should be ok to build only on Jdk8.
+- Jdk6 and jdk7 has been deprecated years ago, we need to move on.
+Fix Travis configuration.#1179: Fix performance regression caused by use of method graph compiler.
+Updated documentation, fixed checkstyle issues
+Merge pull request #1170 from PascalSchumacher/update_objenesis_to_2_6
+
+Update objenesis version 2.5 -> 2.6 (Java9, bugfixes)Merge pull request #1145 from mockito/shipkit
+
+Bumped shipkit to fix unnecessary releasing problemFixes #1135: Properly resolve visibility bridges. (#1136)
+
+Fixed flaky Bintray badge
+
+Bintray badge did not work properly from shields.io. Replaced it with shield directly from Bintray. It's a shame because the Bintray badge only shows "Download" where shield from shields.io showed "Bintray" [ci skip]Merge pull request #1128 from mockito/class-loader-assertion
+
+Improve detection on non-mockable types - addresses #1064
+
+Merged after fix is confirmed.Fixed Bintray link in the shield
+
+[ci skip]Updated the shield badge
+
+It is a little bit confusing that there are 2 different versions, one in bintray one in central. But perhaps it's a minor problem we can fix later. For now, I made it explicit what repository the version was published to [ci skip]Merge pull request #1129 from mockito/sf3
+
+Fixed issue with releases to Maven Central. Fixes #1127.Fixed issue with releases to Maven Central
+
+After 1.0 release of Shipkit we need to figure out how to model this conditional release.
+This bug leads me to believe that we need to eliminate this logic from Mockito.
+This way it can be a part of Shipkit and be well tested & documented.
+Fix typo: Remove repeated "a" (#1125)
+
+Merge pull request #1122 from mockito/delayInAnswer
+
+* Made it possible to delay the return of a mock or spy (#1119)
+* Fix Checkstyle violation + add @since tags
+
+Fixes #1117.
+[ci maven-central-release]
+Fix Checkstyle violation + add @since tags
+Made it possible to delay the return of a mock or spy.  (Fixes #1117) (#1119)
+
+Fixes #1117.Made it possible to delay the return of a mock or spy.  (Fixes #1117) (#1119)
+
+Fixes #1117.Fixed Travis configuration for matrix build (#1109)
+
+Travis CI introduced a good change that unfortunately is slightly backwards incompatible.
+This change to configuration file fixes our Travis configuration for updated Travis behavior wrt matrix builds.
+More info, in the GitHub ticket
+
+Fixes 1107Fixed contributor links and bintray badge in release notes (#1103)
+
+Fixed broken link in Javadoc, improved console message (#1100)
+
+* Fixed broken link in Javadoc
+
+* Tweaked the message
+
+This way it looks cleaner in the build log
+Merge pull request #1095 from mockito/sf
+
+Fixed bug with git push for tag during the releaseFixed bug with git push for tag during the release
+Merge pull request #1091 from trcooke/fix1088
+
+Fixes #1088 : Updating documentation of verify feature to correct a s…Fix link to Mockito JUnit rule heading (#1092)
+
+Fixes #1088 : Updating documentation of verify feature to correct a supposed typo that results in confusing behaviour when cut, pasted, and run verbatim.
+Fixes #1083: Interfaces only declare toString implicitly and should therefore override it explicitly from the inline mock maker. (#1090)
+
+Merge pull request #1084 from mockito/sf
+
+Bumped version of tools to pick up release automation fixesPicked up version bumping fix for release automation
+
+Bumped version of tools to pick up fix for:
+https://github.com/mockito/mockito-release-tools/issues/145
+Picked up release automation fix for release needed task
+
+Bumped version of tools to pick up fix for:
+https://github.com/mockito/mockito-release-tools/issues/143
+Merge pull request #1080 from mockito/sf
+
+More concise release notes and codecov issue fixBumped version of release tools and updated release configuration
+
+1. It should fix the codecov issue
+2. Improvements to release generation workflow (incremental tasks, etc)
+3. Cleaner release notes (more compact)
+Fixed #1065. Add information about doNothing() method to CannotStubVo… (#1079)
+
+* Fixed #1065. Add information about doNothing() method to CannotStubVoidMethodWithReturnValue error message
+
+* Changed message according to PR review
+
+[ci skip-release]Fix validation in returnArgumentAt(int) in case of type erasure on the parameter (#1076)
+
+* Fixed #1071 / returnArgumentAt(int) The validation of the returnable
+type works now for generic parameters.
+
+The parameter type inference takes now the type of the actual instance
+into account to avoid type erasure issues in case the parameter is
+generic.
+
+* Fixed very important checkstyle twhitespace & linebreak at eof issues
+
+* fixed intendation and import issues
+verifyZeroInteractions guarantees zero interactions instead of just delegating to verifyNoMoreInteractions (#995)
+
+* Fixes #989
+Introducing verifyNoInteractions, that checks if the number of
+invocations on given mock(s) is zero, failing otherwise
+
+* Added missing (?) @Test annotation
+
+* Removed try catch block by using isMock
+Support Kotlin suspending functions (#1032)
+
+* Support Kotlin suspending functions
+
+Original user problem report:
+https://discuss.kotlinlang.org/t/verifying-suspending-functions-with-mockito-or-alternatives/2492
+
+The crux of the problem is that Kotlin compiler adds additional synthetic parameter
+to suspending functions that is not visible in the source as explained in the design docs:
+https://github.com/Kotlin/kotlin-coroutines/blob/master/kotlin-coroutines-informal.md#continuation-passing-style
+
+Expanded test cases in this repo pass with this patch:
+https://github.com/elizarov/CoroutinesMockitoPlayground
+
+* Get rid of MockitoMethod.isSuspending & fix ReturnsArgumentAtTest test
+
+* Extracted Kotlin tests to separate submodule
+
+For safety and isolation of main binary from Kotlin additions.
+
+Thank you for great contribution!
+
+* Refactoring - keeping parameters in class field
+
+This way we avoid extra calculation on each mock method invocation
+
+* More tests for various kinds of Kotlin suspend functions
+Merge pull request #1060 from epeee/typos+cleanup
+
+Fixed  typos across the codebaseEnabled releasing without using skip-release keyword (#1061)
+
+1. This change enables automatic releases to 'mockito-development'
+without exposing us to endless loop bug I planted earlier
+(https://github.com/mockito/mockito/issues/1059).
+2. The skip-release behavior will be fixed soon, pr is open:
+https://github.com/mockito/mockito-release-tools/pull/103
+If it is fixed, we can reapply the skip-release behavior for mockito,
+which will fix the codecov issue:
+https://github.com/mockito/mockito/issues/984fix some typos
+Fix some issues reported by SonarQube (#1027)
+
+Removed 2.8.10 version from notes
+
+2.8.10 version was never released, so I removed it from release notes. There is a PR to fix the release automation open. [ci skip]Merge pull request #1052 from mockito/sf
+
+Fixed problems with releasesFixed problems with releases
+
+- fixed the logic that determines if the release is notable or not.
+We shipped a couple of releases to wrong Bintray repo but we should be ok :)
+I plan to make this configuration simpler but now it has to be this way.
+- bumped to new version of tools to pick up a couple of improvements
+including the fix for #984
+- configured commit message postfix that will ensure that
+code coverage is collected after CI automated commits (see #984)
+- disabled automatic publication because it's still not ready
+Updated Byte Buddy, fixes agent attachment on Java 9 VM that does not allow for self-attachment by default.
+Fixes #1044: change example for alignment of throws declaration (#1045)
+
+Backport fixes of release/2.x to master
+Fix several javadoc issues (#1040)
+
+* SilentRunnerTest#HasUnnecessaryStubs javadoc
+
+This patch moves the class' javadoc before the annotation to solve a
+"dangling javadoc" warning.
+
+* ArgumentMatchingToolTest#shouldUseMatchersSafely comment
+
+The inner StringMatcher is not a top level or member class, it's a
+local variable.
+As such, using a javadoc style comment (/** */) on it generates a
+"dangling javadoc" warning. This patch changes that javadoc comment
+to a regular java comment (//) to resolve that warning.
+
+* @see tag references to bugs
+
+If a @see tag doesn't reference another class/method, the link should
+be manually handled by a <a> HTML tag.
+
+* VarargsTest#shouldCaptureVarArgsAsArray @throws tag
+
+Remove a @throws tag for the checked Exception that isn't thrown by
+this method.
+Merge pull request #1038 from mockito/sf
+
+Fixed glitches with notable releasesNotable release fix
+
+The extra property is exposed on root project only. Later on, we will add decent API for that via formal extension.
+Merge pull request #1034 from mockito/sf
+
+Fixed typo in configuration
+
+[ci skip-release]Fixed typo in configuration
+
+The release notes files belong to the same directory
+Merge pull request #1030 from mockito/sf
+
+Fixed notable versionFixed notable version
+
+2.7.0 does not exist :)
+Fixed issue with task dependencies
+
+We also need to declare dependency from 'ideaModule' task to make sure the CI build works well (we ran idea task on CI to flesh out IDE related issues).
+Merge pull request #1023 from mureinik/javadoc
+
+Fix broken link in Mockito javadocFix broken link in Mockito javadoc
+
+Commit 6a82c0 (included in Mockito 2.7.14) changed
+MockSetting#useConstructor's signature to accept an Object...
+argument. While this change is backwards compatible (as calls can
+continue passing an empty argument list), it broke the javadoc
+reference to useConstructor() in Mockito's javadoc.
+
+This patch fixes that broken link.
+Fixed release tools issues
+
+1. Added workaround for Java6 for now, for testing only
+2. Fixed the names of archives
+3. Bumped to new version of release tools to pick up https://github.com/mockito/mockito-release-tools/pull/59
+Fixed typo
+Fixes and removal of unnecessary configuration
+Fix #952: fix invalid examples in javadoc of AnswerX and VoidAnswerX
+
+commit 4a38b4c1b9edabc59fb8cc0f299c7b286b5f81c8
+Author: Tim van der Lippe <tvanderlippe@gmail.com>
+Date:   Sat Apr 1 12:59:41 2017 +0200
+
+    Remove whitespace
+
+commit ad481d5af1e581c43f784be4dfb3bf29ef664fea
+Author: SaiyiW <saiyiwang@gmail.com>
+Date:   Mon Mar 27 22:01:19 2017 +0200
+
+    Changes according to feedback
+
+commit 42ea418a0d077cb27b5704163a13060f81c0db4d
+Author: SaiyiW <saiyiwang@gmail.com>
+Date:   Thu Mar 16 02:23:12 2017 +0100
+
+    Fix #952: fix invalid examples in javadoc of AnswerX and VoidAnswerX.
+Merge pull request #1010 from mockito/sf
+
+Bumped version to fix CI buildMerge pull request #1007 from mockito/tech/fixJava9-ea146
+
+Fix test failing with Java 9-ea+146+Fix test failing with Java 9-ea+146+
+
+Stack trace in JDK part contains also module name
+Merge pull request #1001 from mureinik/README-release-notes
+
+Fix release notes badge
+
+[ci skip-release]Fix release notes badge
+
+GitHub doesn't seem to render images from URLs with spaces properly,
+breaking the release notes badge.
+This change encodes the URL, replacing the space with %20 to make it
+render properly.
+
+[ci skip]
+Merge pull request #994 from delftswa2017/link
+
+fix the broken link on 1357 line in Mockito.java
+
+[ci skip-release]Merge pull request #999 from mureinik/master-javadoc
+
+master branch: Fix JavaDoc generation on recent JDK 8 builds (#934)Fix JavaDoc generation on recent JDK 8 builds (#934)
+
+fix the broken link in 1357 line in Mockito.java
+Fixes #974: Fix to get correct stubbing location with inline mocking (#979)
+
+* Fixes #974: Add constructors to LocationImpl
+
+* Fixes #974: Add Location parameter to constructor of InterceptedInvocation
+
+* Fixes #974: Add MockMethodInterceptor#doIntercept() to take a Location argument
+
+* Fixes #974: Fix to get correct stubbing location with inline mocking
+Fixes #976: Resolve ambiguous constructors (#980)
+
+* Fixes #976: Improve constructor choosing
+
+With the current code (introduced in Mockito 2.7.14 by commit
+6a82c03), calling MockSettings#useConstructor with an argument list
+that would be applicable to more than one constructor would fail with
+an org.mockito.internal.creation.instance.InstantiationException.
+
+This behavior, however, is suboptimal, as described in issue #976, as
+it makes useConstructor less robust than the Java compiler, which is
+able to resolve such ambiguities.
+With this patch, Mockito will attempt to match the constructor with
+the most specific parameter types. A constructor X is considered more
+specific than a constructor Y if:
+1. They are both applicable to the given argument list
+2. Constructor X has at least one parameter which is a further
+   specialization of the corresponding parameter of constructor Y
+   (i.e. paramX.isAssignableFrom(paramY)).
+3. Constructor Y has no parameter which is a further specialization
+   of the corresponding parameter of constructor X, as defined above.
+
+E.g., consider the following class:
+
+    public class SomeClass {
+        SomeClass(Object o) {}
+        SomeClass(String s) {}
+    }
+
+Without this patch, calling
+
+    mock(SomeClass.class, withSettings().useConstructor("string!"))
+
+would fail. With this patch, such a call would invoke the
+SomeClass(String) constructor.
+
+* Fix Freudian slip in message regarding issue 685
+
+The text should read "a better JOB", not "a better JOIN".
+Updated Byte Buddy, fixes visibility for bridge methods.
+Fixes #981: Update Javadoc about the 'mockito-inline' artifact (#985)
+
+Merge pull request #935 from mureinik/useConstructor
+
+Support constructor parameters for spying on abstract classes
+
+Fixes #685
+Fixes #685: Ability to mock constructors with args
+
+To quote the requirement:
+'''
+We already support spying on abstract classes by allowing
+parameterless constructor. However, there is no support for
+constructor parameters.
+This has been asked about long time ago. Mockito API is not robust
+enough if it supports mocking with constructor but not when one has
+any constructor parameters.
+'''
+
+This patch enhances the MockSettings#useConstrctor() method and adds
+optional ellipsis arguments that are passed to the constructor.
+
+The patch streamlines the creation of mocks via constructors to a
+single flow, where using a no-arg constructor or an enclosing class
+are just private cases of this flow, and don't require their own
+special treatment.
+Update Byte Buddy and do no longer expand to public visibility, fixes #944 and #963
+Fix broken build (#959)
+
+Commit da4e42 introduced a static import from the non-existent
+org.mockito.internal.util.StringJoiner (it exists only in the master
+branch, not the release/2.x branch).
+This patch fixes the build by correcting the import to reference
+org.mockito.internal.util.StringUtil.Checkstyle conf. to enforce whitespace rules (#932)
+
+* Fix whitespaces in preparation for Checkstyle
+
+PR #928 removed trailing whitespaces from the codebase.
+However, later patches introduces new ones. This patch removes those
+whitespaces so a checkstyle check that prevents them could be applied.
+
+* Checkstyle conf. to enforce whitespace rules
+
+After PR #928 cleaned up some whitespace issues in the codebase (see
+details there), this patch adds the checkstyle plugin to build to
+enforce the standard established there:
+1. A line may not end with trailing whitespaces
+2. A file must end with the newline character
+Merge pull request #953 from stuartblair/release/2.x
+
+Fix Javadocs on MockitoRule.java to correct an error on its usage.
+
+[ci skip-release]Update MockitoRule.java
+
+Fixing the Javadoc to reflect the API for MockitoJUnitRuleClarify exception message with public visibility
+
+Fixes #949Fix JavaDoc generation on recent JDK 8 builds (#934)
+
+Merge pull request #931 from tmurakami/fix_issue_929
+
+Fixes #929: Move the resources directory to src/mainSupport for return type 'Void' in DoesNothingAnswer (#933)
+
+* Fixes #927 methods with return type 'Void' are treated now like void
+methods
+
+* Refactored DoesNothing and added tests to verify its validation
+behaviour in case of void/Void methods.
+Fix whitespace issues throughout the code (#928)
+
+* Add missing newlines at the end of source files
+
+At the time this patch was authored, 252 (~31%) source files in the
+project did not end with a newline, while 555 (~69%) did.
+
+This patch takes the de-facto standard of having a newline at the end
+of a file and applies it to all the source files in the project.
+
+Besides improving standardization, another contributing consideration
+is the fact that many editors/IDEs add newlines at the end of files.
+Using such an IDE will add a newline to the edited file, adding
+"noise" to the patch and confusing potential reviewers. By explicitly
+adding all the missing newlines in a single patch, this problem can be
+avoided.
+
+These changes were done automatically by applying the following shell
+command:
+
+$ find . -name "*.java" -exec sed -i -e '$a\' {} \;
+
+* Remove whitespaces at the end of source lines
+
+This patch takes the de-facto standard of not having any whitespaces
+at the end of source lines and applies it to all the source files in
+the project.
+
+Besides improving standardization, another contributing consideration
+is the fact that many editors/IDEs remove such whitespaces at end of
+lines. Using such an IDE will remove these whitespaces in the edited
+file, adding "noise" to the patch and confusing potential reviewers.
+By explicitly removing all of them in a single patch, this problem can
+be avoided.
+
+These changes were done automatically by applying the following shell
+command:
+
+$ find . -name "*.java" -exec sed -i 's/[ \t]*$//' {} \;
+Fix whitespace issues throughout the code (#928)
+
+* Add missing newlines at the end of source files
+
+At the time this patch was authored, 252 (~31%) source files in the
+project did not end with a newline, while 555 (~69%) did.
+
+This patch takes the de-facto standard of having a newline at the end
+of a file and applies it to all the source files in the project.
+
+Besides improving standardization, another contributing consideration
+is the fact that many editors/IDEs add newlines at the end of files.
+Using such an IDE will add a newline to the edited file, adding
+"noise" to the patch and confusing potential reviewers. By explicitly
+adding all the missing newlines in a single patch, this problem can be
+avoided.
+
+These changes were done automatically by applying the following shell
+command:
+
+$ find . -name "*.java" -exec sed -i -e '$a\' {} \;
+
+* Remove whitespaces at the end of source lines
+
+This patch takes the de-facto standard of not having any whitespaces
+at the end of source lines and applies it to all the source files in
+the project.
+
+Besides improving standardization, another contributing consideration
+is the fact that many editors/IDEs remove such whitespaces at end of
+lines. Using such an IDE will remove these whitespaces in the edited
+file, adding "noise" to the patch and confusing potential reviewers.
+By explicitly removing all of them in a single patch, this problem can
+be avoided.
+
+These changes were done automatically by applying the following shell
+command:
+
+$ find . -name "*.java" -exec sed -i 's/[ \t]*$//' {} \;
+Fixes #929: Move the resources directory to src/main
+Fixes #929: Add a test to assert that no exception occurs when mocking a final class
+Fixes #929: Add a test to assert that plugin-type is inline
+Fixed typo
+
+Addressed code review feedback
+Coverage for concurrent use of sessions
+
+- added coverage demonstrating that mockito session can be used concurrently, so long single thread has single active mockito session
+- tidied up the existing test: removed sys out println, fixed the naming issue
+Fixed the test
+
+We need to invoke finish mocking otherwise there is a leftover state
+Merge pull request #905 from mockito/javadoc-meaningful-links
+
+Fixes #814 : A elements were missing the name attributeFixes #814 : A elements were missing the name attribute
+
+Signed-off-by: Brice Dutheil <brice.dutheil@gmail.com>
+Merge pull request #902 from mockito/dead-lock
+
+Fix TypeCache dead lock
+
+Should fix #892 Merge pull request #885 from mockito/fix-878-spy-annotation-abstract-class
+
+Spy annotation reports better error message if instance creation is impossibleMerge pull request #891 from mockito/bb-update
+
+Update to Byte Buddy 1.6.4: Fixes bridge method resolution for generic typesUpdate to Byte Buddy 1.6.4: Fixes bridge method resolution for generic types
+Fixes #882: Upgrade to Objenesis 2.5 (#887)
+
+Upgrade to Objenesis 2.5 in order to properly support Java 9.Fixed build for external contributors (#886)
+
+Moved the validation of env variables required for release to further release step. We don't need to assert the variables if the release is skipped.Merge pull request #884 from mureinik/objenesis-upgrade
+
+Fixes #882: Upgrade to Objenesis 2.5Fixes #882: Upgrade to Objenesis 2.5
+
+Upgrade to Objenesis 2.5 in order to properly support Java 9.
+Merge pull request #881 from mureinik/docfix-2.x
+
+Fixed #879: ArgumentMatchers grammar fixFixed ##879: ArgumentMatchers grammar fix
+
+Improved the grammar in ArgumentMatchers - "due" should be followed by a
+"to", but isn't.
+Fixed ##879: ArgumentMatchers grammar fix (#880)
+
+Improved the grammar in ArgumentMatchers - "due" should be followed by a
+"to", but isn't.Fix issue with missing dependencies in Android pom
+Merge pull request #821 from mockito/fixes-returnsargat-with-array-return-type
+
+Fixes #820 ReturnsArgAt to handle returning vararg as arraysMerge pull request #867 from wuwen5/issues-866
+
+Fixes #866 should not throw NPE, when custom Exception fillInStackTrace returns nullFixes #866 should not throw NPE, when custom Exception fillInStackTrace() return null.
+Merge pull request #868 from mockito/investigate-860
+
+Fixes #860, jacaco synthetic fields are not anymore final in 0.7.8Backport #860 fix
+
+Signed-off-by: Brice Dutheil <brice.dutheil@gmail.com>
+Fixes #860, jacaco synthetic fields are not anymore final in 0.7.8
+Fixes #820 ReturnsArgAt to handle returning vararg as arrays
+
+Signed-off-by: Brice Dutheil <brice.dutheil@gmail.com>
+Backport 'release/2.x' changes to master (20161231) + fix for #860 (#861)
+
+* Merge branch 'release/2.x'
+
+Conflicts:
+      .travis.yml
+      build.gradle
+      version.properties
+
+* [#860] Workaround for broken tests with Jacoco 0.7.8
+
+Related to classloader and the new plugin mechanism.
+
+* [#862] Disable BB test broken with Java 9
+
+Due to a lack of the new ASM version.
+
+The umbrella issue to reenable disabled tests: #863.
+Fixed build to only exclude mock dispatcher on packaging to allow IDE processing
+Renames org.mockito.internal.creation.bytebuddy.MockMethodDispatcher.class to fix #845
+Avoided leftover state in one of the tests
+
+This fixes recently introduced flakiness of the build.
+Renamed RunnerImpl -> InternalRunner
+
+'Impl' postfix in the interface name is very awkward
+Merge pull request #839 from mockito/adds-pattern-matcher
+
+Fixes #838 : Adds a matches(Pattern)Fixes #838 : Adds a matches(Pattern)
+Merge pull request #835 from mockito/publication-bug2
+
+Publication fixes - workaround for Bintray plugin/Gradle bugFixed the workaround for Bintray plugin/Gradle bug
+
+The previous workaround did not quite work
+Merge pull request #834 from mockito/submodule-2
+
+Release automation fixesMade testing releases simpler
+
+- Made it so that 'releaseNeeded' can be -x from command line to force a release
+- Fixed the logic that determined if we're a Travis pull request build or not
+- Added some extra logging to make validating releases easier
+Merge pull request #832 from mockito/submodule-2
+
+Fixed problem with publicationQuick fix for the verification listeners test, where the stubbing in the listener causes an invocation mismatch in the next stub. (#827)
+
+Fixed pom.xml problem
+Fixed publication bug
+Fixed typo
+Fixes bug were previously verified invocations could not capture arguments (#819)
+
+The code that is removed here doesn't affect any previous test, not even tests to prove the issue of #380 / #379.
+
+Signed-off-by: Brice Dutheil <brice.dutheil@gmail.com>Fixed grammar issue based on feedback
+Fixed fundamental bug in SafeJUnitRule
+
+Updated the test that was using the safe rule
+Fixed fundamental bug in SafeJUnitRule
+Actually fix the retry rule to retry fail the tests
+
+Also fail with indication on the number of attempts
+Fixes #781 Introduce default answers for primitive Optionals/Streams
+Fixes #765: Set files encoding to UTF-8 to avoid build failures on systems with different default encoding (#780)
+
+Merge pull request #772 from FWDekker/readme-typo-fix
+
+Fix typo in README.md
+
+[ci skip]Fix typo in README.mdMerge pull request #771 from mockito/retry-rule
+
+Fixes #731 Implements retry rule for flaky testsMerge pull request #763 from mockito/remove-internal-javadoc-links
+
+Fixes #762 Removes ReturnsEmptyValue javadoc referencesFixes #731 Implements retry rule for flaky tests
+
+Never the less, those tests should be implemented properly. Retry attempts are set to 4.
+
+Signed-off-by: Brice Dutheil <brice.dutheil@gmail.com>
+Fixes  #764: Retains parameter names on instrumentation.
+
+Filter parameter names that are sometimes retained due to Byte Buddy implicitly writing back parameter names for instrumented methods. Added filter to avoid duplicate writing which crashed the reflection API's parsing such that the parameter names did not appear.
+Fixes #762 Removes StackTraceCleaner internal doc references
+
+But keeps them as text.
+
+Signed-off-by: Brice Dutheil <brice.dutheil@gmail.com>
+Fixes #762 Removes ReturnsMoreEmptyValues javadoc refs
+Fixes #762 Removes AnswerFunctionalInterfaces doc references
+
+Signed-off-by: Brice Dutheil <brice.dutheil@gmail.com>
+Fixes #762 Removes ReturnsEmptyValue javadoc references
+Merge pull request #759 from LiamClark/lambda-matcher-doc-fix
+
+Updated the verification documentation to correctly use argThat with Java8 lambdasFix the verification documentation to correctly use argThat for lambda matchers
+Fixes #757: Rather than replacing a class file to retain parameter information, weave it back in
+Fix toolVersion of Jacoco
+
+The old snapshot jar was removed from sonatype
+Brice saved my ass
+
+- My previous commit introduced backwards incompatible change and this commit fixes it. I cannot really create VerificationData in public package and delegate to the private, deprecated API. This would break compilation.
+- This change puts back the internal VerificationData, it will remain in internal package but at least it does not leak any other private types. In the next major version of Mockito, this class need to be moved to public package.
+- Added unit test that uses the old API
+
+Thanks Brice for catching this problem in the code review!!!
+Fixes to the release workflow
+Upgrades to ByteBuddy 1.5.3
+
+Especialy useful for : Fixed stack size computation when using @Advice.Origin
+Also made increased the minimum ByteBuddy version for OSGI environment.
+Created new type MatchableInvocation
+
+It still leaks internal type CapturesArgumentsFromInvocation, will get fixed in the next commit
+
+Needed for #719
+Fix type notation and add generic types in VarArgsTest to resolve compilation problems
+
+Fixes #715
+Fixed release process
+
+Rollback should not be performed for failed operations
+Updated Byte Buddy to version 1.5.0:
+
+- Fixes #701
+- Suppresses type annotations on old Java 8 releases rather than failing the instrumentation.
+Fixes #707, adds throwable to arity answers, also improved javadoc (#711)
+
+Fixes exception message typo in mockmaker (#705)
+
+Updated Byte Buddy to latest version (fixes #699). Attempt to read class file from class loader for parameter retention (fixes #695).
+Updated formatting of Mockito interactions printer
+
+Since the feature is going public, I wanted to make the formatting decent.
+
+MockingDetails.printInvocations is not a 1-1 replacement of MockitoDebugger.printInvocations. The latter accepts multiple mocks. Let's wait for users feedback if this is needed.
+
+Fixes #543
+Fixed the documentation in javadocs
+Updated bugfix info in 2.2.1
+
+[ci skip]Added even more javadoc
+
+Fixes #542
+Moved tests to single class
+
+There is still some overlap between tested methods but fixing this is low priority at this time. At least, the same coverage is in the same test class
+Mock methods should always be public, fixes #688.
+Fixed the release process
+
+I had that change before, must have been reset during rolling back of the release steps.
+Enabled releasing from Travis
+
+Release process is so hard to work with and test. I'll fix this.
+
+Here's the log from './gradlew release -PdryRun':
+
+Dry-running the release! Although 'bintrayUpload' is executed, it won't upload any binaries ('bintrayUpload.dryRun' property is set).
+:release
+Dry-running the release
+Performing 9 release steps
+Step 1: ensure good chunk of recent commits is pulled for release notes automation
+--- Executing: git pull --depth 1000 origin issue-681
+From github.com:mockito/mockito
+ * branch            issue-681  -> FETCH_HEAD
+Already up-to-date.
+--- Completed!
+Step 2: configure generic git user
+Step 3: commit updated javadoc into gh-pages branch
+--- Executing: git fetch origin +gh-pages:gh-pages
+From github.com:mockito/mockito
+ + db331f2...99af480 gh-pages   -> gh-pages  (forced update)
+--- Completed!
+--- Executing: git checkout gh-pages
+Checking out files: 100% (126836/126836), done.ing out files:   4% (5074/126836)
+Switched to branch 'gh-pages'
+--- Completed!
+--- Executing: git rm -r docs/current -q
+--- Completed!
+--- Executing: git add docs
+--- Completed!
+--- Executing: git commit -m "Refresh javadoc by Travis CI build null" -q
+--- Completed!
+Step 4: start operating on issue-681
+--- Executing: git checkout issue-681
+Checking out files: 100% (127210/127210), done.king out files:  12% (15266/127210)
+Switched to branch 'issue-681'
+--- Completed!
+Step 5: update release notes
+Building new release notes based on /Users/sfaber/mockito/src/doc/release-notes/official.md
+Building notes for revisions: v2.1.0 -> HEAD
+Successfully updated release notes!
+Step 6: commit release notes
+--- Executing: git add /Users/sfaber/mockito/src/doc/release-notes/official.md
+--- Completed!
+--- Executing: git commit -m "Update release notes by Travis CI build null" /Users/sfaber/mockito/src/doc/release-notes/official.md
+[issue-681 3794199] "Update release notes by Travis CI build null"
+ 1 file changed, 18 insertions(+)
+--- Completed!
+Step 7: create new version tag
+--- Executing: git tag -a v2.2.0 -m Create tag v2.2.0 by Travis CI build null
+--- Completed!
+Step 8: commit incremented version on issue-681
+--- Executing: git commit -m Increment version '2.2.0' -> '2.2.1' by Travis CI build null version.properties
+[issue-681 7c82a60] Increment version '2.2.0' -> '2.2.1' by Travis CI build null
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+--- Completed!
+Step 9: push changes to all involved branches
+--- Executing: git push <masked> issue-681 gh-pages v2.2.0 -q --dry-run
+--- Completed!
+No cleanup found for step 'push changes to all involved branches'
+No cleanup found for step 'commit incremented version on issue-681'
+No cleanup found for step 'create new version tag'
+No cleanup found for step 'commit release notes'
+No cleanup found for step 'update release notes'
+No cleanup found for step 'start operating on issue-681'
+No cleanup found for step 'commit updated javadoc into gh-pages branch'
+Cleaning up after step 'configure generic git user'
+No cleanup found for step 'ensure good chunk of recent commits is pulled for release notes automation'
+:rollbackRelease
+Release failed. Rolling back 9 release steps.
+Attempting to roll back step 9 (push changes to all involved branches)
+No rollback or cleanup operation found for step 'push changes to all involved branches'
+Attempting to roll back step 8 (commit incremented version on issue-681)
+--- Executing: git reset --hard HEAD^
+HEAD is now at 3794199 "Update release notes by Travis CI build null"
+--- Completed!
+Attempting to roll back step 7 (create new version tag)
+--- Executing: git tag -d v2.2.0
+Deleted tag 'v2.2.0' (was 37c7a19)
+--- Completed!
+Attempting to roll back step 6 (commit release notes)
+--- Executing: git reset --hard HEAD^
+HEAD is now at ac9cffa Fixed release step
+--- Completed!
+Attempting to roll back step 5 (update release notes)
+No rollback or cleanup operation found for step 'update release notes'
+Attempting to roll back step 4 (start operating on issue-681)
+No rollback or cleanup operation found for step 'start operating on issue-681'
+Attempting to roll back step 3 (commit updated javadoc into gh-pages branch)
+No rollback or cleanup operation found for step 'commit updated javadoc into gh-pages branch'
+Attempting to roll back step 2 (configure generic git user)
+Attempting to roll back step 1 (ensure good chunk of recent commits is pulled for release notes automation)
+No rollback or cleanup operation found for step 'ensure good chunk of recent commits is pulled for release notes automation'
+
+BUILD SUCCESSFUL
+Fixed release step
+Fixes #678 #679 : Correct OSGI version specification syntax for bytebuddy
+
+Proposed fix for #678:
+Use double quotes around version specification for Byte Buddy dependencies.
+The version for Objenesis dependencies is already specified correctly.
+Fix typo in README (#674)
+
+Fix typo in README (#674)
+
+Artifacts are now published to 'mockito' org in Bintray
+
+Tweaked the publication process to make it easier to test.
+
+Fixes #669
+fixed failing test with vararg-aware matcherFixes #661 : Upgrade to Gradle 3.1
+Fixed test case that assumed specific error message.
+Merge pull request #656 from vtorosyan/issues-665
+
+Fixing the typo in JUnitDetecter class nameFixes #655 : Fixing the typo in JUnitDetector class name
+Renamed FailureDetecter to Failure Detector. (#654)
+
+Also renamed misspelled isSussessful() to isSuccessful(). Added missing new line at the end of FailureDetector.
+
+Fixes: #653.Renamed FailureDetecter to Failure Detector. (#654)
+
+Also renamed misspelled isSussessful() to isSuccessful(). Added missing new line at the end of FailureDetector.
+
+Fixes: #653.Fixes #640 Warns user to upgrade if Java 8 version is below update 45 (#646)
+
+Merging this now as we agreed this should be part of 2.1.Fix GitHub integration test because an issue was closed as fixed
+Fix GitHub integration test because an issue was closed as fixed
+A small fix on Mockito javadocs. Adding some styling and an anchor to section 12. (#647)
+
+Merge pull request #628 from mockito/issue-596-2
+
+Fixed javadoc documentation in the main classFixed wrong href in javadoc
+
+Based on code review feedback, well spotted!
+Merge pull request #630 from lukasz-szewc/issue629
+
+Fixes #629 - width of some headers in javadocFixes #629 - width of some headers in javadoc
+Fixed javadoc documentation in the main class
+
+We don't need to repeat this information in the javadoc, it's on the wiki.
+Release procedure for branches and some javadoc (#627)
+
+Ensured it is possible to release from release branches.
+
+* Increased number of commits to prepare release notes for
+* Ensured mockito is not published to bintray when using release dryRun
+* After 2.1.0 is out I will overhaul the release logic and make it perfect :D Currently it is hard to test and work with
+* Updated the message emitted from the build, otherwise I was confused with bintrayUpload task behavior.
+* Manually bumped version.properties
+* Updated the javadoc
+
+Fixes #594Ensured javadocs are correct.
+
+Fixes #625
+Merge pull request #619 from lukasz-szewc/issue548
+
+Fixes #548 from now on verification happens always call in other thre…Fixes #548 changed order of assertions in canIgnoreInvocationsWithJunit test method
+Fixes #548 fixed also VerificationAfterDelayTest
+Fixes #548 from now on verification happens always call in other threads has already started its execution.
+Fixes #614 : Makes functional interfaces incubating
+Fixes #614 : Moves 'arity interfaces' to a org.mockito.stubbing
+Merge pull request #615 from JeffreyFalgout/type-parameters
+
+Fixes #497 : RETURNS_DEEP_STUBS may try to mock final classesFix RETURNS_DEEP_STUBS which might mock final classes
+
+Fixes #497
+
+With deep stubs, it was possible for generic metadata to be lost/unused
+through nested invocations. This could cause RETURNS_DEEP_STUBS to mock final
+classes which would result in a ClassCastException.
+Merge pull request #605 from mockito/target-2.1
+
+Fixes #595, going towqard 2.1.0 instead of 2.0.0Fixes #595, going toward 2.1.0 instead of 2.0.0
+Release notes group improvements by label
+
+Label captions can be configured in the build.gradle file cleanly. Label captions determine the importance order!
+Ensured that the release notes look cleanly even if there are no labelled improvements.
+
+Fixes #603
+Fix compiler warnings in UnusedStubbingsFinder (#600)
+
+Improved release notes generation
+
+Committer list does not have duplicates and sorts the authors by name
+
+Fixes issue #598
+Removed TODOs from main javadoc
+
+Fixes #593
+Pretty print primitive and wrappers types in Maps (#571)
+
+* Pretty print Map and Long.
+
+In following case, user can't understand the difference between expected and actual.
+
+Code:
+
+    @Test
+    public void foo() {
+        Foo m = mock(Foo.class);
+        m.foo(new HashMap<String, Object>(){{
+            put("hoge", 4);
+        }});
+        verify(m).foo(new HashMap<String, Object>(){{
+            put("hoge", 4L);
+        }});
+    }
+
+    public static class Foo {
+        void foo(Map<String, Object> map) {
+        }
+    }
+
+Output:
+
+    Argument(s) are different! Wanted:
+    foo.foo(() {hoge=4});
+    -> at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    Actual invocation has different arguments:
+    foo.foo(() {hoge=4});
+    -> at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+If mockito outputs the "L" suffix for long values, user can understand the difference easily.
+
+After this commit, the output will be following:
+
+    Argument(s) are different! Wanted:
+    foo.foo({"hoge"=4L});
+    -> at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    Actual invocation has different arguments:
+    foo.foo({"hoge"=4});
+    -> at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+* Added white spaces around '=' character. Added test case for map conains
+multiple entries.
+
+* Pretty print double and float.
+
+* Format byte, too.
+Fix readme type
+
+[ci skip]Fixes #552 by reverting 3a057b3eff2be528a1fed41852a990cff87a72c1
+
+At that time oracle JDK 7 was the only option with travis. This JDK version had a better javadoc rendering.
+so we removed our own style sheet, since travis added openjdk6, we decided to build the artefacts with this JDK.
+Which made the javadoc look bad again. This commit changes that.
+Ensured that MockitoJUnitRunner is thread safe wrt unused stubs detection (#568)
+
+- Fixes #401 - Unused stubbing detection logic was not thread safe in Mockito JUnit runner
+- Killed the StubbingListener API - it couldn't support thread safe scenarios Mockito requires
+- small javadoc tweaks, removed my login id from javadocs
+- deprecated few more APIs connected to the runners
+- ensured we verify correctness of MockitoJUnitRunner.Strict (it was not used directly by any of the tests but it was well tested out / great coverage)fix some rawtype warnings (#579)
+
+Bumped Gradle and enabled Build Scans (#576)
+
+- Fixes #564
+- Bumped Gradle to latest 2.* (regenerated Gradle wrapper)
+- Added build scans support
+- Removed TODO I decided to not work on (fixes #544)
+
+(squashed)Merge pull request #569 from mockito/issue-541
+
+Fixes #541, (squashed) highlights:
+
+- started exposing full mock creation information instead of just type to mock and extra interfaces
+- changed public API but only for methods that were introduced in 2.x. So it is not backwards incompatible change as far as 1.10 is concernedfix some rawtype warnings (#574)
+
+Improved the public MockingDetails API
+
+- started exposing full mock creation information instead of just type to mock and extra interfaces
+- this also better leverages the existing API
+
+Fixes #541
+Merge pull request #560 from mockito/checks-throws-iae
+
+Fixes #554 : Checks.checkNotNull now throws IAE instead of NPEFixes #554 : Checks.checkNotNull now throws IAE instead of NPE
+Merge pull request #555 from mockito/issue384-squashed
+
+JUnit rules report unused stubs - fixes #384Fully register a class' ancestry for GenericMetadataSupport. (#549)
+
+The old implemention would take a class X and consider all of its superclasses
+and the interfaces implemented by X and the interfaces implemented by all of
+its superclasses.
+
+The new implementation also considers the superinterfaces of the interfaces
+implemented by X and the superinterfaces of the interfaces implemented by its
+superclasses.
+
+Fixes #497Merge pull request #550 from ChristianSchwarz/failure_output
+
+Fixed #538 changed error message in case initialization for mock injection fails.Fixed #538 changed error message in case initialization for mock
+injection fails.JUnit rules report unused stubs
+
+- this commit squashes 50+ commits
+- introduces new MockitoListener API
+
+Fixed issue #384
+Fix typo in logging
+
+The : is regarded as special in .yml files
+Fix typo in Javadocs (#532)
+
+Also improve sentence structure of surrounding sentences.Fixes API references in test code that were changed.
+Make ciBuild depends also on subprojects state (#517)
+
+* Make ciBuild depends also on subprojects state
+
+With 'dependsOn build' submodules weren't build on CI.
+
+* Fix compilation error in extTest module
+
+Until recently submodules weren't build on CI server.
+
+* Fix Java 6 compatibility in testng module
+fix some raw type warnings in tests (#512)
+
+Test for bug reported in #508 it was fixed in c95d3af2791d4d513edbca74720e1a5e84930102
+
+[ci skip]
+Merge pull request #510 from bric3/matchers
+
+Fixes #194 tweaks any matchersFix some warnings (#511)
+
+* Remove unused imports
+
+* Remove unnecessary semicolons
+
+* Remove redundant interface modifiers
+Updated Byte Buddy to version 1.4.16.
+
+Fixes #508. Retains instrumented class's protection domain.
+Merge pull request #507 from mockito/issue506
+
+Improved exception message - fixes issue 506fixed some rawtype warnings (#504)
+
+Improved exception message
+
+Fixes #506
+Fixed some behavior
+
+- Previous commit broke the validation of the framework usage after each test in the Silent runner. This fixes it.
+- Some rename job
+Fixed failing test
+Fixed bug in test utility
+Fixed the test
+
+This test cannot use the MockitoJUnitRunner because the latter detects unused stubs. This test has unused stubs because it detects improper Mockito usage. Added TODO to address this better.
+Fixed some behavior
+
+- Previous commit broke the validation of the framework usage after each test in the Silent runner. This fixes it.
+- Some rename job
+Fixed failing test
+Squashed commit of the following:
+
+commit 6e8a4779cedc046d1343c9067f5fd15fcbeee80a
+Author: Tim van der Lippe <tvanderlippe@gmail.com>
+Date:   Tue Jul 5 16:55:04 2016 +0200
+
+    Add two tests to verify subclass extension for generic type retrieval
+
+commit e39c2bc66b4d76f8fe51ecfa62a02ce7e2223c2d
+Author: Christian Schwarz <chriss.dev@github>
+Date:   Fri Jul 1 22:16:24 2016 +0200
+
+    Fixes #457 added type compability checks to CompareTo and
+    ArgumentsComparator
+
+    Added tests to HashCodeAndEqualsSafeSetTest to satisfy codecov
+fix grammar of sentence in Mockito javadoc (#479)
+
+Merge pull request #475 from vanta/patch-4
+
+Typo fixTypo fixBumped version to fix build.
+Fixes #385: reference correct types for multiple parent class loader if user class and Mockito are loaded by different loaders (e.g. OSGi)
+add missing since javadoc tags for recently added methods and classes (fixes #420) (#468)
+
+fix some rawtype warnings in tests (#469)
+
+fix some rawtype warnings in tests (#467)
+
+Merge pull request #464 from PascalSchumacher/fix_test_rawtype_warnings
+
+fix some rawtype warnings in testsfix some rawtype warnings in tests
+Merge pull request #459 from PascalSchumacher/fix_some_rawtype_warnings_2
+
+fix some rawtype warnings in testsfix some rawtype warnings in tests
+Merge pull request #456 from PascalSchumacher/fix_some_rawtype_warnings
+
+fix some rawtype warningsfix some rawtype warnings
+Further removal of raw types. Fixed build.
+Removed more raw types. Fixed String joiner resolution.
+Fix automatic release.
+Reenabled dependency-checker test after fixing build.
+Fix build by ignoring test that shows strange behavior.
+Fixed misspelled reference.
+Squashed commit of the following:
+
+commit f1333e31ea45f71906bd061b16d7714b41b473b3
+Author: Frieze, Ashley (ELS-OXF) <a.frieze@elsevier.com>
+Date:   Sat Jan 2 23:25:48 2016 +0000
+
+    Add functional interfaces for smoother Java 8 integration
+
+Fixes #337
+Fixes #435
+Closes #338
+Fixed broken refactoring when cleaning up stack strack filter API.
+Update to Byte Buddy 1.4.3: Fixed bug in multiple parent class loader that was introduced in latest Byte Buddy release.
+Fixed #407 Vararg method call on mock object fails (#412)
+
+Merge pull request #431 from ChristianSchwarz/util_classes2
+
+Fixes #426 Dropped class HandyReturnValuesFixes #426 Refactored InvocationMarker to a static utility class (#432)
+
+Fixes #312.  Added documentation in OngoingStubbing.thenThrow() for issue. (#381)
+
+Fixed bug in stack trace cleaner introduced from cleanup by #427.
+Added a default answer for java.lang.Optional, if the code is running under Java 8 or higher. Fixes #191
+#427: Fixed single failing test of PR, renamed public interface method to original name to preserve API compatibility.
+Fixes #374 Removed deprecated types and methods (#404)
+
+Removed deprecated DeprecatedOngoingStubbing and IOngoingStubbing
+Removed deprecated method Mockito.stubVoid()
+removed deprecated annotation MockitoAnnotations.Mock
+Removed @Deprecated annotations of inner classes of BDDMockito and made
+them private
+Removed deprecated methods VerificationWithTimeout.never() and
+VerificationWithTimeout.atMost()
+Removed deprecated class MockitoJUnitRule
+Removed deprecated enum Answers
+Removed deprecated method InvocationOnMock.getArgumentAt(int,Class)
+Removed deprecated class ReturnsElementsOf
+Fixed compile error in ExtraMatchers
+corrected wrong package declaration in VerificationWithDescriptionTestMerge pull request #413 from vanta/master
+
+Fixed method name to verifyNoMoreInteractionsFixed method name to verifyNoMoreInteractions
+Fixed bug in test utility
+Fixed the test
+
+This test cannot use the MockitoJUnitRunner because the latter detects unused stubs. This test has unused stubs because it detects improper Mockito usage. Added TODO to address this better.
+Removed support for JUnitRunner < 4.4
+
+Fixes issue #402
+
+Let's stop maintaining extra code that supports Runner for ancient version of JUnit
+Bumped JUnit version
+
+Fixes #400
+
+In order to improve the JUnit Rules and the runner, let's make sure it works with latest 4.* JUnit
+Merge pull request #373 from ChristianSchwarz/master
+
+Fixes #365 Simplify the InvocationOnMock-API to get a casted argumentUpdated to Byte Buddy 1.3.16 - fixes #398
+Fixed broken test
+Merge pull request #388 from SourcePond/master
+
+Fixed OSGi metadata generation. Thanks guys!!!!! #388Merge pull request #376 from vin/patch-1
+
+Fix typo in example in javadoc.Fixed typo
+
+(refactoring)
+Fixed implementation of times() and atLeast() with after() delay
+Fix typo in example in javadoc.Fixes #365 introduced 'T getArgument(int)'' and deprecated  'T getArgumentAt(int,Class<T>)' in type InvocationOnMock.
+Fixed OSGi manifest reference to Byte Buddy that declared wrong version.
+#345 : Fixes the issue by removing previously verified invocations before redundant capture of their arguments
+Merge pull request #344 from UrsMetz/fix-stacktrace-location-filtering
+
+Show correct location of unwanted interaction with mock when using MockitoJUnitRuleMerge pull request #342 from Jazzepi/windows-build
+
+Fixes #256 :Alternative fix to #259, windows buildFixes #256 :Alternative fix to #259, windows build
+
+  *Allows user to build on windows by collapsing the heredoc into a single
+  line before it's shipped off to JavaDoc.
+  *Tested the generated Javadoc for markup errors, and added semicolons to
+  compensate.
+Added integ test coverage
+
+Fixed Issue #336
+Improved javadoc around custom matchers
+
+More documentation of the NPE caveat
+
+Fixed #334
+Failures with release tasks will fail the entire build
+
+Fixes issue #333 (more info about this in the ticket)
+Attempt to release new Mockit beta
+
+According to the troubleshoot guide, increasing the version number manually might fix the release process.Merge pull request #314 from mkordas/#311-add-shouldHaveNoMoreInteractions
+
+Fixes #311: Add shouldHaveNoMoreInteractions() to BDDMockitoImplement VerificationCollector which can collect multiple verifications.
+
+It will report in the end the result of multiple statements. Fixes #124.
+Merge pull request #313 from Saser/master
+
+Minor formatting, typo and clarification fixes in READMEImprove language and formatting, and fix typos
+Fixes #311: Add shouldHaveNoMoreInteractions() to BDDMockito
+Merge pull request #293 from fluentfuture/master
+
+Remove validateSerializable()
+
+Fixes #245Rework stubbing API. Should fix #128
+
+Added duplicate method
+ - To avoid null warning on vararg when a single value is passed
+ - Added SuppressWarning to limit warning effects (generic vararg, heap pollution) for JDK7+ users
+Ignore Groovy meta methods when instrumenting.
+Upgraded to Byte Buddy 0.6.14 to fix ignored method reolution.
+Merge pull request #264 from carlos-aguayo/FixToDocumentation
+
+Fix typo in docs, missing breaklines.Fix typo in docs, missing breaklines.
+Merge pull request #261 from carlos-aguayo/FixToDocumentation
+
+Fixes #260: Typo in documentationFixes #260: Typo in documentation
+
+There's an extra "at" (@) in the documentation.
+
+Before it reads:
+"Annotating the JUnit test class with a @RunWith(@MockitoJUnitRunner.class)"
+
+After it reads:
+"Annotating the JUnit test class with a @RunWith(MockitoJUnitRunner.class)"
+Fix StackOverflowError in MockitoSerializationIssue.java
+Fixes mockito logo image path
+
+[ci skip][#251] Migrate Fest Assert code to AssertJ
+
+Fixes #251
+Removed all checked-in jars
+
+- Changed the whitebox test so that it does not use powermock. I don't think it is necessary to use powermock for this validation. One less dependency is always good (even for tests).
+- Declared fest dependencies instead of keeping them checked-in
+
+Fixes #250
+OSGi bundles now created fully with Gradle
+
+-Tested by inspecting the contents of the manifest file. We will reach out to the community for proper testing inside container.
+-No more ant!!!! Everybody rejoice!!!!
+
+Fixes #249
+Removed cglib mockmaker from the source tree
+
+It will be placed in a separate repository. cglib integration is problematic to maintain. We're betting on ByteBuddy starting from 2.0. Legacy integration with cglib is moved to a separate repository. We can publish it as well if users want.
+
+Fixes #248
+Continued to decouple Mockito from hamcrest
+
+- Simplified the MockitoMatcher hierarchy. LocalizedMatcher no longer implements MockitoMatcher. This makes the design much simpler. It also fixes the problem with the default toString() for matchers (decamelized class name).
+
+Issue #154
+codecov link fix
+
+[ci skip]Removes coveralls source (fixed in cobertura issue 53)
+
+see https://github.com/stevesaliman/gradle-cobertura-plugin/issues/53
+Merge pull request #240 from bric3/coverage-fix
+
+Fixes coverage reportsFixes coverage reports
+Fixes #237 : Reverting to ByteBuddy with shadded ASM
+Removing hard dependency to hamcrest
+
+ - ContainsTypedDescription interface is no longer coupled with hamcrest.
+ - fixes #236
+ - Internal classes change only
+Merge pull request #235 from bric3/issue220-constructor-invoking-methods
+
+Fixes #220 constructor invoking methods raise NPEFixes #220 : Invokes real method when using constructor instanciator
+Fixes #220 : Constructors invoking methods may fail to instantiate using Spy annotation
+Really fixes favicon path
+Fixes #233 : Cannot instantiate type with public method of a public parent class having a non public types in signature
+
+Reformated a bit the generator for improved readability
+Fix favicon path
+Merge pull request #229 from eugene-ivakhno/issue-228-fix-example-in-captor-javadoc
+
+Fixes #228: fixed a verify() call example in @Captor javadocFixes #228: fixed a verify() call example in @Captor javadoc
+Additional line ending fixes
+
+These changes follows this PR #219 commit 8e94fbf04b839b5f1b98cf3303e6602024c9ff13
+[#206] Fix issue related to windows path
+Stupid mistake fix
+Annotations are no copied in the mock, fixes #204
+
+Fixed by #171, i.e. by replacing CGLIB by ByteBuddy
+Adds mocked type and extra-interfaces access in MockingDetails #fixes 60
+
+Thanks to David Karr for his initial PR
+Merge pull request #215 from JeremybellEU:name-injection-fix
+Fixes #203 : Introduce BDD InOrder verification
+Merge pull request #221 from mkordas/shouldHaveZeroInteractions
+
+Fixes #212 : Add shouldHaveZeroInteractions as BDD version of verifyZeroInteractionsFixes #212 : Add shouldHaveZeroInteractions as BDD version of verifyZeroInteractions
+Fixes #188 : fixed typo in CapturesArgumentsFromInvocation, refactor of InvocationMatcher
+Fixes #188 : provided working example for vararg capture issue.
+Fixes #188 : attempt to implement logic for varargs capture
+Fixes #188 : logic reverted to state when Mockito used simple capturing only
+ Fixes #188 : added test that revealed bug.
+Fixes #188 : Cleaned CapturingArgumentsTest a bit before adding new test methods.
+Other release notes fixes
+Fixes missing entry in the release note
+Fixes javadoc syntaxhighlighting
+Fixes #205.
+
+Fix to @InjectMocks which injected incorrectly when multiple fields
+of the same type could be injected into, but only supplying 1 mock.
+This makes sure that whenever there are multiple type candidates,
+it will hold off injecting if it finds a different field which has the correct matching name.
+Merge pull request #207 from lukasz-szewc/issue197
+
+Fixes #197 : Blocks ability to use negative value for timeout() and after() method.Fixes #197 : Timeout class constructors grouped together.
+Fixes #197 : Refactoring:
+- Removed unused field from VerificationOverTimeImpl and also from constructor's signature.
+- improved encapsulation by removing 3 getters from VerificationOverTimeImpl.
+- reduced visibility of few constructors in 'Timeout' and 'After' classes
+Fixes #197 : Blocks ability to use negative value for timeout() and after() method.
+Fixes #187 : print mock name even when default answer is bogus
+Merge pull request #201 from bruceeddy/master
+
+Fixes #200 : ArgumentCaptor.forClass is more friendly with generic typesFixes #200 : Tweak generic signature of ArgumentCaptor.fromClass
+
+We modify the signature of ArgumentCaptor.fromClass(Class<T>) to better express the type relationship between the argument and the return type.  There is no change to the behaviour of the method.  This change is to allow expressions such as:
+
+ArgumentCaptor<Consumer<String>> captor = ArgumentCaptor.fromClass(Consumer.class)
+
+to type check, which is desirable as a convenience to users of ArgumentCaptor.
+
+We also add two tests to document this extension to the api, both of which fail to compile without this change to ArgumentCaptor.fromClass.  These tests are unusual in that they make no assertions; this is justified because the change which they test is a change to the formal, or compile-time, properties of ArgumentCaptor, not its behaviour.
+Fixes empty zip error in the ci support classes
+Merge pull request #184 from hansjoachim/typo
+
+Fixes typoFixes typo
+Fixes #155, avoid use of a non-transitive Comparator in PropertyAndSetterInjection.
+
+The Comparator<Field> using the type hierarchy as well as names wasn't
+transitive in cases like [Iterable, Integer, Number], as it
+gave 'Iterable == Integer' and 'Iterable == Number', inconsistent
+with 'Integer < Number'.
+
+Instead, sort deterministically by name and then move fields to be
+after their subtypes (if any). This won't perform as well, but
+should be deterministic and avoid 'Comparison method violates its general contract!'
+errors from Collections.sort.
+Fixes and cleans test code according to the reported issue #169
+Fixes typo
+Fixes osgi binding for bytebuddy
+Upgraded Byte Buddy dependency for minor bug fix.
+Fixed code error.
+Fixed faulty delegation to super type methods.
+Merge pull request #165 from brewerc/fix-typos
+
+Fix typos in CONTRIBUTING.md.
+
+[ci skip]Fix typos in CONTRIBUTING.md.
+Merge pull request #163 from mockito/fix-github-issue-fetcher
+
+GitHubIssues fetcher is now aware of GitHub paginationMerge pull request #161 from brewerc/master
+
+Excluded missing transitive dependency of the coveralls gradle plugin to fix failing build.Excluding missing transitive dependency of the coveralls gradle plugin to fix failing build.
+Fixes contributing grammar
+
+[ci-skip]fixes #152, removes the dependency to junit in VerificationOverTimeImpl
+
+Added test verify that non JUnit related classes of mockito can be loaded without JUnit in the classpath
+Stopped publishing mockito-all distribution
+
+Fixes #153
+Reordered release steps to fix automation problem
+Fixed release notes
+
+[ci skip]Fixed a problem, updated docs
+Stop anyX() methods matching null inputs
+
+Fixes #134
+Fix misspelled and slightly unclear test name
+Fixed version in the notes
+
+[ci skip]Merged pbielicki-bug#128 onto the master
+
+Fixes #128
+Fix proposal for issue #128
+@bric3 feedback taken into account
+Fixed release notes [ci skip]Fixes issue #114
+Fix proposal for issue #128
+Deprecated MockitoJUnitRule
+
+Fixes #139
+JUnit rule compatible with JUnit 4.7+
+
+Fixes #140
+Fixed the problem with release steps configuration
+
+Author needs to be in the brackets otherwise stuff does not work correctly
+Fixed Gradle 2.* compatibility problem
+Promoted most @Incubating features
+
+Removed @Incubating from some internal types as this annotation does not make sense on internal types.
+
+Fixes #137
+Fixed a problem
+Automated maven central sync
+
+Fixes #136
+Fixed test resource
+Added javadoc annotations
+
+This commit along with bunch of previous ones concludes and fixes #135
+Fixed the problem with tests
+
+Missing TestBase caused problems in other tests.
+Fixed the isSpy() behavior
+Support @Spy AbstractClass/Interface
+
+Fixes #126
+Make org.mockito.asm.signature package optional in Import-Packages.
+
+Fixes Issue #104.
+Removed a fixed TODO.
+Fixed a dumb mistake (thx, travis ;p)
+Changed CallsRealMethods to delegate to default answer for abstract methods.
+
+Fixes #122
+Attempted to fix the build.
+Release notes automation fixed - correct env variable reading
+Release notes automation tidy-up and fixes.
+
+Fixes #119
+Release notes automation tidy-up.
+
+Fixes #119
+Tidy-up in buildSrc - fixes and coverage
+Fixed problem with type testing of outer classes
+
+Issue #92
+Basic support for creating mocks of inner classes using constructor
+
+Fixed #92
+Windows build - separate PR
+
+Fixes #115
+Allow delegateTo to delegate to any class that has the required methods
+
+Fixes #112, Pull request: #116
+Final fixes to the release procedure.
+
+Now Mockito automation should correctly detect whether the release is actually needed.
+Fixed line endings
+Fixes to pom comparison.
+Fixed problem with binary equal calculation
+
+Ensured the marker file is deleted before each run so that 'clean build' is not required for correct behavior.
+[release-notes] #79 Minor improvements
+
+ - Better support for nested sub lists in Markdown
+ - Fix incompatibility with Java 7
+ - Remove displaying category with 0 changes
+ - Enhance displaying list with no changes at all
+ - Support for "new feature" label
+Merge pull request #113 from brasslock/master
+
+Improved exception handling of AdditionalAnswers#delegatesTo
+
+Fixes #113Moved classes to better packages.
+
+This change fixes #107 at least for now.
+Fixed the test and added a TODO.
+Avoided a singleton.
+
+Reworked the code so that we can avoid more singletons. It also fixes a failing test.
+avoid releasing new version if binaries the same
+
+Fixes #105 (more info on this ticket).
+
+- exposed an existing method on the RelelaseNotesBuilder
+- added new task that checks equality of the binaries
+- hooked up the task so that the release is not triggered if binaries the same
+- some tidy-up is still needed
+Merge pull request #103 from mockito/fixes-issue-99
+
+Fixes issue #99Fixes issue #99 deep stubs where automatically marked as serializable
+
+With this commit children mocks will use the serialization mode their parent
+bintray plugin - fixed problem with vcs tag setting
+
+bintray plugin - fixed issue with vcs tag setting
+Fixed #101 removed non-existing version from docs
+Fixed #98 possible NPE
+
+NPE was possible when constructing user-friendly exception message for a different problem. This change does not fix any underlying, environmental/classloading issues the user has. At least Mockito shows the right message.
+Fixed some problems with release automation.
+Fixed failing test.
+Documented minimum JUnit requirement for MockitoJUnitRule
+
+Fixes #96
+Fixed the problem with release notes automation.
+
+The release notes were not committed correctly. [ci skip]
+JUnit @Rule implementation added
+
+Fixes #85
+Fixed links in notes for older versions [ci skip]Fixed #90 Mockito hints at the "non public parent" problem.
+
+During state validation, when invalid use of the API is detected, Mockito also hints at the limitation of the mocking engine, that we don't support mocking methods that are declared on non-public parent class.
+Fixed the transient problem that caused test failures.
+
+Ensure the state is reset correctly after a test run. Enabled back the test that was disabled previously.
+Changed should_try_to_verify_correct_number_of_times test to be independent on time problems
+
+Fixed issue #66 (flaky test)
+Fixed #88 the continuous deployment should not product "-dev" versions
+
+Removed the hack from version.gradle that had a TODO attached to remove it before the release :)
+The next version should 1.10.2
+
+("-dev" postfix was used only when developing continuous deployment pipeline).
+Merge pull request #87 from hughwphamill/master
+
+Fixed DelegatingMethod.equals() so that it's easier to extend Mockito by custom verification modesFixed links in the readme [ci skip]One more link fixed in the readme [ci skip]Fixed links in the readme [ci skip]Fixed the problem with maven publication.
+Fixed yet another problem with automatic release notes.
+Made the release notes appear on tag and on master. Fixed a problem with generation of the notes.
+Fixed a problem with automatic generation of the release notes.
+Fixed a problem in the release process - the tag needs to be taken before we checkout the gh-pages branch.
+Merge pull request #65 from guw/guw/cleanups
+
+Cleanup ignores and fix 1.5 compatibilityFixed a mistake in the fetch command (missing 'origin'). Tweaked the publication a little bit to avoid performing 2 pushes.
+Fixed the problem with fetching 'gh-pages' branch.
+Some tidy up in the release build steps, mainly to fix problems with javadoc publication.
+Fixes a few javadoc warnings
+Fixes the javadoc generation for the JDK7 toolset
+Fixed a problem with running the new 'ciBuild' task.
+Fixed a weirdness in ant that caused the jars sometimes had wrong MANIFEST.MF. Before bnd tasks kick in, we're now creating the jars without the manifest. This looks like fixes the problem. I've also made the ant tasks delete the bnd-decorated tmp jars before execution.
+Fixed the name of the bintray task in the travis file.
+Fixed the type so that it's Gradle 2.0 happy.
+Added '-dev' postfix to the version until release process is done.
+Merge pull request #59 from marcingrzejszczak/fixVarArgs
+
+Added casts to supress varargs warningsMerge pull request #56 from marcingrzejszczak/javadocFix
+
+Fixed wrong javadoc for AdditionalAnswersFixed javadoc for AdditionalAnswers
+(PR 49) Fixed PMD problem by extracting exception handling to a separate method.
+Fixes TestNG tests.
+Merged asolntsev code simplification fixes (with some small modifications).
+Merged Looper's fix with some small modifications.
+Merge branch 'issue484-fix' of git://github.com/MajA7jHbJYW2N/mockito into MajA7jHbJYW2N-issue484-fix
+fixed issue 484
+by adding an additonal clause to the areEqual method
+to take care of the trivial case
+issue 399 fixes serialization for deep stub answer
+
+ - disables generics deep stub when serialization occurs (not supported yet)
+ - also refactored a bit the initialization of this answer
+Merge pull request #32 from alberskib/master
+
+[#467] Fix return value of compareTo for the same objectsIssue 414 Upgrade Objenesis to v2.1 Fixes the OSGI Import-Package directives used by bnd to generate the Manifest.mf
+Fixes forgotten renames
+Fix for problem with classloaders on Eclipse plugins.
+Merge pull request #23 from ffbit/fixed-some-typos-in-readme.md
+
+Fixed some typos in README.mdFixed some typos in README.md
+`cdntral` -> `central`
+`conmcrete` -> `concrete`
+Merge pull request #19 from bric3/fixes_term_for_travis_gradle
+
+Fixes env var to TERM for readability purpose on travis log when building with gradleFixes env var to TERM for readability purpose on travis log when building with gradle
+Uses coveralls plugin 0.1.5 that was fixed at HackergartenParis
+fixes test when compiled and run with JDK 1.7, method order is different, and we only want non generated methods (bridge method)
+Fixes should_try_to_verify_correct_number_of_times, the  as the milliseconds values were too small, and could potentially result in failing test
+
+Due to changes in the timeout implementation, timing a bit less forgiving
+
+Failing test report in gralde
+org.mockito.verification.TimeoutTest > shouldTryToVerifyCorrectNumberOfTimes FAILED
+    org.mockito.exceptions.verification.TooLittleActualInvocations at TimeoutTest.java:71
+Merge pull request #15 from pimterry/timeout-sleep-handling
+
+Fix timeout sleep handling to track time more accurately, and tidy timeout impl variable namesFix timeout sleep handling to track time more accurately
+fixes issue 426 : typo
+fixes missing fail after the failing statement
+fixing the message of the exceptions
+issue 391 : fix javadoc on ReturnsElementsOf
+fixing tests under gradle and reverted temporary failure for testng subproject
+
+--HG--
+rename : subprojects/testng/src/test/java/org/mockitousage/testng/failuretests/FailingBecauseIncorrectAnnotationUsage.java => subprojects/testng/src/test/java/org/mockitousage/testng/failuretests/FailingOnPurposeBecauseIncorrectAnnotationUsage.java
+rename : subprojects/testng/src/test/java/org/mockitousage/testng/failuretests/FailingBecauseIncorrectStubbingSyntax.java => subprojects/testng/src/test/java/org/mockitousage/testng/failuretests/FailingOnPurposeBecauseIncorrectStubbingSyntax.java
+rename : subprojects/testng/src/test/java/org/mockitousage/testng/failuretests/FailingBecauseWrongStubbingSyntaxInConfigurationMethod.java => subprojects/testng/src/test/java/org/mockitousage/testng/failuretests/FailingOnPurposeBecauseWrongStubbingSyntaxInConfigurationMethod.java
+fixing test under gradle
+Fixed the botched merge.
+Fixed way to fire threads in test at the same time
+(transplanted from 5ce5a37379e1d6b2570798855b6ae7a230887395)
+
+--HG--
+extra : transplant_source : %5C%E5%A3sy%E1%D6%B2W%07%98%85%5Bj%E7%A20%88s%95
+Some fixes to the build files.
+Some .hgignore fixes
+Updated .hgignore so that ant build files are not included :) Fixed the problem with incremental build for jars.
+Fixing Javadoc typo daAnswer -> doAnswer, thx to Tomek Kaczanowski for reporting this
+Fixed issue 375 : warn when .serializable() used with objects that don't implement Serializable
+fixed a weird javadoc task error where the double quote " character was causing illegal package name error under windows (not osx)
+issue 356 Fix typo & javadoc (thx to konigsberg@google.com)
+Issue 335 fix: EqualsWithDelta not null safe
+I added null checks in EqualsWithDelta class corresponding to:
+If wanted is null and actual is not, return false.
+If actual is null and wanted is not, return false.
+If wanted and actual are null, return true
+Fixed Javadoc beauty of code issue, URAL has changed. Hosting can be seen there : http://alexgorbatchev.com/SyntaxHighlighter/hosting.html
+Also note that beautyOfCode do not look like compatible with SyntaxHighlighter v3.x
+fixed typo in MockMaker javadoc
+Fixed the problem with license replacing task.
+
+--HG--
+branch : 1.9.5-rc1
+More fixes to the MockMaker javadocs.
+Some fixes to the javadocs.
+Fixed issue 331. The result from MockHandler should not be null for primitives.
+
+This feature is not strictly needed if cglib is used because cglib internally turns nulls into primitives if necessary. However, cglib is pluggable now via MockMaker so it made sense to make some action.
+Unfortunetly meaty checkin but things got out of hand during Easter... Further work on exposing an MockSettingsInfo. Encountered few obstacles and did some refactorings along the way. Stopped using the class array in few place in favor of a Collection - MockMaker interface has changed in due course. Fixed the javadoc a bit. There's still long way to get the MockSettings cleaned up but I'm getting there. The purpose is to avoid casting to our internal type (MockSettingsImpl) and use the information provided by the interface MockSettingsInfo. MockSettingsInfo is an interface exposed when we created MockMaker API.
+Fixed a problem that reset(null) and reset(nonMock) gave NPE instead of a decent exception message.
+Fixed Javadoc generation warnings
+Fixed a problem with PrintableInvocation and DescribedInvocation. Reverted the type hierarchy - it should be more backwards compatible this way.
+fix compilation, thx jenkins
+Fixing merge error
+issue 304 : Fixed Gradle tests
+
+--HG--
+branch : issue 304 : TestNG integration
+issue 322 synchronization fix test informations thx to edocomar
+issue 322 synchronization fix. thx to edocomar and Jose Paumard
+Fix typo.
+For now, hardcoded the version in the build.gradle. It's ok for the branch. In the 'default' we need to fix it.
+
+--HG--
+branch : 1.9.0
+Fixed javadoc and  added generics.
+Another Javadoc fix
+issue 289 : quick fix to reset candidate filter for each class in the type hierarchy
+
+--HG--
+extra : transplant_source : %F6%AAg%24%7B%92%90%91J%3B.x%3CVtnA%A3%5B%B2
+Another Javadoc fix
+(transplanted from 3025399da0af3d1de3905589867c4f7ea890ff24)
+
+--HG--
+branch : 1.9-rc1
+extra : transplant_source : 0%259%9D%A0%AF%3D%1D%E3%90U%89%86%7CO%7E%A8%90%FF%24
+issue 289 : quick fix to reset candidate filter for each class in the type hierarchy
+
+--HG--
+branch : 1.9-rc1
+Minor fix to the docs (closing tag was missing)
+
+--HG--
+branch : 1.9-rc1
+issue 264 : Documentation fix
+Fixed issue 252. Made the exception & javadocs clearer.
+fix test code to make it work in jenkins
+
+--HG--
+extra : transplant_source : %E55%12_1ZI%D2%7F%3Ap%5C%D5%FC%7Cx%04%27%84-
+fix PMD error
+
+--HG--
+extra : transplant_source : C%8F%83%CC%1F%27%A5O8D%DA%E6Bgt%A6%C5/%04X
+Test-Fix: Cannot mock a listener, because Mockito will get confused about the method that was stubbed.
+
+--HG--
+branch : issue148
+extra : transplant_source : %3C2%F8%A3%B4%7F%21%CAmz%C1%FA%1E%84.%0F3%A9%7F%C3
+fixed the script
+fixed ignores
+Covariant override seems to be fixed???
+Tiny fixes to the documentation
+Fix for issue 215 : Adding doThrow(Class<? extends Throwable>) and other variation of this method
+Fixed issue 235.
+timeout(x).atMost(y) should be gracefully disabled because using it does not make much sense
+
+--HG--
+rename : src/org/mockito/exceptions/misusing/InvalidUseOfMatchersException.java => src/org/mockito/exceptions/misusing/FriendlyReminderException.java
+rename : test/org/mockitousage/bugs/ActualInvocationHasNullArgumentNPEBugTest.java => test/org/mockitousage/bugs/TimeoutWithAtMostShouldBeDisabledTest.java
+fix for issue 236 : mocks are injected a bit less aggressively
+merged Brice fixes
+Fix for issue 229 in the describeTo phase of the Same matcher, when match is failing
+Fix for Issue 229 : Changed the way the MockitoAnnotations and InjectingAnnotationEngine work, might need some polish regarding support
+Fixed the build
+Fixing a potential problem where fields annotated by MockitoAnnotations.Mock couldn't be injected
+Fixed Issue 225.
+Pulled from Lucas Cavalcanti's clone. Thanks!
+SmartNull now prints args when throws exception
+Fix for issue 211
+Fixed Issue 184.
+If mock implements Comparable the compareTo() method should not return 0
+Final amendments to the documentation
+Fixed issue 191
+Allow inline mock stubbing.
+Fixed issue 217
+Made the exception message clearer
+Fixed issue 228
+Documentation update
+Fixed issue 220
+Updated the javadocs so that it better communicates usage of primitive-returning argThat() methods
+Fixed a failing test. Fixed issue 221
+Fixed issue 221 (possible NPE on autounboxing any(Class))
+
+--HG--
+rename : test/org/mockitousage/PlaygroundTest.java => test/org/mockitousage/bugs/NPEOnAnyClassMatcherAutounboxTest.java
+extra : rebase_source : e149fdd3b5fd296a5d23011aefdd3ba38578cd42
+Fixed documentation
+
+--HG--
+extra : rebase_source : 8d8a55d4366f8fb296316db2d18c2b1efdf4af63
+Fixed issue 216
+@Spy did not have nice names in the verification errors
+
+--HG--
+rename : test/org/mockitousage/bugs/VerifyingWithAnExtraCallToADifferentMockTest.java => test/org/mockitousage/bugs/SpyShouldHaveNiceNameTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402110
+Final fixes to snapshot releasing.
+Got rid of stupid idea of using svn-external. Now the snapshot commit runs from target/snapshots folder. Thanks Erik for upgrading svn on hudson!!! :-DDDDD
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402106
+Added a test for the bug that is not yet fixed
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402061
+Fixed the name of the test and refactored it a little bit
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402055
+Fixed the playground
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402053
+Fixed issue 202
+Documentation issue
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402040
+Fixed issue 200
+For some weird reason when we had inherited generics sometimes the cglib proxy does not behave like java proxy would.
+Fixed in Mockito code.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402022
+Fixed issue 196
+Mockito should now work fine even if you use AOP on top of your mocks. It is a totally edge case (I cannot imagine advicing mocks for any purpose but maybe I'm just short minded :P).
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402020
+Fixed issue 197
+only() mode did not respect capturing matchers
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402016
+Fixed issue 183
+Documentation update.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402014
+Fixed issue 190
+Cunning locking code can potentially deadlock answer (if stubbed mock is shared between threads). See the attached test.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%402013
+Fixed the release script
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401999
+Fixed javadoc warnings
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401998
+Final touches to feature 171.
+Fixed issue 171.
+verifyNoMoreInteractions() prints entire scenario to the user nowdays if aplickable.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401996
+First stab at fixing enhancement 171
+verifyNoMoreInteractions() shows entire scenario in the message
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401989
+Fixed the problem with unclear licensing
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401987
+Fixed the problem with unclear licensing
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401986
+Fixed some issues with the script
+ - it now ignores all txt files from updating their header
+ - added possibility to 'mark' the file as content that does not need replacing header (needed for code from apache commons)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401985
+Fixed issue 188
+@Captor annotation should work OK with nested parametrized type
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401984
+Fixed issue 188
+@Captor annotation will not lead to NPE during autounboxing. I'm getting hold of the parametrized type using reflection and using this type when creating ArgumentCaptor
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401981
+Fixing issue 188 (@Captor annotation does not deal nicely with primitive types)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401980
+Fixed PMD violation (should also fix the build)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401979
+Added TODOs, fixed javadocs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401978
+Fixed issue 182
+(javadoc fix)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401977
+Fixed issue 177.
+New feature: verification with timeout for testing in concurrent conditions.
+Example:
+verify(mock, timeout(100)).foo();
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401974
+Fixed issue 138 again, hopefully this time forever :)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401973
+Fixed javadoc, added TODO
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401971
+Fixed release.py
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401945
+fixed the OS licence headers
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401933
+Fixed issue 138
+When verify contains extra calls to other mocks (highly unlikely) then Mockito was verifying wrong invocation. Now it is all good.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401932
+Fixes to release script
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401931
+Fixed issue 180,
+Nice error message
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401930
+Added handy answser. Fixed issue 155
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401928
+Fixed issue 179
+Moved Answers that provide configuration for mocks to external package
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401927
+Fixed issue 93
+Now it is possible to inOrder.verifyNoMoreInteractions() that has slightly different behavior than Mockito.verifyNoMoreInteractions()
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401926
+Fixed issue 163
+It is possible now to have multiple InOrders. BTW. you should not have multiple InOrders  because most likely you are doing something wrong in the code.
+However, in order to keep the api consistent I had to fix it.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401921
+Oups - fixed the build (making hashCode safer)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401917
+Fixed release script
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401886
+final fixes to javadocs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401880
+Fixed javadocs before the release
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401879
+Fixed the documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401876
+Fixed issue 173
+Updated the docs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401875
+Removed fixed TODO
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401873
+Fixed one bug and reenabled missing tests
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401872
+Fixed issue 172
+Stub() has been undeprecated
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401869
+Fixed warnings and stuff
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401866
+Fixed the test
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401864
+Fixed issue 27
+Appended user's patch that reports different arguments used when verifying in order
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401862
+Fixed the ant build that tries to run all the classes that ends with 'Test' even though those are not test classes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401859
+Fixed issue 165
+Added @Spy annotation
+Added configurability to @Mock annotation
+Added @InjectMock feature to inject mocks to tested instance
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401858
+Fixed issue 166
+Added @Captor annotation that makes easier to create ArgumentCaptors
+(fixed test)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401856
+Fixed issue 166
+Added @Captor annotation that makes easier to create ArgumentCaptors
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401855
+Fixed issue 158
+Moved VerificationMode to public package where it belongs
+
+--HG--
+rename : src/org/mockito/internal/verification/api/VerificationMode.java => src/org/mockito/verification/VerificationMode.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401852
+Fixed issue 170
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401851
+Fixed issue 109
+(small fix to avoid compiler error)
+Unrooted tests no longer show up in Eclipse when running single test
+Thanks for the patch & great job!!!
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401827
+Fixed issue 109
+Unrooted tests no longer show up in Eclipse when running single test
+Thanks for the patch & great job!!!
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401826
+Fixed issue 74
+In order to have earlier & better feedback when someone verifies toString()
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401825
+Fixed issue 149
+Added new feature: 'deep stubbing' that can be useful for more complex stubbing (mostly in the ase of legacy code)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401816
+Fixed issue 157
+In order to avoid ArrayIndexOutOfBoundsException when anyvarag() matcher in use
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401790
+Fixed the test - I was stupid I followed the IDEA's code analysis hints ;)
+Fixed issue 154
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401788
+Fixed issue 154
+NPE when doing eq(null)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401786
+Fixed some stuff in releasing scripts. Now it should be possible to release from branch easily though we will see. Cannot test it fully until next release :)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401783
+Fixed issue 151. Merged from trunk. Mockito should not be so defensive and clear potential stubbed call on creation of new mock
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401774
+Fixed issue 151. Merged from trunk. Mockito should not be so defensive and clear potential stubbed call on creation of new mock
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401773
+Javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401770
+Fixed the release script so that I can release from branch, not only from trunk
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401769
+Fixed issue 152
+User should be able to configure the mock to be serializable and have extra interfaces
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401768
+- in order to move Serializable out of interfaces and back to concrete classes
+-- made all implementations of Answer implements Serializable
+-- removed Serializable extension from Answer
+-- fixed test to show that any implementation of Answer must implement Serializable for mocks to be Serializable
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401743
+Fixed PMD problem
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401734
+fixed type
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401708
+Fixed issue 144
+It is a process tweak - When searching for similar invocation, there is no point in matching arguments when method name does not match.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401691
+Fixed issue 141
+In order to do smarter matching when parameters are arrays.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401679
+Fixed issue 98
+In order to avoid NPE in some very rare cases.
+
+--HG--
+rename : test/org/mockitousage/bugs/NPEWithIsAClassMatcherTest.java => test/org/mockitousage/bugs/NPEWithCertainMatchersTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401677
+Fixed issue 142
+In order to provide best feedback when dev misuses jUnit I forward initializer jUnit exceptions (for example: @BeforeClass must be static). This way exceptions from jUnit are correctly handled by IDE (previously, confusing Mockito exception was thrown).
+Some tiny refactorings according to IDEA warnings.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401673
+Inform the user with a good message when she tries to 'callRealMethod()' on a mock of a interface. Fixed issue 140
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401664
+Inform the user immediately when she tries to 'callRealMethod()' on a mock of a interface. Tuning the exception message. (Fixed issue 140).
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401662
+Inform the user immediately when she tries to 'callRealMethod()' on a mock of a interface. Fixed issue 140
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401661
+Fixed issue 139
+In order to provide decent exception quickly when user does something wrong - passes wrong arguments to the mock() method (incosistent types of mocked type and spied instance type).
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401658
+Fixed to avoid error on producing the manifest
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401638
+In order to fix issue 124 - incorrect OSGi headers. Please help testing this change.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401636
+In order to fix issue 134. Location should never break in case there's something wrong with stack traces (for example: filter returns empty stack trace).
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401634
+In order to avoid AssertionError I removed the assertion from code as it didn't do any difference
+Fixed reopened issue 30
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401633
+Fixed issue 123
+There was an error related to calling real behavior when method had varargs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401622
+Fixed issue 128
+In order to communicate decent message when MockitoRunner does not find any test methods
+(added missing files)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401620
+Fixed issue 128
+In order to communicate decent message when MockitoRunner does not find any test methods
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401619
+Fixed issue 122
+In order to allow user to use single any() matcher for varargs I introduce anyVararg() matcher
+Unfortunately, it is not possible to use (Object[]) anyObject() to match any vararg due to the fact that verification picks up extra redundant invocations. Also it would have broken the backwards compatibility.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401617
+Fixed test
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401595
+Fixed issue 111
+In order to allow user some kind of 'optional' style of verification. It only makes sense when verifyNoMoreInteractions() is used.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401591
+In order to fix the build and keep PMD happy
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401590
+Fixed issue 112.
+Actually, the issue was already fixed in previous 1-2 revisons because the invalid implemntation had also different manifestations (bug 116). Wanted to add a unit tests provided by contributor.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401589
+Fixed issue 115.
+In order to always keep the examples / hints in sync with latest api
+In order to keep javadocs w/o IDEA warnings
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401588
+In order to keep javadocs consistent with new way of creating ArgumentCaptor instances fixed javadocs and one usage of AC
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401570
+Fixed issue 99
+In order to avoid NPEs when vm autounboxes primitives I made the dummy return values for parameters not nulls for primitive wrapper types.
+In order to know exactly which test makes the state broken moved validation to @After in the TestBase
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401567
+Fixed issue 99
+In order to avoid NPEs when vm autounboxes primitives I made the dummy return values for parameters not nulls for primitive wrapper types
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401566
+In order to fix ArgumentCaptor so that it captures only when entire invocation matches. Loads of code changed for this.
+In order to facilitate better assertions added assertions library FEST (yeah!)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401564
+In order to fix ArgumentCaptor so that it captures only when entire invocation matches. Loads of code changed for this.
+In order to facilitate better assertions added assertions library FEST (yeah!)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401563
+In order to keep track on compiler warnings fixed loads of warnings + removed some dead code (in order to not to have dead code...)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401560
+In order to have tests that reflect bugs that need to be fixed I added those tests
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401555
+In order to fixed issue 79 (NPE) added null handling code
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401549
+In order to fix source distribution for maven repository I modified maven deployment
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401547
+fixed maven metadata with information about already released versions
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401530
+In order to fix issue 94 and make people who write extensions for Mockito happy I changed the way CGLIBHacker works. I made him traverse the object graph in case the MethodProxy class has been proxied. I added powermock-reflect as test-dependency to the project. It should be the runtime dependency as I'm trying to avoid too many runtime dependencies.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401523
+In order to avoid regression reverted the fix for issue 62 (making anyObject() more convenient with varargs).
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401521
+Fixed typo in the class name
+removed a dead method
+
+--HG--
+rename : src/org/mockito/internal/reporting/PrintingFriendlyInocation.java => src/org/mockito/internal/reporting/PrintingFriendlyInvocation.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401476
+Fixed the issue that sometimes arguments didn't equal but toString() with the same value (e.g. Integer & Long case). Therefore the actual printing of args is now a bit smarter and attaches the types when necessary
+
+--HG--
+rename : src/org/mockito/internal/invocation/CanPrintInMultilines.java => src/org/mockito/internal/invocation/PrintingFriendlyInocation.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401464
+Refactored towards simplicity (around the way MockHandler dealt with spies).
+Figured out a slight bug to fix soon.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401456
+Finished fixing javadocs after changing ReturnValues into Answers
+More rename job in the same domain
+
+--HG--
+rename : src/org/mockito/internal/returnvalues/GloballyConfiguredAnswer.java => src/org/mockito/internal/stubbing/defaultanswers/GloballyConfiguredAnswer.java
+rename : src/org/mockito/internal/returnvalues/ReturnsEmptyValues.java => src/org/mockito/internal/stubbing/defaultanswers/ReturnsEmptyValues.java
+rename : src/org/mockito/internal/returnvalues/ReturnsMocks.java => src/org/mockito/internal/stubbing/defaultanswers/ReturnsMocks.java
+rename : src/org/mockito/internal/returnvalues/ReturnsMoreEmptyValues.java => src/org/mockito/internal/stubbing/defaultanswers/ReturnsMoreEmptyValues.java
+rename : src/org/mockito/internal/returnvalues/ReturnsSmartNulls.java => src/org/mockito/internal/stubbing/defaultanswers/ReturnsSmartNulls.java
+rename : src/org/mockito/internal/returnvalues/package.html => src/org/mockito/internal/stubbing/defaultanswers/package.html
+rename : test/org/mockito/internal/returnvalues/HasPrimitiveMethods.java => test/org/mockito/internal/stubbing/defaultanswers/HasPrimitiveMethods.java
+rename : test/org/mockito/internal/returnvalues/ReturnsEmptyValuesTest.java => test/org/mockito/internal/stubbing/defaultanswers/ReturnsEmptyValuesTest.java
+rename : test/org/mockito/internal/returnvalues/ReturnsMocksTest.java => test/org/mockito/internal/stubbing/defaultanswers/ReturnsMocksTest.java
+rename : test/org/mockito/internal/returnvalues/ReturnsMoreEmptyValuesTest.java => test/org/mockito/internal/stubbing/defaultanswers/ReturnsMoreEmptyValuesTest.java
+rename : test/org/mockito/internal/returnvalues/ReturnsSmartNullsTest.java => test/org/mockito/internal/stubbing/defaultanswers/ReturnsSmartNullsTest.java
+rename : test/org/mockitousage/stubbing/StubbingConsecutiveReturnValuesTest.java => test/org/mockitousage/stubbing/StubbingConsecutiveAnswersTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401448
+Fixed the build so that it fails fast when jars are wrong
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401436
+Fixed licensing info. Only libraries that are distributed in binary form are mentioned in NOTICE. Other OS libraries that mockito fragments might be inspired by have their licenses collected in doc/licenses folder.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401435
+Fixed the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401433
+fixed notice
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401428
+some rename job
+fixed one problem and added some more tests
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401424
+Fixed some TODOs (and removed some code that didn't put anything interesting to the game)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401423
+Added code that guards from misusing extraInterfaces()
+Not finished yet. The multithreaded test fails and I'm just going to fix it
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401418
+fixed problem with partial mocks/spies (inherited fields are also shallow copied)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401410
+relaxed checkstyle a bit (visibility modifiers rubbish)
+added initial fixes to making spying real partial mocking
+
+--HG--
+rename : test/org/mockitousage/SpyingOnRealObjectsTest.java => test/org/mockitousage/spies/SpyingOnRealObjectsTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401405
+shamelessly fixed one failing test
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401395
+Fixed some javadoc stuff
+Implemented runners so that they validate framework usage in tearDown()
+Made MockitoJUnitRunner working with JUnit 4.4 so that MockitoJUnit44Runner is no longer needed
+Some refactoring around Runners
+
+--HG--
+rename : src/org/mockito/internal/runners/LegacyJUnitRunner.java => src/org/mockito/internal/runners/MockitoJUnit44RunnerImpl.java
+rename : test/org/mockitousage/junitrunner/JUnit4RunnerTest.java => test/org/mockitousage/junitrunner/JUnit44RunnerTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401391
+shamelessly fixed the build and added some javadocs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401370
+Fixed license headers
+Minor cosmetic changes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401357
+Fixed the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401355
+Fixed issue 77
+When mockito searches for similar invocation it safely matches custom argument matchers.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401354
+fixed issue 76
+atMost(x) didn't play well with verifyNoMoreInteractions()
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401353
+fixed a typo
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401351
+Fixed issue 73
+any(Foo.class) was not a true alias to anyObject() because it didn't match nulls. Now it's fixed
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401339
+fixed formatting and description
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401333
+Fixed issue 62.
+Rare case of not matching anyObject() for varargs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401311
+Fixed issue 70
+NPE was thrown when user put mocked Throwables in thenThrow() clause.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401304
+Fixed typo
+Added more exceptions for modelling exception messages
+
+--HG--
+rename : src/org/mockito/exceptions/verification/VerifcationInOrderFailure.java => src/org/mockito/exceptions/verification/VerificationInOrderFailure.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401298
+minor fixes to the messages
+removed dead code
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401297
+Fixed enhancement 65
+New matcher: anySet() matches any set or null
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401284
+Fixed issue 53
+Amended exception message for unfinished stubbing
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401282
+Attempt to fix issue 58
+Invocation no longer creates an exception that wastes time on filling in the stack trace. The stack trace is still maintained but I use a different way of getting it.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401264
+fixed issue 56
+javadoc typo + replacing some old syntax examples
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401262
+some minor fixes related to fixing issue 54
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401261
+Fixed issue 54 The exception message now shows where one misused the framework
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401258
+fixed the test
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401255
+fixed the javadoc, runner doesn't really work with older versions of junit
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401233
+fixed other object methods on SmartNulls
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401231
+fixed other object methods on SmartNulls
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401230
+further fixes to the smart mocks
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401229
+fixed SmartNulls problem with toString() methods
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401228
+fixed issue 50
+
+mock.toString() prints mock name if mock has name
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401219
+final javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401192
+renamed the runner
+minor fixes to the javadoc
+
+--HG--
+rename : src/org/junit/mockito/ExperimentalMockitoJUnitRunner.java => src/org/junit/mockito/VerboseMockitoJUnitRunner.java
+rename : test/org/junit/mockito/ExperimentalMockitoJUnitRunnerTest.java => test/org/junit/mockito/VerboseMockitoJUnitRunnerTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401191
+fixed enhancement 45
+Added more info to the javadocs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401174
+fixed javadocs
+Made MoreEmptyReturnValues not return new Object() because it feels better
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401166
+removed TODOs,
+fixed the minor problem of breaking the invocation string when no args given
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401161
+fixed issue 47
+Better exception message when mocking fails
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401158
+Added more tests. Cleaned up a bit. Fixed the warning code so that it only reports truly unused stubs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401122
+removed warnings, fixed warnings a bit
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401118
+got rid of warnings
+fixed javadoc a bit
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401117
+Fixed error messages for SmartNullsFeature
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401114
+fixed warnings (removed dead code, etc)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401102
+removed some dead code
+fixed imports
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401094
+Fixed issue 32
+Invalid state was not detected on mock/spy creation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401083
+added test case + fix for issue #35
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401080
+fixed issue #31 (varargs stubbing was incorrect when vararg was just a part of argument list and null was passed as vararg argument.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401076
+fixed the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401074
+Fixed issue #30, sequence number was globally unique only in single thread scope. I made verification in order not working properly when multiple threads interact with shared mock.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401068
+Removing unused import to fix the build.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401056
+Tiny javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401055
+fixed the license
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%401001
+fixed issue 29 (StringIndexOutBounds when doing spy())
+Mockito cannot mock/spy anonymous classes because they are implicitly final
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40989
+javadoc fix
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40952
+fixed issue 26.
+Javadoc fix
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40951
+fixed javadocs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40950
+fixed issue 25.
+When test spies are used then it's better matchers not return nulls. Real implementation is called so NPE might happen
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40949
+removed damned override to fix the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40947
+fixed the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40946
+fixed the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40940
+fixed the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40934
+fixing the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40932
+fixed the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40927
+fixed the code for Spring in-container tests
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40922
+fixed the build
+added missing package.html
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40921
+fixed javadoc a bit
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40919
+fixed the build so that test.release works (added missing junit dependency)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40918
+fixed build (removed reference to test folder)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40917
+added checkstyle stuff to .project
+fixed checkstyle settings to be relative
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40915
+fixed issue 24
+MockFactory now does not use static state on Enhancer to set handler for mock objects
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40914
+minor javadoc fix
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40907
+fixed minor checkstyle issue
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40885
+minor javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40871
+fixed the script so it works better on windows (e.g. don't touch files if no change is required)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40870
+Fixed atLeast for verification in order.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40865
+fixing the build
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40861
+javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40859
+javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40858
+minor javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40856
+fixed javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40852
+fixed javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40851
+removed deprecation warnings
+javadoc fixes
+added package.html
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40841
+fixed javadocs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40840
+Small fixes.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40833
+Fixed runners, so that tests can be fired by Ant without failure message.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40825
+Fixes after updating to JUnit 4.5. Added package info for runners.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40824
+committed the fix for enhancement #19
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40810
+fixed javadocs so that checkstyle doesn't tell me off
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40753
+fixed javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40740
+small fix to the javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40733
+further javadoc fixes
+deprecated stubVoid
+made Mockito non-final again
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40716
+javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40710
+more javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40709
+javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40708
+changed doReturn() to doNothing() and fixed javadocs accordingly
+
+--HG--
+rename : src/org/mockito/internal/stubbing/ReturnsVoid.java => src/org/mockito/internal/stubbing/DoesNothing.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40707
+some rename job and fixing a bit of javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40695
+javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40694
+fixed a bit of javadoc to be more readable
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40693
+fixed some dodgy names
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40691
+Fixed a bug with stubVoid() and a spy
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40689
+moving class to 'src' source folder :) to fix the damn build
+
+--HG--
+rename : test/org/mockito/internal/stubbing/ReturnsVoid.java => src/org/mockito/internal/stubbing/ReturnsVoid.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40687
+fixed distribution testing targets
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40682
+fixed concurrent mockito issue #14
+did some refactorings around newly added feature: stubbing with callbacks
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40663
+fixed issue #11 - problems mocking eclipse internal classes when testing eclipse plugins.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40660
+Fixed an issue with verifying in concurrent environment
+
+--HG--
+rename : test/org/mockitousage/MultiThreadedTest.java => test/org/concurrentmockito/MultiThreadedTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40658
+fixed some minor javadoc fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40637
+fixed some minor javadoc issues
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40635
+fixed some minor javadoc issues
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40634
+fixed javadoc accordingly with new behavior
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40633
+fixing the build (oups:)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40628
+fixed javadoc for new feature (stubbing consecutive calls)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40623
+fixed #13
+Mockito doesn't yield NPE when null varArg array is passed.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40611
+fixed #11
+It's not perfect, though. If a class is from signed package AND is also package protected then it's not gonna work anyway.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40604
+fixed build (PMD errors),
+some rename job
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40602
+fixed javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40543
+fixed sorcerer task
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40542
+fixed javadoc, removed TODO
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40534
+fixed PMD rule
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40532
+fixed problem related to returning primitives
+fixed one configuration example
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40528
+fix for issue 8 : problems installing mockito-all-1.2 to Artifactory
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40518
+small fixes to the way errors are printed
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40479
+fixed the build :) (compiles fine under eclipse...)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40476
+fixed problem of not getting right interaction as a cause
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40472
+small fix to ignored test
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40441
+working on TODOs after fixing the stack trace filter/remover bug
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40439
+working on TODOs after fixing the stack trace remover bug
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40435
+fixed version so that people cannot download new version before release :)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40432
+fix to bypass ant failures
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40430
+added a unit test to complete a functional test (fixing build)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40427
+got rid of special handling of overloading puzzle
+
+--HG--
+rename : test/org/mockitousage/binding/IncorectBindingPuzzleFixedTest.java => test/org/mockitousage/binding/OverloadingPuzzleTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40420
+fixed bug with stack trace cleaning logic. The bug appeared in case when mocks are used and verified in java main method (to very usual case :).
+
+I couldn't do a proper functional test for that one since I cannot reproduce it from junit method.
+
+Some TODOs are left.
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40414
+fixes to javadoc mostly
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40398
+big checkin (worked in a train again)
+added specific exception when never() or times(0) is used
+fixed some documentation around never()
+some refactorings left
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40395
+fixed javadocs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40393
+fixed bug around @Mock (didn't initialize annotated mocks from base classes)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40386
+fixed javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40385
+fixed next ver. number
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40383
+fixed javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40382
+fixed error messages
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40367
+fixed javadoc
+fixed a bug that returned collections where static and therefore could potentially keep objects
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40364
+fixed javadoc stuff
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40360
+fixed some documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40358
+fixed code (oups:)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40356
+fixed description
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40349
+big check-in 'coz worked offline:
+changed base class for test to add initializing annotated mocks
+fixed some exception messages to be more descriptive
+don't remember more sins...
+
+--HG--
+rename : test/org/mockito/RequiresValidState.java => test/org/mockito/TestBase.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40346
+fixed javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40341
+fixed javadoc
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40338
+removed dead code
+fixed version number, added version to manifest
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40337
+fixed docs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40334
+made EqualsBuilder non-public, fixed package.html
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40333
+fixed some @Ignored tests :)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40332
+fixed some minor documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40329
+fixed some docs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40294
+fixed some docs
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40293
+fixed some documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40280
+fixed compilation errors (oups ;)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40277
+fixed bug
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40267
+fixed some documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40262
+renamed, fixed some documentation
+
+--HG--
+rename : doc/vsEasymock.txt => doc/EasymockComparison.txt
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40260
+fixed some documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40259
+organized imports fixed documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40258
+fixed documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40248
+fixed some javadoc stuff
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40227
+minor fixes to documentation
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40223
+minor fixes
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40221
+fixed sources according to checkstyle
+
+--HG--
+rename : pmd-rules.xml => conf/pmd-rules.xml
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40201
+fixed license
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40176
+fixed pmd
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40174
+fixed ant file so that tests work (enabled compilation with debug info so that methods are not inlined and stack trace tests work properly)
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40170
+fixed pmd problems
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40168
+fixed the problem with equals() on Invocation checking for objects identity rather than equality
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40126
+fixed error messages when arrays compared
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40122
+fixed PMD errors
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40117
+fixed stack trace filtering for expected Throwables
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40116
+moved usage package outside of mockito because: 1. usage means real use and real use will never be inside org.mockito package (e.g: cannot access default-scoped methods)
+2. I can test stack trace filtering properly
+3. org.mockito should have only unit tests
+
+--HG--
+rename : test/org/mockito/usage/IMethods.java => test/org/mockitousage/IMethods.java
+rename : test/org/mockito/usage/InvalidStateDetectionTest.java => test/org/mockitousage/InvalidStateDetectionTest.java
+rename : test/org/mockito/usage/InvalidUsageTest.java => test/org/mockitousage/InvalidUsageTest.java
+rename : test/org/mockito/usage/MockitoSyntaxExperiments.java => test/org/mockitousage/MockitoSyntaxExperiments.java
+rename : test/org/mockito/usage/ReplacingObjectMethodsTest.java => test/org/mockitousage/ReplacingObjectMethodsTest.java
+rename : test/org/mockito/usage/StackTrackeFilteringTest.java => test/org/mockitousage/StackTrackeFilteringTest.java
+rename : test/org/mockito/usage/UsingVarargsTest.java => test/org/mockitousage/UsingVarargsTest.java
+rename : test/org/mockito/usage/binding/BridgeMethodPuzzleTest.java => test/org/mockitousage/binding/BridgeMethodPuzzleTest.java
+rename : test/org/mockito/usage/binding/IncorectBindingPuzzleFixedTest.java => test/org/mockitousage/binding/IncorectBindingPuzzleFixedTest.java
+rename : test/org/mockito/usage/matchers/BasicStubbingTest.java => test/org/mockitousage/matchers/BasicStubbingTest.java
+rename : test/org/mockito/usage/matchers/ComparableMatchersTest.java => test/org/mockitousage/matchers/ComparableMatchersTest.java
+rename : test/org/mockito/usage/matchers/InvalidUseOfMatchersTest.java => test/org/mockitousage/matchers/InvalidUseOfMatchersTest.java
+rename : test/org/mockito/usage/matchers/MatchersTest.java => test/org/mockitousage/matchers/MatchersTest.java
+rename : test/org/mockito/usage/matchers/MatchersToStringTest.java => test/org/mockitousage/matchers/MatchersToStringTest.java
+rename : test/org/mockito/usage/stubbing/BasicStubbingTest.java => test/org/mockitousage/stubbing/BasicStubbingTest.java
+rename : test/org/mockito/usage/stubbing/ReturningDefaultValuesTest.java => test/org/mockitousage/stubbing/ReturningDefaultValuesTest.java
+rename : test/org/mockito/usage/stubbing/StubbingWithThrowablesTest.java => test/org/mockitousage/stubbing/StubbingWithThrowablesTest.java
+rename : test/org/mockito/usage/verification/AtLeastOnceVerificationTest.java => test/org/mockitousage/verification/AtLeastOnceVerificationTest.java
+rename : test/org/mockito/usage/verification/BasicVerificationTest.java => test/org/mockitousage/verification/BasicVerificationTest.java
+rename : test/org/mockito/usage/verification/ExactNumberOfTimesVerificationTest.java => test/org/mockitousage/verification/ExactNumberOfTimesVerificationTest.java
+rename : test/org/mockito/usage/verification/NiceMessagesOnStrictOrderErrorsTest.java => test/org/mockitousage/verification/NiceMessagesOnStrictOrderErrorsTest.java
+rename : test/org/mockito/usage/verification/NiceMessagesWhenVerificationFailsTest.java => test/org/mockitousage/verification/NiceMessagesWhenVerificationFailsTest.java
+rename : test/org/mockito/usage/verification/NoMoreInteractionsVerificationTest.java => test/org/mockitousage/verification/NoMoreInteractionsVerificationTest.java
+rename : test/org/mockito/usage/verification/VerificationInOrderMixedWithOrdiraryVerificationTest.java => test/org/mockitousage/verification/VerificationInOrderMixedWithOrdiraryVerificationTest.java
+rename : test/org/mockito/usage/verification/VerificationInOrderTest.java => test/org/mockitousage/verification/VerificationInOrderTest.java
+rename : test/org/mockito/usage/verification/VerificationOnMultipleMocksUsingMatchersTest.java => test/org/mockitousage/verification/VerificationOnMultipleMocksUsingMatchersTest.java
+rename : test/org/mockito/usage/verification/VerificationUsingMatchersTest.java => test/org/mockitousage/verification/VerificationUsingMatchersTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%40115
+fixed some TODOs
+used InvocationBuilder instead of raw constructor
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%4087
+fixed some dummy problems (thank you PMD)
+build.xml starts pissing me off. cannot run tests from it for some weird reason!
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%4075
+fixed bug in MockitoBehavior
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%4073
+added test so I don't forget to implement something
+ant doesn't work and I'm not gonna spend my life on fixing it
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%4070
+added nicer exception message
+fixed build.xml
+removed verifyNoMoreInteractions() from strictly
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%4067
+-fixed some pmd problems
+-added inital script to replace headers in all files
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%4065
+fixed Igor's puzzle :D
+
+--HG--
+rename : test/org/mockito/usage/binding/IncorectBindingTest.java => test/org/mockito/usage/binding/IncorectBindingPuzzleFixedTest.java
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%4047
+removed some EasyMock tests, fixed one test so everything is green
+
+--HG--
+extra : convert_revision : svn%3Aaa2aecf3-ea3e-0410-9d70-716747e7c967/trunk%404
