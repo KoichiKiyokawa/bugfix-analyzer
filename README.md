@@ -9,6 +9,7 @@
  └ <分析対象のディレクトリ>
  
 ```
+Pythonのバージョン　・・・　`3.6.5`
 
 ## distribute_bugfix_diff
 
