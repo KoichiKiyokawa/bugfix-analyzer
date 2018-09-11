@@ -1,7 +1,7 @@
 # bugfix-analyzer  
 
 ## 注意
-ディレクトリ構造は以下の通りにすること
+- ディレクトリ構造は以下の通りにすること
 ```
 .┐
  ├ bugfix-analyzer
@@ -9,7 +9,8 @@
  └ <分析対象のディレクトリ>
  
 ```
-Pythonのバージョン　・・・　`3.6.5`
+- Pythonのバージョン　`3.6.5`  
+- `<分析対象のディレクトリ名>_results`というディレクトリを`bugfix-analyzer/`下に作ってから実行すること
 
 ## distribute_bugfix_diff
 
