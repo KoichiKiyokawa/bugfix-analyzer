@@ -33,9 +33,10 @@ def main():
             if is_bugfix_commit(commits[i], filename):
                 bugfix_cnt += 1
                 f.write(commits[i].message)
+            print(commits[i].hexsha)
 
     print('number of commits:', cnt)
-    print('number of bugfix commits:', cnt)
+    print('number of bugfix commits:', bugfix_cnt)
 
 if __name__ == '__main__':
     main()

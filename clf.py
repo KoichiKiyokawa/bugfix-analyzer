@@ -4,7 +4,25 @@
 TARGET_SHA = {
     'commons-math': 'e009e73e7512a36ab6fa8933fba7de454c4fa39a',
     'closure-compiler': '739189d54feb7523a33917dbb1b0d6cf996e554c',
+    'commons-lang': '6dc3a6db11d7e63c960ccc6cf48aa15d6f00e903',
 }
+
+
+# バグ修正のコミットだと見分ける条件 for commons-math
+# FixedDの単語がなく、fixの単語があるもの
+def is_bugfix_commit(item, filename):
+    commit_message = item.message
+    if filename == 'commons-math':
+        return (commit_message.find('FixedD') is - 1
+                and commit_message.find('fix') > -1
+                or commit_message.find('Fix') > -1)
+    elif filename == 'closure-compiler':
+        return (commit_message.find('debugg') is - 1
+                and commit_message.find('bug') > -1)
+    elif filename == 'commons-lang':
+        return (commit_message.find('bug') > -1
+                and commit_message.find('fix') > -1
+                or commit_message.find('Fix') > -1)
 
 
 # その行がコメント、もしくは特に意味のない行であったらFalseを返す
@@ -35,19 +53,6 @@ def is_git_output(line):
             return True
     else:
         return False
-
-
-# バグ修正のコミットだと見分ける条件 for commons-math
-# FixedDの単語がなく、fixの単語があるもの
-def is_bugfix_commit(item, filename):
-    commit_message = item.message
-    if filename == 'commons-math':
-        return (commit_message.find('FixedD') is - 1
-                and commit_message.find('fix') > -1
-                or commit_message.find('Fix') > -1)
-    elif filename == 'closure-compiler':
-        return (commit_message.find('debugg') is - 1
-                and commit_message.find('bug') > -1)
 
 
 # 挿入行と削除行とに振り分ける

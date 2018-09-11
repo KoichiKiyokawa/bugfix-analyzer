@@ -16,7 +16,7 @@ def main():
     # 結果出力ファイルの初期化
     filename = abs_dir_of_java.split('/')[-2]
     print(filename)
-    with open(current_dir_of_analyzer + filename + '_results/all_commits_lines.txt', 'w') as f:
+    with open(current_dir_of_analyzer + filename + '_results/all_bugfix_commits_lines.txt', 'w') as f:
         f.write('')
 
     # git の初期化
