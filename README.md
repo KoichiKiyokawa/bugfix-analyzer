@@ -28,3 +28,12 @@ python distribute_bugfix_diff.py ../<分析対象のディレクトリ名>
  
  バグ修正のために挿入された行をすべて取得して出力。  
  出力先は、`<分析対象のディレクトリ名>_results/all_bugfix_commits_lines.txt`
+
+## check_message
+```
+python check_message.py ../<分析対象のディレクトリ名>
+```
+
+バグ修正コミットのメッセージのみを取得して出力。  
+出力先は、`<分析対象のディレクトリ名>_results/bugfix_commits_messages.txt`  
+バグ修正コミットの判定が正しいかチェックするときに使うと良い。
