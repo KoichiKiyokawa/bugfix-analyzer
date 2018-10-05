@@ -40,7 +40,7 @@ def main():
             ['git', 'diff', commits[i+1].hexsha,
                 commits[i].hexsha, '*.java']
         )
-        _insertions, _deletions = distribute_diff(diffs)  # 差分を振り分け        
+        _insertions, _deletions = distribute_diff(diffs)  # 差分を振り分け
         with open(current_dir_of_analyzer + filename + '_results/all_bugfix_commits_lines.txt', 'a') as f:
             f.write('\n'.join(_insertions))
 

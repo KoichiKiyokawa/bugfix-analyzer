@@ -42,10 +42,6 @@ def main():
                 commits[i].hexsha, '*.java']
         )
         _insertions, _deletions = distribute_diff(diffs)  # 差分を振り分け
-        print(commits[i].hexsha)
-        print(_insertions)
-        print()
-        """
         # ひとつ古いコミットにチェックアウト
         subprocess.call(['git', 'checkout', '--force', commits[i + 1].hexsha])
         # ソースコードを取得
@@ -82,7 +78,6 @@ def main():
                     f.write(insert + '\n')
 
         insertions += commits[i].stats.total['insertions']
-        """
 
     print('sum of insert lines:', insertions)
     print('number of commits:', cnt)
