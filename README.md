@@ -12,6 +12,9 @@
 - Pythonのバージョン　`3.6.5`  
 - `<分析対象のディレクトリ名>_results`というディレクトリを`bugfix-analyzer/`下に作ってから実行すること
 
+## clf.py
+研究対象となるコミットのハッシュ(どこまでのコミットを解析するか指定)や、バグ修正コミットと判別する条件などを記述
+
 ## distribute_bugfix_diff
 
 ```
@@ -20,7 +23,7 @@ python distribute_bugfix_diff.py ../<分析対象のディレクトリ名>
 
 　バグ修正のために挿入された行のうち、バグ修正コミットの一つ前のコミットの状態でソースコードに含まれていたものを出力。出力先は`<分析対象のディレクトリ名>_results/bugfix_lines.txt`
  
- ## gather
+## gather
  
  ```
  python gather.py ../<分析対象のディレクトリ名>
