@@ -1,4 +1,5 @@
 # 「バグ修正のコミットかどうか」など判定機を格納しておく
+import sys
 
 # 定数たち
 TARGET_SHA = {
@@ -33,6 +34,8 @@ def is_bugfix_commit(item, filename):
     elif filename == 'joda-time':
         return (commit_message.find('Fix') > -1
                 or commit_message.find('fix') > -1)
+    else:
+        sys.stderr.write('バグ修正コミット判定が定義されていません')
 
 
 # その行がコメント、もしくは特に意味のない行であったらFalseを返す

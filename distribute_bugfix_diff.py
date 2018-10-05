@@ -38,11 +38,14 @@ def main():
             continue
         diffs = subprocess.check_output(
             # 配列で渡す必要あり。Javaのファイルのみを分析。
-            ['git', 'diff', commits[i].hexsha,
-                commits[i+1].hexsha, '*.java']
+            ['git', 'diff', commits[i+1].hexsha,
+                commits[i].hexsha, '*.java']
         )
         _insertions, _deletions = distribute_diff(diffs)  # 差分を振り分け
-
+        print(commits[i].hexsha)
+        print(_insertions)
+        print()
+        """
         # ひとつ古いコミットにチェックアウト
         subprocess.call(['git', 'checkout', '--force', commits[i + 1].hexsha])
         # ソースコードを取得
@@ -58,6 +61,20 @@ def main():
                     if is_code_line(code):
                         srcs.append(code)
 
+        # TODO: git logで挿入された行を取得できないと、無理
+        # コードの見通しのために入っている改行を取り除く
+        # for i in range(len(_insertions)):
+        #     # has_linefeed_for_look = False
+        #     open_bracket_count = _insertions[i].count('(')
+        #     close_bracket_count = _insertions[i].count(')')
+        #     index_tmp = i + 1
+        #     while open_bracket_count != close_bracket_count:  # 開きカッコと閉じカッコの数が一緒になるまで
+        #         open_bracket_count += _insertions[index_tmp].count('(')
+        #         close_bracket_count = _insertions[index_tmp].count(')')
+        #         _insertions[i] += _init_externals[index_tmp]
+        #         del _insertions[index_tmp]
+        #         index_tmp += 1
+
         # 結果を出力
         with open(current_dir_of_analyzer + filename + '_results/bugfix_lines.txt', 'a') as f:
             for insert in _insertions:
@@ -65,6 +82,7 @@ def main():
                     f.write(insert + '\n')
 
         insertions += commits[i].stats.total['insertions']
+        """
 
     print('sum of insert lines:', insertions)
     print('number of commits:', cnt)
