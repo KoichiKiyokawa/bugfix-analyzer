@@ -110,7 +110,7 @@ def main():
         diffs = subprocess.check_output(
             # 配列で渡す必要あり。Javaのファイルのみを分析。
             ['git', 'diff', commits[i+1].hexsha,
-                commits[i].hexsha, '*.java']
+                commits[i].hexsha, '--', '*.java']
         )
         _insertions, _deletions = distribute_diff(diffs)  # 差分を振り分け
         # ひとつ古いコミットにチェックアウト
@@ -148,8 +148,9 @@ def main():
                 # if insert in srcs:
                 #     f.write(insert + '\n')
                 for src in srcs:
-                    # if Levenshtein.distance(insert, src) <= threshold_for_Levenshtein:最後まで計算してしまうので遅い
-                    if is_similar(insert, src, threshold_for_Levenshtein):
+                    # 最後まで計算してしまうので遅い
+                    if Levenshtein.distance(insert, src) <= threshold_for_Levenshtein:
+                        # if is_similar(insert, src, threshold_for_Levenshtein):
                         f.write(insert + '\n')
                         break
 
